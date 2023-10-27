@@ -14,7 +14,7 @@ export const loginstyle = StyleSheet.create({
     fontWeight: "900",
     textAlign: "left",
     width: "100%",
-    marginVertical: 130,
+    marginVertical: 120,
     paddingLeft: 20,
   },
   inputs: {
@@ -52,7 +52,7 @@ export const loginstyle = StyleSheet.create({
 export const nav = StyleSheet.create({
   contenedor: {
     backgroundColor: colors.CC,
-    height: 80,
+    height: 50,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -66,5 +66,14 @@ export const nav = StyleSheet.create({
     padding: 5,
     justifyContent: "center",
     alignItems: "center",
+  },
+});
+
+export const dataScroll = StyleSheet.create({
+  div: {
+    height: 150,
+    width: 250,
+    backgroundColor: colors.CC,
+    marginHorizontal: 10,
   },
 });

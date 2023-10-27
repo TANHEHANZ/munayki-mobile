@@ -19,7 +19,7 @@ const Nav = () => {
         onPress={() => router.push("/home/informativa")}
         style={nav.icons}
       >
-        <FontAwesome name="user" size={30} color="#fff" />
+        <FontAwesome name="info" size={30} color="#fff" />
         <Text>informativa</Text>
       </TouchableOpacity>
 
@@ -39,7 +39,7 @@ const Nav = () => {
         onPress={() => router.push("/home/mapas")}
         style={nav.icons}
       >
-        <FontAwesome name="mapas" size={30} color="#fff" />
+        <FontAwesome name="user" size={30} color="#fff" />
         <Text>mapas</Text>
       </TouchableOpacity>
 

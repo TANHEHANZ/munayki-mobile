@@ -60,7 +60,7 @@ const Login = () => {
           </View>
         </KeyboardAvoidingView>
       </ImageBackground>
-      <ScrollView horizontal style={{ height: 200 }}>
+      <ScrollView horizontal style={{ height: 150 }}>
         <Image
           source={require("../../assets/LOGOS/iffi.png")}
           style={loginstyle.logos}

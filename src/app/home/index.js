@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const HomeScreen = () => {
+const HomeScreens = () => {
   return (
     <View style={styles.bodyContainer}>
       <Text> data</Text>
@@ -9,7 +9,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default HomeScreens;
 const styles = StyleSheet.create({
   bodyContainer: {
     flex: 1,

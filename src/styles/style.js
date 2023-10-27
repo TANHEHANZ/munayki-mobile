@@ -75,5 +75,6 @@ export const dataScroll = StyleSheet.create({
     width: 250,
     backgroundColor: colors.CC,
     marginHorizontal: 10,
+    borderRadius: 5,
   },
 });

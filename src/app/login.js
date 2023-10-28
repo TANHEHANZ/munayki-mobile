@@ -12,7 +12,16 @@ import {
 import { TextInput } from "react-native-paper";
 import { router } from "expo-router";
 import { loginstyle } from "../styles/style";
+import { useFonts, Montserrat_300Light } from '@expo-google-fonts/montserrat';
+
+
+
 const Login = () => {
+ const [fontsLoaded] = useFonts({
+    Montserrat_300Light,
+  });
+
+
   /// para volver el push y solo direccionar el replace
   const ingresar = () => {
     router.push("/home");
@@ -20,7 +29,7 @@ const Login = () => {
   return (
     <>
       <ImageBackground
-        source={require("../../assets/fondo/imgTres.jpeg")}
+        source={require("../../assets/imagendos.jpeg")}
         style={loginstyle.backgroundImage}
       >
         <KeyboardAvoidingView
@@ -28,14 +37,17 @@ const Login = () => {
           behavior="padding"
           enabled
         >
-          <View>
-            <Text style={loginstyle.title}>Iniciar sesión</Text>
+          <View >
+              <Text style={{...loginstyle.title,  fontFamily: 'Montserrat_300Light',}}>
+                Iniciar <Text style={{ color: "#fff" }}>sesión</Text>
+              </Text>
+         
             <View
               style={{
                 justifyContent: "center",
                 alignItems: "center",
                 paddingHorizontal: 30,
-                marginTop: 75,
+                marginTop: 55,
               }}
             >
               <Text style={{ width: "100%", fontSize: 12 }}>
@@ -60,7 +72,7 @@ const Login = () => {
           </View>
         </KeyboardAvoidingView>
       </ImageBackground>
-      <ScrollView horizontal style={{ height: 150 }}>
+      <ScrollView horizontal style={{ height: 150, marginTop: 150 }}>
         <Image
           source={require("../../assets/LOGOS/iffi.png")}
           style={loginstyle.logos}

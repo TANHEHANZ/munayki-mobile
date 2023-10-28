@@ -11,16 +11,15 @@ const Nav = () => {
   return (
     <View style={nav.contenedor}>
       <TouchableOpacity onPress={() => router.push("/home")} style={nav.icons}>
-        <FontAwesome name="home" size={30} color="#fff" />
-        <Text>home</Text>
+        <FontAwesome name="home" size={30} color={"rgb(73,39,121)"} />
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => router.push("/home/informativa")}
         style={nav.icons}
       >
-        <FontAwesome name="info" size={30} color="#fff" />
-        <Text>informativa</Text>
+        <FontAwesome name="info" size={30} color="rgb(73,39,121)" />
+      
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -32,23 +31,23 @@ const Nav = () => {
           //   backgroundColor: colors.primary,
         }}
       >
-        <FontAwesome name="circle" size={30} color="#fff" />
-        <Text>Panico</Text>
+        <FontAwesome name="circle" size={30} color="rgb(73,39,121)" />
+    
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => router.push("/home/mapas")}
         style={nav.icons}
       >
-        <FontAwesome name="user" size={30} color="#fff" />
-        <Text>mapas</Text>
+        <FontAwesome name="user" size={30} color="rgb(73,39,121)" />
+      
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => router.push("/home/contactos")}
         style={nav.icons}
       >
-        <FontAwesome name="user" size={30} color="#fff" />
-        <Text>contactos</Text>
+        <FontAwesome name="user" size={30} color="#rgb(73,39,121)" />
+     
       </TouchableOpacity>
     </View>
   );

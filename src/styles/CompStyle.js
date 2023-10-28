@@ -6,6 +6,7 @@ export const colors = {
     BB: "rgb(174,25,89)",
     C: "rgb(108,85,158)",
     CC: "rgb(73,39,121)",
+    CCTransparent: "rgba(73, 39, 121, 0.85)",
     D: "rgb(77,192,223)",
     DD: "rgb(1,173,217)",
     F: "rgb(79,184,167)",

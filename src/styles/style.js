@@ -8,14 +8,16 @@ export const loginstyle = StyleSheet.create({
     backgroundColor: "transparent",
   },
   title: {
-    color: colors.primary,
-    fontSize: 35,
-    fontFamily: "Roboto",
-    fontWeight: "900",
+    color: "#fff",
+    fontSize: 37,
+    fontWeight: "600",
     textAlign: "left",
-    width: "100%",
-    marginVertical: 120,
+    width: "50%",
+    marginVertical: 80,
     paddingLeft: 20,
+    backgroundColor: colors.CCTransparent,
+    padding:30,
+
   },
   inputs: {
     width: "100%",
@@ -36,7 +38,7 @@ export const loginstyle = StyleSheet.create({
   },
   backgroundImage: {
     width: "auto",
-    height: 775,
+    height: 600,
     resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
@@ -51,14 +53,14 @@ export const loginstyle = StyleSheet.create({
 });
 export const nav = StyleSheet.create({
   contenedor: {
-    backgroundColor: colors.CC,
+    backgroundColor: colors.primary,
     height: 80,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
     paddingBottom: 10,
-    borderTopWidth: 1,
-    borderColor: colors.gray100,
+    borderTopWidth: 2,
+    borderColor: "#0002",
   },
   icons: {
     flexDirection: "column",
@@ -71,8 +73,8 @@ export const nav = StyleSheet.create({
 
 export const dataScroll = StyleSheet.create({
   div: {
-    height: 150,
-    width: 250,
+    height: 220,
+    width: 30,
     backgroundColor: colors.CC,
     marginHorizontal: 10,
     borderRadius: 10,

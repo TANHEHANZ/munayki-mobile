@@ -6,8 +6,7 @@ import { dataScroll } from "../../styles/style";
 const HomeScreens = () => {
   return (
     <View style={styles.bodyContainer}>
-      <Text> hola Usuario ! </Text>
-      <Text>app contra la violencia </Text>
+      <Text style={{padding:10,marginLeft:20,}}>Recursos</Text>
       <ScrollView
         horizontal
         style={{
@@ -22,12 +21,18 @@ const HomeScreens = () => {
         <View style={dataScroll.div}></View>
         <View style={dataScroll.div}></View>
         <View style={dataScroll.div}></View>
-        <View style={dataScroll.div}></View>
-        <View style={dataScroll.div}></View>
-        <View style={dataScroll.div}></View>
-       
-        
       </ScrollView>
+      <View style={{padding:20,}}>
+        <Text>Slim</Text>
+        <View style={dataScroll.div}></View>
+
+      </View>
+      <View style={{padding:20,}}>
+        <Text>Fcc</Text>
+        <View style={dataScroll.div}></View>
+
+      </View>
+
     </View>
   );
 };
@@ -36,5 +41,6 @@ export default HomeScreens;
 const styles = StyleSheet.create({
   bodyContainer: {
     flex: 1,
+    paddingVertical:20,
   },
 });

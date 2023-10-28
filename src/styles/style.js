@@ -52,7 +52,7 @@ export const loginstyle = StyleSheet.create({
 export const nav = StyleSheet.create({
   contenedor: {
     backgroundColor: colors.CC,
-    height: 50,
+    height: 80,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -75,6 +75,6 @@ export const dataScroll = StyleSheet.create({
     width: 250,
     backgroundColor: colors.CC,
     marginHorizontal: 10,
-    borderRadius: 5,
+    borderRadius: 10,
   },
 });

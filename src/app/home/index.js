@@ -1,8 +1,9 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import { colors } from "../../styles/CompStyle";
-import { dataScroll } from "../../styles/style";
+import { colors, sharedStyles } from "../../styles/CompStyle";
+import { colaboracionesStyle, dataScroll, loginstyle } from "../../styles/style";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 const HomeScreens = () => {
   const [expandir, setExpandir] = useState(false);
@@ -11,16 +12,14 @@ const HomeScreens = () => {
     setExpandir(!expandir);
     console.log(expandir);
   };
+  const buttons = [1, 2, 3, 4, 5, 6, 7];
+
+
   return (
     <View style={styles.bodyContainer}>
-      <View style={{ padding: 20, flexDirection: "column", gap: 20 }}>
-        <Text style={{ fontSize: 25, fontWeight: 600 }}>
-          Munayki "Yo te Cuido"
-        </Text>
-        {/* <Text style={{width: "90%",}}>
-          App de apoyo a la identificación y prevención para la violencia{" "}
-        </Text> */}
-      </View>
+      <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>
+        Munayki "Yo te Cuido"
+      </Text>
       <View
         style={{
           padding: 20,
@@ -32,70 +31,78 @@ const HomeScreens = () => {
         <Text>Como usar la Aplicacion</Text>
         <TouchableOpacity
           style={{
-            backgroundColor: colors.BB,
+            ...sharedStyles.shadowBox,
+            backgroundColor: colors.primary,
             padding: 10,
             borderRadius: 30,
             borderWidth: 0,
           }}
         >
-          <Text style={{ color: colors.primary, paddingHorizontal: 20 }}>
-            Descargar guia
-          </Text>
+          <FontAwesome name="download" size={30} color={"rgb(73,39,121)"} />
         </TouchableOpacity>
       </View>
-      <Text style={{ padding: 10, marginLeft: 20 }}>Informaciones</Text>
+      <Text style={{ padding: 10, marginLeft: 20 , marginTop:20,}}>Informaciones</Text>
       <ScrollView
         horizontal
         style={{
-          shadowColor: "#000",
-          shadowOpacity: 0.5,
-          shadowRadius: 5,
-          paddingVertical: 10,
-          height: 100,
+          paddingVertical: 30,
+          height: 120,
+          backgroundColor: "#0001",
+          borderTopWidth: 2,
+          borderBottomWidth: 2,
+          borderColor: "#0001",
         }}
       >
-        <TouchableOpacity onPress={click}>
-          <View
-            style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}
-          ></View>
+        {buttons.map((button, index) => (
+        <TouchableOpacity key={index} onPress={click}>
+          <View style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}></View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={click}>
-          <View
-            style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}
-          ></View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={click}>
-          <View
-            style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}
-          ></View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={click}>
-          <View
-            style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}
-          ></View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={click}>
-          <View
-            style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}
-          ></View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={click}>
-          <View
-            style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}
-          ></View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={click}>
-          <View
-            style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}
-          ></View>
-        </TouchableOpacity>
-        
+      ))}
       </ScrollView>
 
-      <View style={{ padding: 20, height: 180 }}>
-        <Text>Slim</Text>
-        {/* <View style={dataScroll.div}></View> */}
-      </View>
+      {/* <View style={{ padding: 20, height: 180 }}>
+        <Text>Colaboraciones</Text>
+        <View style={colaboracionesStyle.section}>
+          <TouchableOpacity style={colaboracionesStyle.text}>
+            <Text style={{ color: colors.primary , fontSize:11, }}> Slim</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={colaboracionesStyle.text}>
+            <Text style={{ color: colors.primary , fontSize:11, }}> Fcc</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={colaboracionesStyle.text}>
+            <Text style={{ color: colors.primary , fontSize:11, }}> Save Children</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={colaboracionesStyle.text}>
+            <Text style={{ color: colors.primary , fontSize:11, }}> World Vision</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={colaboracionesStyle.text}>
+            <Text style={{ color: colors.primary , fontSize:11, }}> Iff</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={colaboracionesStyle.text}>
+            <Text style={{ color: colors.primary , fontSize:11, }}> Unifranz</Text>
+          </TouchableOpacity>
+        </View>
+      </View> */}
+        <View style={{height:80 , justifyContent:"center", alignItems:"center"}}>
+              <ScrollView horizontal style={{ marginTop: 30 }}>
+                <Image
+                  source={require("../../../assets/LOGOS/iffi.png")}
+                  style={loginstyle.logos}
+                />
+                <Image
+                  source={require("../../../assets/LOGOS/logo_Unifranz.png")}
+                  style={loginstyle.logos}
+                />
+                <Image
+                  source={require("../../../assets/LOGOS/save.png")}
+                  style={loginstyle.logos}
+                />
+                <Image
+                  source={require("../../../assets/LOGOS/vision.jpeg")}
+                  style={loginstyle.logos}
+                />
+              </ScrollView>
+            </View>
     </View>
   );
 };

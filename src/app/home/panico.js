@@ -1,8 +1,8 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { colors } from "../../styles/CompStyle";
+import { colors, sharedStyles } from "../../styles/CompStyle";
 import { TouchableOpacity } from "react-native-gesture-handler";
-// por mil noches 
+// por mil noches
 const Panico = () => {
   return (
     <View
@@ -13,20 +13,33 @@ const Panico = () => {
         backgroundColor: colors.CC,
       }}
     >
-   <TouchableOpacity>
-   <View
+      <TouchableOpacity
         style={{
-          width: 200,
-          height: 200,
-          backgroundColor: colors.primary,
-          borderRadius: 100,
+          borderWidth: 2,
+          borderColor: "#fff5",
+          borderRadius: 200,
+          width: 250,
+          height: 250,
           justifyContent: "center",
           alignItems: "center",
+          backgroundColor: "#fff9",
         }}
       >
-        <Text>Botton de panico</Text>
-      </View>
-   </TouchableOpacity>
+        <View
+          style={{
+            width: 200,
+            height: 200,
+            backgroundColor: colors.primary,
+            borderRadius: 100,
+            justifyContent: "center",
+            alignItems: "center",
+            // ...sharedStyles.shadowBox,
+            elevation:10,
+          }}
+        >
+          <Text>Botton de panico</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

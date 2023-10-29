@@ -1,3 +1,5 @@
+import { StyleSheet } from "react-native";
+
 export const colors = {
     primary:"#fff",
     A: "rgb(251,177,82)",
@@ -6,7 +8,7 @@ export const colors = {
     BB: "rgb(174,25,89)",
     C: "rgb(108,85,158)",
     CC: "rgb(73,39,121)",
-    CCTransparent: "rgba(73, 39, 121, 0.85)",
+    CCTransparent: "rgb(141, 59, 255)",
     D: "rgb(77,192,223)",
     DD: "rgb(1,173,217)",
     F: "rgb(79,184,167)",
@@ -20,3 +22,14 @@ export const colors = {
     gray200:"#a4c3b2",
     gray300:"#6b9080",
   };
+
+  export const sharedStyles = StyleSheet.create({
+    shadowBox: {
+      elevation: 5, 
+      shadowColor: 'black', 
+      shadowOffset: { width: 0, height: 2 }, 
+      shadowOpacity: 0.3, 
+      shadowRadius: 3, 
+    },
+  });
+  

@@ -53,6 +53,7 @@ export const loginstyle = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: 10,
   },
+
 });
 export const nav = StyleSheet.create({
   contenedor: {
@@ -101,6 +102,14 @@ export const dataScroll = StyleSheet.create({
     zIndex: 100,
   },
 });
+export const modal = StyleSheet.create({
+  modalContent:{
+    backgroundColor:"#fff",
+    padding:30,
+    gap:20,
+  }
+})
+
 export const colaboracionesStyle = StyleSheet.create({
   section: {
     flexDirection: "row",
@@ -109,7 +118,7 @@ export const colaboracionesStyle = StyleSheet.create({
     margin:10,
   },
   text: {
-    backgroundColor: colors.BB,
+    backgroundColor: colors.A,
     width: 60,
     height: 60,
     borderRadius: 15,

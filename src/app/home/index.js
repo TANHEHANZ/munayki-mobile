@@ -6,12 +6,12 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 const HomeScreens = () => {
-  const [expandir, setExpandir] = useState(false);
+  // const [expandir, setExpandir] = useState(false);
 
-  const click = () => {
-    setExpandir(!expandir);
-    console.log(expandir);
-  };
+  // const click = () => {
+  //   setExpandir(!expandir);
+  //   console.log(expandir);
+  // };
   const buttons = [1, 2, 3, 4, 5, 6, 7];
 
 
@@ -54,13 +54,14 @@ const HomeScreens = () => {
         }}
       >
         {buttons.map((button, index) => (
-        <TouchableOpacity key={index} onPress={click}>
-          <View style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}></View>
+        <TouchableOpacity key={index} >
+          {/* <View style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}></View> */}
+          <View style={{ ...dataScroll.div, width: 300 }}></View>
         </TouchableOpacity>
       ))}
       </ScrollView>
 
-      {/* <View style={{ padding: 20, height: 180 }}>
+      <View style={{ padding: 20, height: 100 }}>
         <Text>Colaboraciones</Text>
         <View style={colaboracionesStyle.section}>
           <TouchableOpacity style={colaboracionesStyle.text}>
@@ -82,8 +83,8 @@ const HomeScreens = () => {
             <Text style={{ color: colors.primary , fontSize:11, }}> Unifranz</Text>
           </TouchableOpacity>
         </View>
-      </View> */}
-        <View style={{height:80 , justifyContent:"center", alignItems:"center"}}>
+      </View>
+        {/* <View style={{height:80 , justifyContent:"center", alignItems:"center"}}>
               <ScrollView horizontal style={{ marginTop: 30 }}>
                 <Image
                   source={require("../../../assets/LOGOS/iffi.png")}
@@ -102,7 +103,7 @@ const HomeScreens = () => {
                   style={loginstyle.logos}
                 />
               </ScrollView>
-            </View>
+            </View> */}
     </View>
   );
 };

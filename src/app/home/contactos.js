@@ -7,21 +7,61 @@ import { colors } from "../../styles/CompStyle";
 const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
 
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [edad, setEdad] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [relacion, setRelacion] = useState("");
+
+  const agregarContacto = () => {
+    fetch(`192.168.0.15:3000/user/1/contacts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre,
+        apellido,
+        edad,
+        telefono,
+        relacion,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Contacto creado con éxito:", data);
+      })
+      .catch((error) => {
+        console.log(
+          JSON.stringify({
+            nombre,
+            apellido,
+            edad,
+            telefono,
+            relacion,
+          })
+        );
+        console.error("Error al agregar contacto:", error);
+      });
+  };
+
   return (
     <View
       style={{
-        flex: 1,
+        height: 700,
         justifyContent: "center",
         alignItems: "center",
-      
       }}
     >
-      <Text>Contactos Registrados : 0</Text>
+      <Text style={{ margin: 30 }}>Contactos Registrados : 0</Text>
 
       {mostrar ? (
-        <KeyboardAvoidingView style={{ width: "80%", gap: 20 }}>
+        <KeyboardAvoidingView style={{ width: "80%", gap: 10 }}>
           <Text>nombre</Text>
           <TextInput
+            value={nombre}
+            onChangeText={setNombre}
+            placeholder="Nombre"
             style={{
               ...loginstyle.inputs,
               borderBottomWidth: 1,
@@ -31,6 +71,9 @@ const Contactos = () => {
           />
           <Text>apellido</Text>
           <TextInput
+            value={apellido}
+            onChangeText={setApellido}
+            placeholder="apellido"
             style={{
               ...loginstyle.inputs,
               borderBottomWidth: 1,
@@ -40,6 +83,9 @@ const Contactos = () => {
           />
           <Text>edad</Text>
           <TextInput
+            value={edad}
+            onChangeText={setEdad}
+            placeholder="edad"
             style={{
               ...loginstyle.inputs,
               borderBottomWidth: 1,
@@ -49,6 +95,21 @@ const Contactos = () => {
           />
           <Text>telefono</Text>
           <TextInput
+            value={telefono}
+            onChangeText={setTelefono}
+            placeholder="telefono"
+            style={{
+              ...loginstyle.inputs,
+              borderBottomWidth: 1,
+              borderBottomColor: colors.CC,
+              margin: 0,
+            }}
+          />
+          <Text>Relacion user</Text>
+          <TextInput
+            value={relacion}
+            onChangeText={setRelacion}
+            placeholder="relacion"
             style={{
               ...loginstyle.inputs,
               borderBottomWidth: 1,
@@ -72,6 +133,7 @@ const Contactos = () => {
         }}
         onPress={() => {
           setMostrar(true);
+          agregarContacto();
         }}
       >
         <Text style={{ textAlign: "center", width: "100%" }}>Agregar</Text>

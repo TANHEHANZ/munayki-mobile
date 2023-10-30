@@ -61,7 +61,7 @@ const HomeScreens = () => {
       ))}
       </ScrollView>
 
-      <View style={{ padding: 20, height: 100 }}>
+      {/* <View style={{ padding: 20, height: 100 }}>
         <Text>Colaboraciones</Text>
         <View style={colaboracionesStyle.section}>
           <TouchableOpacity style={colaboracionesStyle.text}>
@@ -83,8 +83,8 @@ const HomeScreens = () => {
             <Text style={{ color: colors.primary , fontSize:11, }}> Unifranz</Text>
           </TouchableOpacity>
         </View>
-      </View>
-        {/* <View style={{height:80 , justifyContent:"center", alignItems:"center"}}>
+      </View> */}
+        <View style={{height:80 , justifyContent:"center", alignItems:"center"}}>
               <ScrollView horizontal style={{ marginTop: 30 }}>
                 <Image
                   source={require("../../../assets/LOGOS/iffi.png")}
@@ -103,7 +103,7 @@ const HomeScreens = () => {
                   style={loginstyle.logos}
                 />
               </ScrollView>
-            </View> */}
+            </View>
     </View>
   );
 };

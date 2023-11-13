@@ -53,7 +53,6 @@ export const loginstyle = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: 10,
   },
-
 });
 export const nav = StyleSheet.create({
   contenedor: {
@@ -103,19 +102,19 @@ export const dataScroll = StyleSheet.create({
   },
 });
 export const modal = StyleSheet.create({
-  modalContent:{
-    backgroundColor:"#fff",
-    padding:30,
-    gap:20,
-  }
-})
+  modalContent: {
+    backgroundColor: "#fff",
+    padding: 30,
+    gap: 20,
+  },
+});
 
 export const colaboracionesStyle = StyleSheet.create({
   section: {
     flexDirection: "row",
     gap: 20,
     flexWrap: "wrap",
-    margin:10,
+    margin: 10,
   },
   text: {
     backgroundColor: colors.A,
@@ -128,3 +127,32 @@ export const colaboracionesStyle = StyleSheet.create({
     textAlign: "center",
   },
 });
+export const contactStyle = StyleSheet.create({
+  inputs: {
+    ...loginstyle.inputs,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.CC,
+    marginBottom: 10,
+    margin: 0,
+  },
+  button: {
+    ...loginstyle.button,
+    width: "80%",
+    elevation: 5,
+    backgroundColor: colors.primary,
+  },
+  text: { fontSize: 11, width: "70%", textAlign: "center" },
+});
+
+export const mapButton = StyleSheet.create({
+map:{
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    alignItems: "center",
+},
+button:{
+  ...loginstyle.button, width: "auto" 
+}
+
+})

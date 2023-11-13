@@ -1,9 +1,29 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { colors, sharedStyles } from "../../styles/CompStyle";
 import { TouchableOpacity } from "react-native-gesture-handler";
-// por mil noches
+import KeyEvent from "react-native-keyevent";
+import VolumeControl from "react-native-volume-control";
+
 const Panico = () => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    try {
+      VolumeControl.init();
+    } catch (error) {
+      console.error("Error al inicializar el módulo VolumeControl:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    VolumeControl.onVolumeUp((event) => {
+      setCount(count + 1);
+    });
+    return () => {
+      VolumeControl.stop();
+    };
+  }, [count]);
+
   return (
     <View
       style={{
@@ -33,11 +53,10 @@ const Panico = () => {
             borderRadius: 100,
             justifyContent: "center",
             alignItems: "center",
-            // ...sharedStyles.shadowBox,
-            elevation:10,
+            elevation: 10,
           }}
         >
-          <Text>Botton de panico</Text>
+          <Text>Botton de pulzado desde el botton fisico {count} </Text>
         </View>
       </TouchableOpacity>
     </View>

@@ -24,7 +24,18 @@ const Navigation = () => {
         source={require("../../assets/fondo/munayki.png")}
         style={{ width: 100, height:50 }}
       /> */}
-      <FontAwesome name="cog" size={30} color="rgb(73,39,121)" onPress={()=>router.push("/home/config")}/>
+      <FontAwesome
+        name="cog"
+        size={30}
+        color="rgb(73,39,121)"
+        onPress={() => router.push("/home/config")}
+      />
+      <FontAwesome
+        name="map"
+        size={30}
+        color="rgb(73,39,121)"
+        onPress={() => router.push("/home/componentsMaps")}
+      />
     </View>
   );
 };

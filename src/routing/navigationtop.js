@@ -36,6 +36,12 @@ const Navigation = () => {
         color="rgb(73,39,121)"
         onPress={() => router.push("/home/componentsMaps")}
       />
+       <FontAwesome
+        name="user"
+        size={30}
+        color="rgb(73,39,121)"
+        onPress={() => router.push("/home/datacamera")}
+      />
     </View>
   );
 };

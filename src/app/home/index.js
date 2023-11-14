@@ -14,7 +14,6 @@ const HomeScreens = () => {
   // };
   const buttons = [1, 2, 3, 4, 5, 6, 7];
 
-
   return (
     <View style={styles.bodyContainer}>
       <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>

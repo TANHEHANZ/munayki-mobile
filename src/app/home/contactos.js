@@ -4,10 +4,11 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { contactStyle, loginstyle } from "../../styles/style";
 import { colors } from "../../styles/CompStyle";
 import InputsContact from "../../components/global/inputsContact";
+import { peticionPost } from "../../utilitis/postRequest";
 
 const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
-
+  
   return (
     <View
       style={{
@@ -20,17 +21,15 @@ const Contactos = () => {
 
      <InputsContact mostrar={mostrar}/>
 
-      <TouchableOpacity
+      {mostrar? (""):(<TouchableOpacity
         style={contactStyle.button}
         onPress={() => {
           setMostrar(true);
-          {
-            mostrar ? agregarContacto() : console.log("ingreso");
-          }
         }}
       >
         <Text style={{ textAlign: "center", width: "100%" }}>Agregar</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>)
+      }
       {mostrar ? (
         <TouchableOpacity
         
@@ -60,6 +59,7 @@ const Contactos = () => {
         Debe registrar 3 contactos a estas personas le llegaran los reportes al
         precionar el botón
       </Text>
+
     </View>
   );
 };

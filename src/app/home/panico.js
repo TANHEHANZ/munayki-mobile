@@ -8,12 +8,23 @@ import VolumeControl from "react-native-volume-control";
 const Panico = () => {
   const [count, setCount] = useState(0);
   useEffect(() => {
-    try {
-      VolumeControl.init();
-    } catch (error) {
-      console.error("Error al inicializar el módulo VolumeControl:", error);
-    }
-  }, []);
+    const initializeVolumeControl = async () => {
+      try {
+        await VolumeControl.init();
+        VolumeControl.onVolumeUp((event) => {
+          setCount(count + 1);
+        });
+      } catch (error) {
+        console.error("Error al inicializar el módulo VolumeControl:", error);
+      }
+    };
+  
+    initializeVolumeControl();
+  
+    return () => {
+      VolumeControl.stop();
+    };
+  }, [count]);
 
   useEffect(() => {
     VolumeControl.onVolumeUp((event) => {

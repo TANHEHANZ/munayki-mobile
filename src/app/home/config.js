@@ -4,6 +4,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Modal from "react-native-modal"; // Importa el componente Modal
 import { colors } from "../../styles/CompStyle";
 import { loginstyle, modal } from "../../styles/style";
+import { router } from "expo-router";
 
 const Config = () => {
   const [cargaimg, setCargaimg] = useState(true);
@@ -73,7 +74,7 @@ const Config = () => {
             <TouchableOpacity style={loginstyle.button}>
               <Text>Reportes enviados</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={loginstyle.button}>
+            <TouchableOpacity style={loginstyle.button} onPress={() => router.push("/home/contactuser")}>
               <Text>Administrar contactos</Text>
             </TouchableOpacity>
             <TouchableOpacity

@@ -8,7 +8,7 @@ import { peticionGet } from "../../utilitis/getRequest";
 
 const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
-  const [data, setData] = useState("");
+  const [data, setData] = useState(""); 
 const user =1;
   useEffect(() => {
     const fetchData = async () => {

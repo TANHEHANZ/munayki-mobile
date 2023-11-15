@@ -6,34 +6,34 @@ import KeyEvent from "react-native-keyevent";
 import VolumeControl from "react-native-volume-control";
 
 const Panico = () => {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    const initializeVolumeControl = async () => {
-      try {
-        await VolumeControl.init();
-        VolumeControl.onVolumeUp((event) => {
-          setCount(count + 1);
-        });
-      } catch (error) {
-        console.error("Error al inicializar el módulo VolumeControl:", error);
-      }
-    };
+  // const [count, setCount] = useState(0);
+  // useEffect(() => {
+  //   const initializeVolumeControl = async () => {
+  //     try {
+  //       await VolumeControl.init();
+  //       VolumeControl.onVolumeUp((event) => {
+  //         setCount(count + 1);
+  //       });
+  //     } catch (error) {
+  //       console.error("Error al inicializar el módulo VolumeControl:", error);
+  //     }
+  //   };
   
-    initializeVolumeControl();
+  //   initializeVolumeControl();
   
-    return () => {
-      VolumeControl.stop();
-    };
-  }, [count]);
+  //   return () => {
+  //     VolumeControl.stop();
+  //   };
+  // }, [count]);
 
-  useEffect(() => {
-    VolumeControl.onVolumeUp((event) => {
-      setCount(count + 1);
-    });
-    return () => {
-      VolumeControl.stop();
-    };
-  }, [count]);
+  // useEffect(() => {
+  //   VolumeControl.onVolumeUp((event) => {
+  //     setCount(count + 1);
+  //   });
+  //   return () => {
+  //     VolumeControl.stop();
+  //   };
+  // }, [count]);
 
   return (
     <View
@@ -67,7 +67,7 @@ const Panico = () => {
             elevation: 10,
           }}
         >
-          <Text>Botton de pulzado desde el botton fisico {count} </Text>
+        
         </View>
       </TouchableOpacity>
     </View>

@@ -6,12 +6,11 @@ import {
 } from "../../styles/style";
 import React from "react";
 import information from "../../documents/information.json";
-import useLocationStore from "../../components/context/UbicacionContext";
 
 const informativa = () => {
   let colorArray = [colors.A, colors.B, colors.C, colors.D, colors.F];
-  const location = useLocationStore((state) => state.location);
-  console.log(location);
+
+
   const getRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * colorArray.length);
     const color = colorArray[randomIndex];
@@ -21,7 +20,6 @@ const informativa = () => {
     }
     return color;
   };
-
   return (
     <View
       style={{
@@ -72,5 +70,4 @@ const informativa = () => {
     </View>
   );
 };
-
 export default informativa;

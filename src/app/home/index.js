@@ -5,7 +5,11 @@ import { colaboracionesStyle, dataScroll, loginstyle } from "../../styles/style"
 import { TouchableOpacity } from "react-native-gesture-handler";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
+
 const HomeScreens = () => {
+
+  
+
   // const [expandir, setExpandir] = useState(false);
 
   // const click = () => {

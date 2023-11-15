@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,20 +8,35 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-
 import { TextInput } from "react-native-paper";
 import { router } from "expo-router";
 import { loginstyle } from "../styles/style";
-import { useFonts, Montserrat_300Light } from "@expo-google-fonts/montserrat";
 import { colors } from "../styles/CompStyle";
+import { peticionPost } from "../utilitis/postRequest";
+import useUserStore from "../components/context/UserContext";
 const Login = () => {
-  const [fontsLoaded] = useFonts({
-    Montserrat_300Light,
+  const [dataLogin, setDataLogin] = useState({
+    correo: "",
+    password: "",
+    confirmation_password: "",
   });
 
-  /// para volver el push y solo direccionar el replace
+  const updateUser = useUserStore((state) => state.updateUser);
 
+  const handleSend = async () => {
+    if (dataLogin.confirmation_password === dataLogin.password) {
+      const res = await peticionPost("login", {
+        correo: dataLogin.correo,
+        password: dataLogin.password,
+      });
+      res && res.message === "Inicio de sesion correcto"
+        ? (router.push("/home"), alert("Bienvenido"))
+        : alert(res.message),
+        updateUser(res);
+    } else {
+      alert("Las contraseñas no coinciden");
+    }
+  };
   return (
     <>
       <ImageBackground
@@ -34,9 +49,7 @@ const Login = () => {
           enabled
         >
           <View>
-            <Text
-              style={{ ...loginstyle.title, fontFamily: "Montserrat_300Light" }}
-            >
+            <Text style={{ ...loginstyle.title, fontWeight: 400 }}>
               Iniciar <Text style={{ color: colors.CC }}>sesión</Text>
             </Text>
             <View
@@ -46,22 +59,38 @@ const Login = () => {
               }}
             >
               <Text style={{ width: "100%", fontSize: 12 }}>
-                Nombre de usuario
+                Email de usuario
               </Text>
-              <TextInput style={loginstyle.inputs} />
+              <TextInput
+                style={loginstyle.inputs}
+                value={dataLogin.correo}
+                onChangeText={(text) =>
+                  setDataLogin((old) => ({ ...old, correo: text }))
+                }
+              />
               <Text style={{ width: "100%", fontSize: 12 }}>Contraseña</Text>
-              <TextInput style={loginstyle.inputs} />
+              <TextInput
+                style={loginstyle.inputs}
+                value={dataLogin.password}
+                onChangeText={(text) =>
+                  setDataLogin((old) => ({ ...old, password: text }))
+                }
+              />
               <Text style={{ width: "100%", fontSize: 12 }}>
                 Confirmar contraseña
               </Text>
-              <TextInput style={loginstyle.inputs} />
+              <TextInput
+                style={loginstyle.inputs}
+                value={dataLogin.confirmation_password}
+                onChangeText={(text) =>
+                  setDataLogin((old) => ({
+                    ...old,
+                    confirmation_password: text,
+                  }))
+                }
+              />
 
-              <TouchableOpacity
-                style={loginstyle.button}
-                onPress={() => {
-                  router.replace("/home");
-                }}
-              >
+              <TouchableOpacity style={loginstyle.button} onPress={handleSend}>
                 <Text style={{ color: colors.CC }}>Ingresar</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -72,33 +101,12 @@ const Login = () => {
               >
                 <Text style={{ color: colors.CC }}>Registrarse</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={loginstyle.button}>
-                <FontAwesome name="google" size={30} color="rgb(73,39,121)" />
-                <Text style={{ color: colors.CC }}>
-                  Iniciar sesión con Google
-                </Text>
-              </TouchableOpacity>
+
+              <Image
+                source={require("../../assets/fondo/munayki.png")}
+                style={{ ...loginstyle.logos, width: 200, height: 80 }}
+              />
             </View>
-            {/* <View style={{height:100}}>
-              <ScrollView horizontal style={{ marginTop: 10 }}>
-                <Image
-                  source={require("../../assets/LOGOS/iffi.png")}
-                  style={loginstyle.logos}
-                />
-                <Image
-                  source={require("../../assets/LOGOS/logo_Unifranz.png")}
-                  style={loginstyle.logos}
-                />
-                <Image
-                  source={require("../../assets/LOGOS/save.png")}
-                  style={loginstyle.logos}
-                />
-                <Image
-                  source={require("../../assets/LOGOS/vision.jpeg")}
-                  style={loginstyle.logos}
-                />
-              </ScrollView>
-            </View> */}
           </View>
         </KeyboardAvoidingView>
       </ImageBackground>

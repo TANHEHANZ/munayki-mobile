@@ -5,26 +5,31 @@ import { contactStyle, loginstyle } from "../../styles/style";
 import { colors } from "../../styles/CompStyle";
 import InputsContact from "../../components/global/inputsContact";
 import { peticionGet } from "../../utilitis/getRequest";
+import useUserStore from "../../components/context/UserContext";
 
 const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
-  const [data, setData] = useState(""); 
-const user =1;
+  const [data, setData] = useState("");
+  const user = useUserStore((state) => state.user);
+  let userData = user.data.id;
+  console.log(userData);
+
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await peticionGet("user/"+user+"/contacts");
+        const result = await peticionGet("user/" + userData + "/contacts");
         setData(result);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
     };
-
     fetchData();
-  }, []); 
+  }, [mostrar]);
 
-  console.log(data)
- 
+  console.log(data);
+
   return (
     <View
       style={{
@@ -35,27 +40,33 @@ const user =1;
     >
       <Text style={{ margin: 30 }}>Contactos Registrados :{data.length}</Text>
 
-     <InputsContact mostrar={mostrar}/>
+      <InputsContact mostrar={mostrar} userData={userData} />
 
-      {mostrar? (""):(<TouchableOpacity
-        style={contactStyle.button}
-        onPress={() => {
-          setMostrar(true);
-        }}
-      >
-        <Text style={{ textAlign: "center", width: "100%" }}>Agregar</Text>
-      </TouchableOpacity>)
-      }
+      {data.length === 3 ? (
+        <Text style={{ textAlign: "center", width: "100%" }}>
+          Ya agrego los tres contactos
+        </Text>
+      ) : !mostrar ? (
+        <TouchableOpacity
+          style={contactStyle.button}
+          onPress={() => {
+            setMostrar(!mostrar);
+          }}
+        >
+          <Text style={{ textAlign: "center", width: "100%" }}>Agregar</Text>
+        </TouchableOpacity>
+      ) : (
+        ""
+      )}
       {mostrar ? (
         <TouchableOpacity
-        
           style={{
             ...contactStyle.button,
             width: "50%",
             backgroundColor: colors.CC,
           }}
           onPress={() => {
-            setMostrar(false);
+            setMostrar(!mostrar);
           }}
         >
           <Text
@@ -75,7 +86,6 @@ const user =1;
         Debe registrar 3 contactos a estas personas le llegaran los reportes al
         precionar el botón
       </Text>
-
     </View>
   );
 };

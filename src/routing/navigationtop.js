@@ -8,7 +8,7 @@ import useUserStore from "../components/context/UserContext";
 
 const Navigation = () => {
   const user = useUserStore((state) => state.user);
-  console.log(user);
+ 
   return (
     <View
       style={{

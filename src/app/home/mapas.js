@@ -6,12 +6,13 @@ import { Picker } from "@react-native-picker/picker";
 import { loginstyle, mapButton } from "../../styles/style";
 import * as Linking from "expo-linking";
 import * as Location from "expo-location";
+import useLocationStore from "../../components/context/UbicacionContext";
 const mapas = () => {
   const [origen, setOrigen] = useState("");
   const [destino, setDestino] = useState("");
 
-  const [location, setLocation] = useState(null);
-
+  const setLocation = useLocationStore((state) => state.setLocation);
+  const location = useLocationStore((state) => state.location);
   const handleVerMapa = () => {
     const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origen}&destination=${destino}&travelmode=walking`;
     Linking.openURL(googleMapsUrl);

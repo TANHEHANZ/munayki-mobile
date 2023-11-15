@@ -93,13 +93,51 @@ export const nav = StyleSheet.create({
 
 export const dataScroll = StyleSheet.create({
   div: {
-    height: 260,
+    height: 230,
     width: 30,
-    backgroundColor: colors.CC,
+    backgroundColor: colors.C,
     marginHorizontal: 10,
     borderRadius: 10,
     zIndex: 100,
+    ...sharedStyles.shadowBox,
   },
+  title:{
+    color: colors.primary,
+    fontSize: 25,
+    textAlign: "center",
+    width: "100%",
+    padding: "5%",
+  },
+  text:{
+    color: colors.primary,
+    fontSize: 15,
+    width: "100%",
+    padding: "5%",
+  }
+});
+export const dataScrollV = StyleSheet.create({
+  div: {
+    height: 100,
+    width: 30,
+    backgroundColor: colors.C,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    zIndex: 100,
+    ...sharedStyles.shadowBox,
+  },
+  title:{
+    color: colors.primary,
+    fontSize: 25,
+    textAlign: "center",
+    width: "100%",
+    padding: "5%",
+  },
+  text:{
+    color: colors.primary,
+    fontSize: 15,
+    width: "100%",
+    padding: "5%",
+  }
 });
 export const modal = StyleSheet.create({
   modalContent: {

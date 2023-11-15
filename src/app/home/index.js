@@ -1,9 +1,11 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View, Linking } from "react-native";
 import React, { useState } from "react";
 import { colors, sharedStyles } from "../../styles/CompStyle";
 import { colaboracionesStyle, dataScroll, loginstyle } from "../../styles/style";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { router } from "expo-router";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import information from '../../documents/information.json';
 
 const HomeScreens = () => {
   // const [expandir, setExpandir] = useState(false);
@@ -12,7 +14,18 @@ const HomeScreens = () => {
   //   setExpandir(!expandir);
   //   console.log(expandir);
   // };
-  const buttons = [1, 2, 3, 4, 5, 6, 7];
+
+  let colorArray = [colors.A, colors.B, colors.C, colors.D, colors.F];
+
+  const getRandomColor = () => {
+    const randomIndex = Math.floor(Math.random() * colorArray.length);
+    const color = colorArray[randomIndex];
+    colorArray=colorArray.filter((_,index)=>index!==randomIndex);
+    if(colorArray.length==0){
+      colorArray = [colors.A, colors.B, colors.C, colors.D, colors.F];
+    }
+    return color;
+  };
 
   return (
     <View style={styles.bodyContainer}>
@@ -52,12 +65,14 @@ const HomeScreens = () => {
           borderColor: "#0001",
         }}
       >
-        {buttons.map((button, index) => (
-        <TouchableOpacity key={index} >
-          {/* <View style={{ ...dataScroll.div, width: expandir ? 300 : 50 }}></View> */}
-          <View style={{ ...dataScroll.div, width: 300 }}></View>
-        </TouchableOpacity>
-      ))}
+        {Object.entries(information).map(([key,value], index)=>(
+          <TouchableOpacity style={{ ...dataScroll.div, width: 300, backgroundColor:getRandomColor() }} key={index} onPress={()=>Linking.openURL(value.link)} >
+            <View>
+              <Text style={{...dataScroll.title}}>{key}</Text>
+              <Text style={{...dataScroll.text}}>{value.algoVistoso}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
 
       {/* <View style={{ padding: 20, height: 100 }}>

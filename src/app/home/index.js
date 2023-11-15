@@ -7,7 +7,11 @@ import { router } from "expo-router";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import information from '../../documents/information.json';
 
+
 const HomeScreens = () => {
+
+  
+
   // const [expandir, setExpandir] = useState(false);
 
   // const click = () => {

@@ -4,8 +4,11 @@ import { Image } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { colors } from "../styles/CompStyle";
 import { router } from "expo-router";
+import useUserStore from "../components/context/UserContext";
 
 const Navigation = () => {
+  const user = useUserStore((state) => state.user);
+  console.log(user);
   return (
     <View
       style={{
@@ -19,7 +22,9 @@ const Navigation = () => {
         borderBottomColor: "#0002",
       }}
     >
-      <Text style={{ color: "#000" }}>Hola hanz bienvenido! </Text>
+      <Text style={{ color: "#000" }}>
+        Bienvenido, {user ? user.data.nombre : "Invitado"}{" "}
+      </Text>
       {/* <Image
         source={require("../../assets/fondo/munayki.png")}
         style={{ width: 100, height:50 }}
@@ -36,7 +41,7 @@ const Navigation = () => {
         color="rgb(73,39,121)"
         onPress={() => router.push("/home/componentsMaps")}
       />
-       <FontAwesome
+      <FontAwesome
         name="user"
         size={30}
         color="rgb(73,39,121)"

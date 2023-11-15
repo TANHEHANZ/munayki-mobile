@@ -23,7 +23,7 @@ const Navigation = () => {
       }}
     >
       <Text style={{ color:colors.CC }}>
-        Bienvenido <Text  style={{fontSize:15,fontWeight:700}}>{user ? user.data.nombre : "Invitado"}</Text>
+        Bienvenido <Text  style={{fontSize:15,fontWeight:700}}> {user?.data?.nombre || "Invitado"}</Text>
       </Text>
       {/* <Image
         source={require("../../assets/fondo/munayki.png")}

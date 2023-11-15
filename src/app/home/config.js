@@ -5,6 +5,7 @@ import Modal from "react-native-modal"; // Importa el componente Modal
 import { colors } from "../../styles/CompStyle";
 import { loginstyle, modal } from "../../styles/style";
 import { router } from "expo-router";
+import useUserStore from "../../components/context/UserContext";
 
 const Config = () => {
   const [cargaimg, setCargaimg] = useState(true);
@@ -12,6 +13,7 @@ const Config = () => {
   const [patron, setPatron] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false); // Estado para controlar la visibilidad del modal
   const patronCorrecto = "1234";
+  const user = useUserStore((state) => state.user);
 
   const verificarPatron = () => {
     if (patron === patronCorrecto) {
@@ -67,11 +69,13 @@ const Config = () => {
         </Text>
         {verDatos ? (
           <View style={{ gap: 10 }}>
-            <Text>Nombre del Usuario: loremasdasdgasda</Text>
-            <Text>Apellido: asdahsdjiahsjdh</Text>
-            <Text>Edad: 24</Text>
-            <Text>Género: femenino</Text>
-            <TouchableOpacity style={loginstyle.button}>
+            <Text>Nombre del Usuario: {user.data.nombre}</Text>
+            <Text>Apellido: {user.data.apellido}</Text>
+            <Text>Edad: {user.data.edad}</Text>
+            <Text>Género: {user.data.genero}</Text>
+            <TouchableOpacity style={loginstyle.button}
+            onPress={() => router.push("/home/reporets")}
+            >
               <Text>Reportes enviados</Text>
             </TouchableOpacity>
             <TouchableOpacity style={loginstyle.button} onPress={() => router.push("/home/contactuser")}>

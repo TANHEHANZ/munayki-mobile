@@ -1,62 +1,110 @@
-import { View, Text } from "react-native";
-import React, { useEffect, useState } from "react";
-import { colors, sharedStyles } from "../../styles/CompStyle";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import KeyEvent from "react-native-keyevent";
-import VolumeControl from "react-native-volume-control";
+import React, { useRef, useState, useEffect } from "react";
+import { View, TouchableOpacity, Text } from "react-native";
+import { Camera } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
+import { colors } from "../../styles/CompStyle";
+import { sendCloudinary } from "../../utilitis/uploadImage";
+import { peticionPost } from "../../utilitis/postRequest";
+import useUserStore from "../../components/context/UserContext";
+import useLocationStore from "../../components/context/UbicacionContext";
+import { router } from "expo-router";
 
 const Panico = () => {
-  // const [count, setCount] = useState(0);
-  // useEffect(() => {
-  //   const initializeVolumeControl = async () => {
-  //     try {
-  //       await VolumeControl.init();
-  //       VolumeControl.onVolumeUp((event) => {
-  //         setCount(count + 1);
-  //       });
-  //     } catch (error) {
-  //       console.error("Error al inicializar el módulo VolumeControl:", error);
-  //     }
-  //   };
-  
-  //   initializeVolumeControl();
-  
-  //   return () => {
-  //     VolumeControl.stop();
-  //   };
-  // }, [count]);
+  const [hasPermission, setHasPermission] = useState(null);
+  const cameraRef = useRef(null);
+  const [photoData, setPhotoData] = useState(null);
+  const [porcentaje, setPorcentaje] = useState(0);
+  const [dataMultimedia, setDataMultimedia] = useState({
+    foto: "",
+    fecha: new Date().toISOString(),
+    usuarioId: "",
+    ubicacionId: "",
+  });
+  const [fotosuser, setFotosuser] = useState("");
 
-  // useEffect(() => {
-  //   VolumeControl.onVolumeUp((event) => {
-  //     setCount(count + 1);
-  //   });
-  //   return () => {
-  //     VolumeControl.stop();
-  //   };
-  // }, [count]);
+  const user = useUserStore((state) => state.user);
+  // const location = useLocationStore((state) => state.location);
+  console.log("user", user.data.id);
+  // console.log("location",location.coords.longitude,location.coords.latitude);
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+ useEffect(() => {
+    if (fotosuser.length > 0) {
+      handleSend();
+    }
+  }, [fotosuser]);
+  const handleSend = async () => {
+    const res = await peticionPost("Multimedia", {
+      foto: fotosuser,
+      fecha: dataMultimedia.fecha,
+      usuarioId: +dataMultimedia.ubicacionId,
+      ubicacionId: +dataMultimedia.ubicacionId,
+    });
+    res && res.message === "Multimedia creada con éxito"
+      ? (router.replace("/login"), alert("Reporte enviado"))
+      : alert(res.message);
+  };
+
+
+
+  const handleCapturePhoto = async () => {
+    try {
+      if (hasPermission && cameraRef.current) {
+        const photo = await cameraRef.current.takePictureAsync();
+        console.log("Photo taken:", photo);
+        setPhotoData(photo.uri);
+        await enviar();
+        await MediaLibrary.saveToLibraryAsync(photo.uri);
+      }
+    } catch (error) {
+      console.error("Error capturing photo:", error);
+    }
+  };
+
+  const enviar = async () => {
+    const url = await sendCloudinary(photoData, setPorcentaje);
+    setFotosuser(url);
+    console.log("Cloudinary URL:", url);
+  };
+  console.log(fotosuser);
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+ 
 
   return (
     <View
       style={{
-        justifyContent: "center",
-        alignItems: "center",
         flex: 1,
-        backgroundColor: colors.CC,
       }}
     >
+      <Camera
+        style={{ flex: 1, opacity: 0 }}
+        type={Camera.Constants.Type.back}
+        ref={cameraRef}
+      />
+
       <TouchableOpacity
         style={{
-          borderWidth: 2,
-          borderColor: "#fff5",
-          borderRadius: 200,
-          width: 250,
-          height: 250,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#fff9",
+          position: "absolute",
+          bottom: 20,
+          alignSelf: "center",
+          padding: 20,
+          backgroundColor: "white",
+          borderRadius: 10,
+        }}
+        onPress={() => {
+          handleCapturePhoto();
         }}
       >
-        <View
+        <Text
           style={{
             width: 200,
             height: 200,
@@ -66,9 +114,7 @@ const Panico = () => {
             alignItems: "center",
             elevation: 10,
           }}
-        >
-        
-        </View>
+        ></Text>
       </TouchableOpacity>
     </View>
   );

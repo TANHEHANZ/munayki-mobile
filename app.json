@@ -31,12 +31,19 @@
     "plugins": [
       "expo-router"
     ],
-    
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
       "url": "https://u.expo.dev/b5d8a463-8bff-4b41-b66f-db39feb6a0a9"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "b5d8a463-8bff-4b41-b66f-db39feb6a0a9"
+      }
     }
   }
 }

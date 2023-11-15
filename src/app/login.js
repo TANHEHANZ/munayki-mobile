@@ -30,7 +30,7 @@ const Login = () => {
         password: dataLogin.password,
       });
       res && res.message === "Inicio de sesion correcto"
-        ? (router.push("/home"), alert("Bienvenido"))
+        ? (router.replace("/home"), alert("Bienvenido"))
         : alert(res.message),
         updateUser(res);
     } else {
@@ -75,6 +75,7 @@ const Login = () => {
                 onChangeText={(text) =>
                   setDataLogin((old) => ({ ...old, password: text }))
                 }
+                secureTextEntry={true} 
               />
               <Text style={{ width: "100%", fontSize: 12 }}>
                 Confirmar contraseña
@@ -88,6 +89,7 @@ const Login = () => {
                     confirmation_password: text,
                   }))
                 }
+                secureTextEntry={true} 
               />
 
               <TouchableOpacity style={loginstyle.button} onPress={handleSend}>

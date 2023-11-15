@@ -194,3 +194,18 @@ button:{
 }
 
 })
+
+export const dangerButton = StyleSheet.create({
+  button:{
+    backgroundColor: colors.B,
+    alignItems:"center",
+    paddingVertical:15,
+    paddingHorizontal:25,
+    borderRadius:5,
+    ...sharedStyles.shadowBox,
+  },
+  text:{
+    color: colors.primary,
+    fontSize:15,
+  },
+})

@@ -14,6 +14,7 @@ const Datacamera = () => {
   const [capturedPhotos, setCapturedPhotos] = useState(0);
 
   const [porcentaje, setPorcentaje] = useState(0);
+  const tipo =useState("png");
 
   useEffect(() => {
     (async () => {
@@ -29,6 +30,7 @@ const Datacamera = () => {
 
       if (cameraType === Camera.Constants.Type.front && !capturedFrontal) {
         setCapturedFrontal(photo.uri);
+        setTipo(tipo);
       } else if (
         cameraType === Camera.Constants.Type.back &&
         capturedRear.length < 2
@@ -44,7 +46,7 @@ const Datacamera = () => {
   useEffect(() => {
 
 const enviar = async ()=>{
-    const url = await sendCloudinary(capturedFrontal, setPorcentaje);
+    const url = await sendCloudinary(capturedFrontal, setPorcentaje, tipo);
     console.log(url)
 }
 

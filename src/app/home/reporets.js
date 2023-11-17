@@ -1,14 +1,17 @@
-import { View, Text, FlatList, Image } from "react-native";
+import { View, Text, FlatList, Image, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { peticionGet } from "../../utilitis/getRequest";
 import { loginstyle } from "../../styles/style";
+import useUserStore from "../../components/context/UserContext";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Reporets = () => {
-  const [data, setData] = useState("");
-
+  const user = useUserStore((state) => state.user);
+  const [data, setData] = useState([]);
+  let idUser = user.data.id;
   const fetchData = async () => {
     try {
-      const result = await peticionGet(`Multimedia`);
+      const result = await peticionGet(`Multimedia/` + idUser);
       setData(result);
     } catch (error) {
       console.error("Error al obtener datos:", error);
@@ -17,24 +20,21 @@ const Reporets = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(data.foto);
   return (
-    <View>
-      <Text>
+  
+      <View style={{with:"100%",backgroundColor:"#fff" }}>
         <FlatList
           style={{
             flexDirection: "row",
-            gap: 5,
             width: 400,
-            flexWrap: "wrap",
             padding: 20,
+
           }}
-          data={data}
+          data={data.data}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View
               style={{
-                backgroundColor: "#0005",
                 marginVertical: 10,
                 width: 355,
                 flexDirection: "row",
@@ -43,26 +43,26 @@ const Reporets = () => {
                 padding: 10,
               }}
             >
-              <View>
                 {item.foto ? (
                   <Image
                     source={{ uri: item.foto }}
-                    style={{ ...loginstyle.logos, width: 200, height: 80 }}
+                    style={{ ...loginstyle.logos, width: 100, height: 100 }}
                   />
                 ) : (
                   <Text>No hay imagen disponible</Text>
                 )}
-                <Text>fecha: {item.fecha}</Text>
+              <TouchableOpacity style={{width:"70%"}}>
+              <Text>fecha: {item.fecha}</Text>
                 <Text>usuario: {item.usuario.nombre}</Text>
                 <Text>apellido: {item.usuario.apellido}</Text>
-                <Text>ubicación lomgitud : {item.ubicacion.longitud}</Text>
-                <Text>ubicación latidud: {item.ubicacion.latitud}</Text>
+                <Text>ubicación lomgitud : {item.longitud}</Text>
+                <Text>ubicación latidud: {item.latitud}</Text>
+              </TouchableOpacity>
               </View>
-            </View>
           )}
         />
-      </Text>
-    </View>
+      </View>
+   
   );
 };
 

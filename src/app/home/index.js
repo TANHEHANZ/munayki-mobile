@@ -1,35 +1,57 @@
-import { Image, ScrollView, StyleSheet, Text, View, Linking } from "react-native";
-import React, { useState } from "react";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Linking,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { colors, sharedStyles } from "../../styles/CompStyle";
-import { colaboracionesStyle, dataScroll, loginstyle } from "../../styles/style";
+import {
+  colaboracionesStyle,
+  dataScroll,
+  loginstyle,
+} from "../../styles/style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from "expo-router";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import information from '../../documents/information.json';
-
-
+import information from "../../documents/information.json";
+import useLocationStore from "../../components/context/UbicacionContext";
+import * as Location from "expo-location";
 const HomeScreens = () => {
 
-  
-
-  // const [expandir, setExpandir] = useState(false);
-
-  // const click = () => {
-  //   setExpandir(!expandir);
-  //   console.log(expandir);
-  // };
+  const setLocation = useLocationStore((state) => state.setLocation);
+  const location = useLocationStore((state) => state.location);
 
   let colorArray = [colors.A, colors.B, colors.C, colors.D, colors.F];
-
   const getRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * colorArray.length);
     const color = colorArray[randomIndex];
-    colorArray=colorArray.filter((_,index)=>index!==randomIndex);
-    if(colorArray.length==0){
+    colorArray = colorArray.filter((_, index) => index !== randomIndex);
+    if (colorArray.length == 0) {
       colorArray = [colors.A, colors.B, colors.C, colors.D, colors.F];
     }
     return color;
   };
+
+  const getLocationAsync = async () => {
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.error("Permiso de ubicación no otorgado");
+        return;
+      }
+
+      let locationData = await Location.getCurrentPositionAsync({});
+      setLocation(locationData);
+    } catch (error) {
+      console.error("Error al obtener la ubicación:", error);
+    }
+  };
+  useEffect(() => {
+    getLocationAsync();
+  }, []);
 
   return (
     <View style={styles.bodyContainer}>
@@ -57,7 +79,9 @@ const HomeScreens = () => {
           <FontAwesome name="download" size={30} color={"rgb(73,39,121)"} />
         </TouchableOpacity>
       </View>
-      <Text style={{ padding: 10, marginLeft: 20 , marginTop:20,}}>Informaciones</Text>
+      <Text style={{ padding: 10, marginLeft: 20, marginTop: 20 }}>
+        Informaciones
+      </Text>
       <ScrollView
         horizontal
         style={{
@@ -69,11 +93,19 @@ const HomeScreens = () => {
           borderColor: "#0001",
         }}
       >
-        {Object.entries(information).map(([key,value], index)=>(
-          <TouchableOpacity style={{ ...dataScroll.div, width: 300, backgroundColor:getRandomColor() }} key={index} onPress={()=>Linking.openURL(value.link)} >
+        {Object.entries(information).map(([key, value], index) => (
+          <TouchableOpacity
+            style={{
+              ...dataScroll.div,
+              width: 300,
+              backgroundColor: getRandomColor(),
+            }}
+            key={index}
+            onPress={() => Linking.openURL(value.link)}
+          >
             <View>
-              <Text style={{...dataScroll.title}}>{key}</Text>
-              <Text style={{...dataScroll.text}}>{value.algoVistoso}</Text>
+              <Text style={{ ...dataScroll.title }}>{key}</Text>
+              <Text style={{ ...dataScroll.text }}>{value.algoVistoso}</Text>
             </View>
           </TouchableOpacity>
         ))}
@@ -102,26 +134,28 @@ const HomeScreens = () => {
           </TouchableOpacity>
         </View>
       </View> */}
-        <View style={{height:80 , justifyContent:"center", alignItems:"center"}}>
-              <ScrollView horizontal style={{ marginTop: 30 }}>
-                <Image
-                  source={require("../../../assets/LOGOS/iffi.png")}
-                  style={loginstyle.logos}
-                />
-                <Image
-                  source={require("../../../assets/LOGOS/logo_Unifranz.png")}
-                  style={loginstyle.logos}
-                />
-                <Image
-                  source={require("../../../assets/LOGOS/save.png")}
-                  style={loginstyle.logos}
-                />
-                <Image
-                  source={require("../../../assets/LOGOS/vision.jpeg")}
-                  style={loginstyle.logos}
-                />
-              </ScrollView>
-            </View>
+      <View
+        style={{ height: 80, justifyContent: "center", alignItems: "center" }}
+      >
+        <ScrollView horizontal style={{ marginTop: 30 }}>
+          <Image
+            source={require("../../../assets/LOGOS/iffi.png")}
+            style={loginstyle.logos}
+          />
+          <Image
+            source={require("../../../assets/LOGOS/logo_Unifranz.png")}
+            style={loginstyle.logos}
+          />
+          <Image
+            source={require("../../../assets/LOGOS/save.png")}
+            style={loginstyle.logos}
+          />
+          <Image
+            source={require("../../../assets/LOGOS/vision.jpeg")}
+            style={loginstyle.logos}
+          />
+        </ScrollView>
+      </View>
     </View>
   );
 };

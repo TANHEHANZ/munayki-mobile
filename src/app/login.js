@@ -32,7 +32,7 @@ const Login = () => {
       res && res.message === "Inicio de sesion correcto"
         ? (router.replace("/home"), alert("Bienvenido"))
         : alert(res.message),
-        updateUser(res);
+        updateUser(res,dataLogin.password);
     } else {
       alert("Las contraseñas no coinciden");
     }

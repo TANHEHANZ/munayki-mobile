@@ -26,6 +26,7 @@ const Contactos = () => {
       }
     };
     fetchData();
+
   }, [mostrar]);
 
   console.log(data);
@@ -40,7 +41,7 @@ const Contactos = () => {
     >
       <Text style={{ margin: 30 }}>Contactos Registrados :{data.length}</Text>
 
-      <InputsContact mostrar={mostrar} userData={userData} />
+      <InputsContact mostrar={mostrar} userData={userData} setMostrar={setMostrar} />
 
       {data.length === 3 ? (
         <Text style={{ textAlign: "center", width: "100%" }}>

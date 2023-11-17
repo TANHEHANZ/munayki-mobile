@@ -16,48 +16,51 @@ const Panico = () => {
   const [porcentaje, setPorcentaje] = useState(0);
   const [dataMultimedia, setDataMultimedia] = useState({
     foto: "",
+    audio: "",
+    longitud: "",
+    latitud: "",
     fecha: new Date().toISOString(),
-    usuarioId: "",
-    ubicacionId: "",
   });
   const [fotosuser, setFotosuser] = useState("");
 
   const user = useUserStore((state) => state.user);
-  // const location = useLocationStore((state) => state.location);
+
+  const location = useLocationStore((state) => state.location);
   console.log("user", user.data.id);
-  // console.log("location",location.coords.longitude,location.coords.latitude);
+  console.log("location", location.coords.longitude, location.coords.latitude);
+  let userData = user.data.id;
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
- useEffect(() => {
-    if (fotosuser.length > 0) {
-      handleSend();
-    }
-  }, [fotosuser]);
   const handleSend = async () => {
-    const res = await peticionPost("Multimedia", {
+    const res = await peticionPost("Multimedia/" + userData, {
       foto: fotosuser,
       fecha: dataMultimedia.fecha,
-      usuarioId: +dataMultimedia.ubicacionId,
-      ubicacionId: +dataMultimedia.ubicacionId,
+      audio: dataMultimedia.audio,
+      longitud: +location.coords.longitude,
+      latitud: +location.coords.latitude,
     });
-    res && res.message === "Multimedia creada con éxito"
+    console.log(res);
+    res && res.message === "Multimedia creada con éxito para el usuario"
       ? (router.replace("/login"), alert("Reporte enviado"))
       : alert(res.message);
   };
 
-
+  useEffect(() => {
+    if (fotosuser.length > 0) {
+      handleSend();
+    }
+  }, [fotosuser]);
 
   const handleCapturePhoto = async () => {
     try {
       if (hasPermission && cameraRef.current) {
         const photo = await cameraRef.current.takePictureAsync();
         console.log("Photo taken:", photo);
-        setPhotoData(photo.uri);
-        await enviar();
+        await enviar(photo.uri);
         await MediaLibrary.saveToLibraryAsync(photo.uri);
       }
     } catch (error) {
@@ -65,7 +68,7 @@ const Panico = () => {
     }
   };
 
-  const enviar = async () => {
+  const enviar = async (photoData) => {
     const url = await sendCloudinary(photoData, setPorcentaje);
     setFotosuser(url);
     console.log("Cloudinary URL:", url);
@@ -77,7 +80,6 @@ const Panico = () => {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
- 
 
   return (
     <View

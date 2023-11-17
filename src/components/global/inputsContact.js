@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { contactStyle } from "../../styles/style";
 import { peticionPost } from "../../utilitis/postRequest";
 
-const InputsContact = ({ mostrar, userData }) => {
+const InputsContact = ({ mostrar, userData, setMostrar }) => {
   const [datoscontact, setDatoscontact] = useState({
     nombre: "",
     apellido: "",
@@ -27,13 +27,21 @@ const InputsContact = ({ mostrar, userData }) => {
     });
     if (res) {
       alert(res.message);
+      setMostrar(!mostrar);
+      setDatoscontact({
+        nombre: "",
+        apellido: "",
+        edad: "",
+        telefono: "",
+        relacion: "",
+      });
     }
   };
 
   return (
     <>
       {mostrar ? (
-        <ScrollView style={{ width: "80%" }}>
+        <View style={{ width: "80%" }}>
           <Text>nombre</Text>
           <TextInput
             value={datoscontact.nombre}
@@ -60,7 +68,7 @@ const InputsContact = ({ mostrar, userData }) => {
             }
             placeholder="edad"
             style={contactStyle.inputs}
-            keyboardType="numeric" 
+            keyboardType="numeric"
           />
           <Text>telefono</Text>
           <TextInput
@@ -69,8 +77,8 @@ const InputsContact = ({ mostrar, userData }) => {
               setDatoscontact((old) => ({ ...old, telefono: text }))
             }
             placeholder="telefono"
-            style={contactStyle.inputs} 
-             keyboardType="numeric" 
+            style={contactStyle.inputs}
+            keyboardType="numeric"
           />
           <Text>Relacion user</Text>
           <TextInput
@@ -84,7 +92,7 @@ const InputsContact = ({ mostrar, userData }) => {
           <TouchableOpacity style={contactStyle.button} onPress={handleSend}>
             <Text style={{ textAlign: "center", width: "100%" }}>Agregar</Text>
           </TouchableOpacity>
-        </ScrollView>
+        </View>
       ) : (
         <>
           <Text style={{ fontSize: 20 }}>Agrega Contactos </Text>

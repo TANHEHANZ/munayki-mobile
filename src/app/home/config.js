@@ -12,8 +12,9 @@ const Config = () => {
   const [verDatos, setVerDatos] = useState(false);
   const [patron, setPatron] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false); // Estado para controlar la visibilidad del modal
-  const patronCorrecto = "1234";
   const user = useUserStore((state) => state.user);
+  const password = useUserStore((state) => state.password);
+  const patronCorrecto = password;
 
   const verificarPatron = () => {
     if (patron === patronCorrecto) {
@@ -24,6 +25,7 @@ const Config = () => {
     setIsModalVisible(false); // Oculta el modal después de verificar el patrón
   };
 
+  console.log(password)
   return (
     <View
       style={{
@@ -73,6 +75,9 @@ const Config = () => {
             <Text>Apellido: {user.data.apellido}</Text>
             <Text>Edad: {user.data.edad}</Text>
             <Text>Género: {user.data.genero}</Text>
+            <Text>Ci: {user.data.carnet}</Text>
+            <Text>Gmail: {user.data.correo}</Text>
+            <Text>Telefono: {user.data.telefono}</Text>
             <TouchableOpacity style={loginstyle.button}
             onPress={() => router.push("/home/reporets")}
             >

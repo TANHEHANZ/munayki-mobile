@@ -29,7 +29,8 @@ const Navigation = () => {
         source={require("../../assets/fondo/munayki.png")}
         style={{ width: 100, height:50 }}
       /> */}
-      <FontAwesome
+     <View style={{flexDirection:"row",gap:10}}>
+     <FontAwesome
         name="cog"
         size={30}
         color="rgb(73,39,121)"
@@ -37,11 +38,13 @@ const Navigation = () => {
       />
     
       <FontAwesome
-        name="user"
+        name="sign-in"
         size={30}
         color="rgb(73,39,121)"
-        onPress={() => router.push("/home/datacamera")}
+        onPress={() => router.replace("/login")}
       />
+
+     </View>
     </View>
   );
 };

@@ -1,18 +1,17 @@
-
-
 const UPLOAD_PRESET = "mmfwmoe3";
 const CLOUDNAME ="dtuncyh4v";
 
 export const sendCloudinary = async (
   uri, 
-  progressCB
+  progressCB,
+  tipo
 ) => {
   return new Promise((resolve) => {
     const formData = new FormData();
     const fileToSend = {
       uri: uri,
-      type: `test/png`,
-      name: `test.png`
+      type: `test/${tipo}`,
+      name: `test.${tipo}`
     };
     formData.append("file", fileToSend);
     formData.append("upload_preset", UPLOAD_PRESET );

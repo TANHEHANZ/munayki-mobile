@@ -8,12 +8,16 @@ import { peticionPost } from "../../utilitis/postRequest";
 import useUserStore from "../../components/context/UserContext";
 import useLocationStore from "../../components/context/UbicacionContext";
 import { router } from "expo-router";
+import { Audio } from 'expo-av';
 
 const Panico = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const cameraRef = useRef(null);
   const [photoData, setPhotoData] = useState(null);
+  const [recording, setRecording] = React.useState();
   const [porcentaje, setPorcentaje] = useState(0);
+  const tipo =useState("wav");
+
   const [dataMultimedia, setDataMultimedia] = useState({
     foto: "",
     audio: "",
@@ -104,6 +108,7 @@ const Panico = () => {
         }}
         onPress={() => {
           handleCapturePhoto();
+         
         }}
       >
         <Text

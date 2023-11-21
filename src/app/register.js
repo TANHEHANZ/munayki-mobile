@@ -75,7 +75,7 @@ const Register = () => {
             <View
               style={{
                 paddingHorizontal: 50,
-                height: 260,
+                height: '31%',
               }}
             >
               {continuar ? (
@@ -153,7 +153,7 @@ const Register = () => {
                 </>
               )}
             </View>
-            <View style={{ marginVertical: 10, padding: 20 }}>
+            <View style={{ marginVertical: '2%', padding: '5%' }}>
               {continuar ? (
                 <TouchableOpacity style={loginstyle.button} onPress={cambio}>
                   <Text style={{ color: colors.CC }}>

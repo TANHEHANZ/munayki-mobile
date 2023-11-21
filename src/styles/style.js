@@ -14,20 +14,20 @@ export const loginstyle = StyleSheet.create({
     fontWeight: "100",
     textAlign: "center",
     width: "100%",
-    marginVertical: 90,
+    marginVertical: '20%',
     // paddingLeft: 20,
-    padding: 30,
+    padding: '5%',
     marginTop: 140,
   },
   inputs: {
     width: "100%",
     backgroundColor: "transparent",
-    height: 35,
-    margin: 10,
+    height: '5%',
+    margin: '2%',
   },
   button: {
-    marginVertical: 10,
-    padding: 12,
+    marginVertical: '2%',
+    padding: '3%',
     borderRadius: 50,
     borderWidth: 1,
     borderColor: colors.CC,
@@ -38,8 +38,8 @@ export const loginstyle = StyleSheet.create({
     gap: 10,
   },
   backgroundImage: {
-    width: 400,
-    height: 500,
+    width: "100%",
+    height: '83%',
     resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
@@ -48,12 +48,13 @@ export const loginstyle = StyleSheet.create({
   },
   logos: {
     resizeMode: "cover",
-    width: 120,
-    height: 30,
+    width: '50%',
+    height: '10%',
     flexDirection: "row",
-    marginHorizontal: 10,
+    marginHorizontal: '2%',
   },
 });
+
 export const nav = StyleSheet.create({
   contenedor: {
     backgroundColor: colors.primary,

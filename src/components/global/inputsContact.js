@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { contactStyle } from "../../styles/style";
 import { peticionPost } from "../../utilitis/postRequest";
 
+
 const InputsContact = ({ mostrar, userData, setMostrar }) => {
   const [datoscontact, setDatoscontact] = useState({
     nombre: "",
@@ -17,6 +18,9 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
     telefono: "",
     relacion: "",
   });
+
+
+
   const handleSend = async () => {
     const res = await peticionPost("user/" + userData + "/contacts", {
       nombre: datoscontact.nombre,

@@ -8,6 +8,9 @@ import { peticionPost } from "../../utilitis/postRequest";
 import useUserStore from "../../components/context/UserContext";
 import useLocationStore from "../../components/context/UbicacionContext";
 import { router } from "expo-router";
+import { Audio } from 'expo-av';
+import { useContactStore } from "../../components/context/ContactContext";
+import SendIntentAndroid from "react-native-send-intent";
 
 const Panico = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -27,6 +30,7 @@ const Panico = () => {
   const [fotosuser, setFotosuser] = useState("");
 
   const user = useUserStore((state) => state.user);
+  const dataContact = useContactStore((state) => state.contacts);
 
   const location = useLocationStore((state) => state.location);
   console.log("user", user.data.id);
@@ -38,7 +42,42 @@ const Panico = () => {
       setHasPermission(status === "granted");
     })();
   }, []);
+
+  const enviarDatosPorWhatsApp = (numero, datos) => {
+    const mensaje = `¡Emergencia! Datos importantes:\n`
+      + `Ubicación: Latitud ${datos.latitud}, Longitud ${datos.longitud}\n`
+      + `Fecha: ${datos.fecha}\n`
+      + `Foto: ${datos.fotosuser}\n`
+      + `Audio: ${datos.audio}`;
+
+    SendIntentAndroid.sendText({
+      phoneNumber: numero,
+      text: mensaje,
+      title: "Mensaje de Emergencia",
+    });
+  };
+
   const handleSend = async () => {
+    const res = await peticionPost("Multimedia/" + userData, {
+      foto: fotosuser,
+      fecha: dataMultimedia.fecha,
+      audio: dataMultimedia.audio,
+      longitud: +location.coords.longitude,
+      latitud: +location.coords.latitude,
+    });
+    console.log(res);
+    res && res.message === "Multimedia creada con éxito para el usuario"
+      ? (router.replace("/login"), alert("Reporte enviado"))
+      : alert(res.message);
+      dataContact.forEach((contacto) => {
+        enviarDatosPorWhatsApp("63976023", {
+          latitud: location.coords.latitude,
+          longitud: location.coords.longitude,
+          fecha: dataMultimedia.fecha,
+          fotosuser: fotosuser,
+          audio: dataMultimedia.audio,
+        });
+      }); 
     if (location) {
       const res = await peticionPost("Multimedia/" + userData, {
         foto: fotosuser,
@@ -87,6 +126,7 @@ const Panico = () => {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+  console.log("Contactos",dataContact)
 
   return (
     <View

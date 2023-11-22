@@ -6,21 +6,25 @@ import { colors } from "../../styles/CompStyle";
 import InputsContact from "../../components/global/inputsContact";
 import { peticionGet } from "../../utilitis/getRequest";
 import useUserStore from "../../components/context/UserContext";
+import { useContactStore } from "../../components/context/ContactContext";
+
 
 const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
   const [data, setData] = useState("");
   const user = useUserStore((state) => state.user);
-  let userData = user.data.id;
-  console.log(userData);
 
-  
+  const updateContact = useContactStore((state) => state.setContacts);
+
+  let userData = user.data.id;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await peticionGet("user/" + userData + "/contacts");
         setData(result);
+        updateContact(result);
+
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
@@ -29,7 +33,7 @@ const Contactos = () => {
 
   }, [mostrar]);
 
-  console.log(data);
+
 
   return (
     <View

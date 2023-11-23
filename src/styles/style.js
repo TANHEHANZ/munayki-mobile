@@ -14,20 +14,20 @@ export const loginstyle = StyleSheet.create({
     fontWeight: "100",
     textAlign: "center",
     width: "100%",
-    marginVertical: '20%',
+    marginVertical: "20%",
     // paddingLeft: 20,
-    padding: '5%',
+    padding: "5%",
     marginTop: 140,
   },
   inputs: {
     width: "100%",
     backgroundColor: "transparent",
-    height: '5%',
-    margin: '2%',
+    height: "5%",
+    margin: "2%",
   },
   button: {
-    marginVertical: '2%',
-    padding: '3%',
+    marginVertical: "2%",
+    padding: "3%",
     borderRadius: 50,
     borderWidth: 1,
     borderColor: colors.CC,
@@ -38,8 +38,8 @@ export const loginstyle = StyleSheet.create({
     gap: 10,
   },
   backgroundImage: {
-    width: "100%",
-    height: '83%',
+    width: 400,
+    height: 500,
     resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
@@ -48,10 +48,10 @@ export const loginstyle = StyleSheet.create({
   },
   logos: {
     resizeMode: "cover",
-    width: '50%',
-    height: '10%',
+    width: "50%",
+    height: "10%",
     flexDirection: "row",
-    marginHorizontal: '2%',
+    marginHorizontal: "2%",
   },
 });
 
@@ -102,19 +102,19 @@ export const dataScroll = StyleSheet.create({
     zIndex: 100,
     ...sharedStyles.shadowBox,
   },
-  title:{
+  title: {
     color: colors.primary,
     fontSize: 25,
     textAlign: "center",
     width: "100%",
     padding: "5%",
   },
-  text:{
+  text: {
     color: colors.primary,
     fontSize: 15,
     width: "100%",
     padding: "5%",
-  }
+  },
 });
 export const dataScrollV = StyleSheet.create({
   div: {
@@ -126,19 +126,19 @@ export const dataScrollV = StyleSheet.create({
     zIndex: 100,
     ...sharedStyles.shadowBox,
   },
-  title:{
+  title: {
     color: colors.primary,
     fontSize: 25,
     textAlign: "center",
     width: "100%",
     padding: "5%",
   },
-  text:{
+  text: {
     color: colors.primary,
     fontSize: 15,
     width: "100%",
     padding: "5%",
-  }
+  },
 });
 export const modal = StyleSheet.create({
   modalContent: {
@@ -184,29 +184,29 @@ export const contactStyle = StyleSheet.create({
 });
 
 export const mapButton = StyleSheet.create({
-map:{
+  map: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
     alignItems: "center",
-},
-button:{
-  ...loginstyle.button, width: "auto" 
-}
-
-})
+  },
+  button: {
+    ...loginstyle.button,
+    width: "auto",
+  },
+});
 
 export const dangerButton = StyleSheet.create({
-  button:{
+  button: {
     backgroundColor: colors.B,
-    alignItems:"center",
-    paddingVertical:15,
-    paddingHorizontal:25,
-    borderRadius:5,
+    alignItems: "center",
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    borderRadius: 5,
     ...sharedStyles.shadowBox,
   },
-  text:{
+  text: {
     color: colors.primary,
-    fontSize:15,
+    fontSize: 15,
   },
-})
+});

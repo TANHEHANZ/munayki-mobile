@@ -11,7 +11,6 @@ import { router } from "expo-router";
 import { Audio } from 'expo-av';
 import { useContactStore } from "../../components/context/ContactContext";
 import SendIntentAndroid from "react-native-send-intent";
-import { Audio } from "expo-av";
 
 const Panico = () => {
   const [hasPermission, setHasPermission] = useState(null);

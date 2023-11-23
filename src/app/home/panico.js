@@ -16,9 +16,9 @@ const Panico = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const cameraRef = useRef(null);
   const [photoData, setPhotoData] = useState(null);
-  const [recording, setRecording] = useState();
-  const  [userAudio, setUserAudio]=useState();
+  const [recording, setRecording] = React.useState();
   const [porcentaje, setPorcentaje] = useState(0);
+  const tipo =useState("wav");
 
   const [dataMultimedia, setDataMultimedia] = useState({
     foto: "",
@@ -39,8 +39,7 @@ const Panico = () => {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      const {Audiostatus} = await Audio.requestPermissionsAsync();
-      setHasPermission(status === "granted" && Audiostatus === "granted");
+      setHasPermission(status === "granted");
     })();
   }, []);
 
@@ -97,7 +96,7 @@ const Panico = () => {
   };
 
   useEffect(() => {
-    if (fotosuser.length > 0 && userAudio.length>0) {
+    if (fotosuser.length > 0) {
       handleSend();
     }
   }, [fotosuser]);
@@ -107,7 +106,7 @@ const Panico = () => {
       if (hasPermission && cameraRef.current) {
         const photo = await cameraRef.current.takePictureAsync();
         console.log("Photo taken:", photo);
-        await enviar(photo.uri, "png");
+        await enviar(photo.uri);
         await MediaLibrary.saveToLibraryAsync(photo.uri);
       }
     } catch (error) {
@@ -115,10 +114,9 @@ const Panico = () => {
     }
   };
 
-  const enviar = async (multimediaData, tipo) => {
-    const url = await sendCloudinary(multimediaData, setPorcentaje);
-    if(tipo=="png") setFotosuser(url);
-    else if (tipo=="m4a") setUserAudio(url);
+  const enviar = async (photoData) => {
+    const url = await sendCloudinary(photoData, setPorcentaje);
+    setFotosuser(url);
     console.log("Cloudinary URL:", url);
   };
   console.log(fotosuser);
@@ -129,42 +127,6 @@ const Panico = () => {
     return <Text>No access to camera</Text>;
   }
   console.log("Contactos",dataContact)
-
-  //Audio
-  async function startRecording(){
-    try{
-        const perm = await Audio.requestPermissionsAsync();
-        if(perm.status === "granted"){
-            await Audio.setAudioModeAsync({
-                allowsRecordingIOS: true,
-                playsInSilentModeIOS: true
-            });
-            const {recording}=await Audio.Recording.createAsync(Audio.Recoding_OPTIONS_PRESET_HIGH_QUALITY);
-            setRecording(recording);
-
-            setTimeout(()=>{stopRecording();},5000)
-        }
-    }catch(e){}
-  }
-
-  async function stopRecording(){
-    setRecording(undefined);
-
-    await recording.stopAndUnloadAsync();
-    const { sound, status } = await recording.createNewLoadedSoundAsync();
-    const newRecording={
-        sound: sound,
-        duration: getDurationFormatted(status.durationMillis),
-        file: recording.getURI()
-    };
-    await enviar(newRecording.file, "m4a");
-  }
-
-  function getDurationFormatted(milliseconds){
-    const minutes = milliseconds / 1000 / 60;
-    const seconds = Math.round((minutes - Math.floor(minutes)) * 60);
-    return seconds < 10 ? `${Math.floor(minutes)}:0${seconds}` : `${Math.floor(minutes)}:${seconds}`
-  }
 
   return (
     <View
@@ -189,7 +151,7 @@ const Panico = () => {
         }}
         onPress={() => {
           handleCapturePhoto();
-          startRecording();
+         
         }}
       >
         <Text

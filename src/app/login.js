@@ -32,7 +32,7 @@ const Login = () => {
       res && res.message === "Inicio de sesion correcto"
         ? (router.replace("/home"), alert("Bienvenido"))
         : alert(res.message),
-        updateUser(res,dataLogin.password);
+        updateUser(res, dataLogin.password);
     } else {
       alert("Las contraseñas no coinciden");
     }
@@ -54,8 +54,10 @@ const Login = () => {
             </Text>
             <View
               style={{
+                paddingVertical: 50,
                 paddingHorizontal: 50,
                 height: 400,
+                gap: 10,
               }}
             >
               <Text style={{ width: "100%", fontSize: 12 }}>
@@ -75,7 +77,7 @@ const Login = () => {
                 onChangeText={(text) =>
                   setDataLogin((old) => ({ ...old, password: text }))
                 }
-                secureTextEntry={true} 
+                secureTextEntry={true}
               />
               <Text style={{ width: "100%", fontSize: 12 }}>
                 Confirmar contraseña
@@ -89,7 +91,7 @@ const Login = () => {
                     confirmation_password: text,
                   }))
                 }
-                secureTextEntry={true} 
+                secureTextEntry={true}
               />
 
               <TouchableOpacity style={loginstyle.button} onPress={handleSend}>

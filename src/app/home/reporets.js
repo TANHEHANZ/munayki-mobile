@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image, ScrollView } from "react-native";
+import { View, Text, FlatList, Image} from "react-native";
 import React, { useEffect, useState } from "react";
 import { peticionGet } from "../../utilitis/getRequest";
 import { loginstyle } from "../../styles/style";
@@ -21,14 +21,12 @@ const Reporets = () => {
     fetchData();
   }, []);
   return (
-  
-      <View style={{with:"100%",backgroundColor:"#fff" }}>
+      <View style={{with:"100%",backgroundColor:"#fff", flex:1 }}>
         <FlatList
           style={{
-            flexDirection: "row",
-            width: 400,
+            flexDirection: "column",
+            width: '100%',
             padding: 20,
-
           }}
           data={data.data}
           keyExtractor={(item) => item.id.toString()}
@@ -40,7 +38,8 @@ const Reporets = () => {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                padding: 10,
+                padding: '5%',
+                paddingBottom:'12%'
               }}
             >
                 {item.foto ? (
@@ -53,10 +52,10 @@ const Reporets = () => {
                 )}
               <TouchableOpacity style={{width:"70%"}}>
               <Text>fecha: {item.fecha}</Text>
-                <Text>usuario: {item.usuario.nombre}</Text>
-                <Text>apellido: {item.usuario.apellido}</Text>
-                <Text>ubicación lomgitud : {item.longitud}</Text>
-                <Text>ubicación latidud: {item.latitud}</Text>
+                <Text>Nombre: {item.usuario.nombre}</Text>
+                <Text>Apellido: {item.usuario.apellido}</Text>
+                <Text>Ubicación longitud : {item.longitud}</Text>
+                <Text>Ubicación latidud: {item.latitud}</Text>
               </TouchableOpacity>
               </View>
           )}

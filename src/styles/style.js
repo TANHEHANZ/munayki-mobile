@@ -22,7 +22,7 @@ export const loginstyle = StyleSheet.create({
   inputs: {
     width: "100%",
     backgroundColor: "transparent",
-    height: '5%',
+    height: '8%',
     margin: '2%',
   },
   button: {
@@ -39,7 +39,7 @@ export const loginstyle = StyleSheet.create({
   },
   backgroundImage: {
     width: "100%",
-    height: '83%',
+    height: 510,
     resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
@@ -94,7 +94,7 @@ export const nav = StyleSheet.create({
 
 export const dataScroll = StyleSheet.create({
   div: {
-    height: 230,
+    height:'100%',
     width: 30,
     backgroundColor: colors.C,
     marginHorizontal: 10,
@@ -118,33 +118,25 @@ export const dataScroll = StyleSheet.create({
 });
 export const dataScrollV = StyleSheet.create({
   div: {
-    height: 100,
-    width: 30,
+    width: '50%',
     backgroundColor: colors.C,
-    marginHorizontal: 10,
     borderRadius: 10,
-    zIndex: 100,
     ...sharedStyles.shadowBox,
   },
   title:{
-    color: colors.primary,
+    color: colors.black,
     fontSize: 25,
     textAlign: "center",
     width: "100%",
     padding: "5%",
   },
-  text:{
-    color: colors.primary,
-    fontSize: 15,
-    width: "100%",
-    padding: "5%",
-  }
 });
 export const modal = StyleSheet.create({
   modalContent: {
     backgroundColor: "#fff",
     padding: 30,
     gap: 20,
+    borderRadius:10
   },
 });
 

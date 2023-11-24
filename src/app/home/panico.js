@@ -13,12 +13,14 @@ import { useContactStore } from "../../components/context/ContactContext";
 import SendIntentAndroid from "react-native-send-intent";
 
 const Panico = () => {
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
+  const [hasPermissionAudio, setHasPermissionAudio] = useState(null);
   const cameraRef = useRef(null);
   const [photoData, setPhotoData] = useState(null);
   const [recording, setRecording] = React.useState();
   const [porcentaje, setPorcentaje] = useState(0);
-  const tipo =useState("wav");
+  const tipoFoto =useState("png");
+  const tipoAudio =useState("m4a");
 
   const [dataMultimedia, setDataMultimedia] = useState({
     foto: "",
@@ -28,6 +30,7 @@ const Panico = () => {
     fecha: new Date().toISOString(),
   });
   const [fotosuser, setFotosuser] = useState("");
+  const [audioUser, setAudioUser] = useState("");
 
   const user = useUserStore((state) => state.user);
   const dataContact = useContactStore((state) => state.contacts);
@@ -36,19 +39,27 @@ const Panico = () => {
   console.log("user", user.data.id);
   console.log("location", location.coords.longitude, location.coords.latitude);
   let userData = user.data.id;
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
+      setHasPermissionCamera(status === "granted");
     })();
   }, []);
+
+  useEffect(()=>{
+    (async ()=>{
+      const {status} = await Audio.requestPermissionsAsync();
+      setHasPermissionAudio(status === "granted");
+    })();
+  },[]);
 
   const enviarDatosPorWhatsApp = (numero, datos) => {
     const mensaje = `¡Emergencia! Datos importantes:\n`
       + `Ubicación: Latitud ${datos.latitud}, Longitud ${datos.longitud}\n`
       + `Fecha: ${datos.fecha}\n`
       + `Foto: ${datos.fotosuser}\n`
-      + `Audio: ${datos.audio}`;
+      + `Audio: ${datos.audioUser}`;
 
     SendIntentAndroid.sendText({
       phoneNumber: numero,
@@ -58,15 +69,17 @@ const Panico = () => {
   };
 
   const handleSend = async () => {
-    const res = await peticionPost("Multimedia/" + userData, {
-      foto: fotosuser,
-      fecha: dataMultimedia.fecha,
-      audio: dataMultimedia.audio,
-      longitud: +location.coords.longitude,
-      latitud: +location.coords.latitude,
-    });
-    console.log(res);
-    res && res.message === "Multimedia creada con éxito para el usuario"
+    console.log("handle audio: "+audioUser);
+    if (location) {
+      const res = await peticionPost("Multimedia/" + userData, {
+        foto: fotosuser,
+        fecha: dataMultimedia.fecha,
+        audio: audioUser,
+        longitud: +location.coords.longitude,
+        latitud: +location.coords.latitude,
+      });
+      console.log(res);
+      res && res.message === "Multimedia creada con éxito para el usuario"
       ? (router.replace("/login"), alert("Reporte enviado"))
       : alert(res.message);
       dataContact.forEach((contacto) => {
@@ -75,38 +88,26 @@ const Panico = () => {
           longitud: location.coords.longitude,
           fecha: dataMultimedia.fecha,
           fotosuser: fotosuser,
-          audio: dataMultimedia.audio,
+          audio: audioUser,
         });
       }); 
-    if (location) {
-      const res = await peticionPost("Multimedia/" + userData, {
-        foto: fotosuser,
-        fecha: dataMultimedia.fecha,
-        audio: dataMultimedia.audio,
-        longitud: +location.coords.longitude,
-        latitud: +location.coords.latitude,
-      });
-      console.log(res);
-      res && res.message === "Multimedia creada con éxito para el usuario"
-        ? (router.replace("/login"), alert("Reporte enviado"))
-        : alert(res.message);
     } else {
       console.error("Location is null");
     }
   };
-
+  
   useEffect(() => {
-    if (fotosuser.length > 0) {
+    if (fotosuser.length > 0 && audioUser.length>0) {
       handleSend();
     }
-  }, [fotosuser]);
+  }, [fotosuser, audioUser]);
 
   const handleCapturePhoto = async () => {
     try {
-      if (hasPermission && cameraRef.current) {
+      if (hasPermissionCamera && cameraRef.current) {
         const photo = await cameraRef.current.takePictureAsync();
         console.log("Photo taken:", photo);
-        await enviar(photo.uri);
+        await enviarFoto(photo.uri);
         await MediaLibrary.saveToLibraryAsync(photo.uri);
       }
     } catch (error) {
@@ -114,17 +115,73 @@ const Panico = () => {
     }
   };
 
-  const enviar = async (photoData) => {
+  const enviarFoto = async (photoData) => {
     const url = await sendCloudinary(photoData, setPorcentaje);
     setFotosuser(url);
     console.log("Cloudinary URL:", url);
   };
+
+  const startRecording = async()=>{
+    try{
+        const perm = await Audio.requestPermissionsAsync();
+        if(perm.status === "granted"){
+            await Audio.setAudioModeAsync({
+                allowsRecordingIOS: true,
+                playsInSilentModeIOS: true
+            });
+            const { recording: newRecording } = await Audio.Recording.createAsync(Audio.Recoding_OPTIONS_PRESET_HIGH_QUALITY);
+            setRecording(newRecording);
+
+            setTimeout(() => {
+                if (newRecording) {
+                    stopRecording(newRecording);
+                }
+            }, 5000);
+        }
+    } catch(e) {}
+  }
+
+  async function stopRecording(recordingToStop){
+      if (recordingToStop) {
+          await recordingToStop.stopAndUnloadAsync();
+          const { status } = await recordingToStop.createNewLoadedSoundAsync();
+          const uri = recordingToStop.getURI();
+          console.log("audio taken:", uri);
+          setRecording(undefined);
+          await enviarAudio(uri);
+      } else {
+          console.error('No recording to stop');
+      }
+  }
+
+  const enviarAudio = async (audioData) => {
+    console.log("enviar audio func: "+audioData);
+    const url = await sendCloudinary(audioData, setPorcentaje);
+    setAudioUser(url);
+    console.log("Cloudinary URL:", url);
+  };
+
+  const handleCaptureAndRecord = async () => {
+    try {
+        await Promise.all([handleCapturePhoto(), startRecording()]);
+        console.log(audioUser);
+    } catch (error) {
+        console.error("Error capturing photo and recording audio:", error);
+    }
+};
+
   console.log(fotosuser);
-  if (hasPermission === null) {
+  if (hasPermissionCamera === null) {
     return <View />;
   }
-  if (hasPermission === false) {
+  if (hasPermissionCamera === false) {
     return <Text>No access to camera</Text>;
+  }
+  if (hasPermissionAudio === null) {
+    return <View />;
+  }
+  if (hasPermissionAudio === false) {
+    return <Text>No access to microphone</Text>;
   }
   console.log("Contactos",dataContact)
 
@@ -150,8 +207,7 @@ const Panico = () => {
           borderRadius: 10,
         }}
         onPress={() => {
-          handleCapturePhoto();
-         
+          handleCaptureAndRecord()
         }}
       >
         <Text

@@ -45,7 +45,7 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
   return (
     <>
       {mostrar ? (
-        <View style={{ width: "80%" }}>
+        <View style={{ width: "80%"}}>
           <Text>nombre</Text>
           <TextInput
             value={datoscontact.nombre}
@@ -93,9 +93,11 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
             placeholder="relacion"
             style={contactStyle.inputs}
           />
-          <TouchableOpacity style={contactStyle.button} onPress={handleSend}>
-            <Text style={{ textAlign: "center", width: "100%" }}>Agregar</Text>
-          </TouchableOpacity>
+          <View style={{alignItems:'center' }}>
+            <TouchableOpacity style={contactStyle.button} onPress={handleSend}>
+              <Text style={{ textAlign: "center", width: "100%" }}>Agregar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       ) : (
         <>

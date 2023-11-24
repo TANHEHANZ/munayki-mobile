@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { Audio } from 'expo-av';
+import { sendCloudinary } from "../../utilitis/uploadImage";
 
 export default function DataAudio(){
     const [recording, setRecording]= useState();
     const [recordings, setRecordings]=useState([]);
+    const [hasPermission, setHasPermission] = useState(null);
+    const [capturedAudio, setCapturedAudio]=useState(null);
+    const [sound, setSound] = useState(null);
+    const [porcentaje, setPorcentaje] = useState(0);
+    const tipo =useState("m4a");
+
+    useEffect(() => {
+        (async () => {
+          const { status } = await Audio.requestPermissionsAsync();
+          setHasPermission(status === "granted");
+        })();
+      }, []);
 
     async function startRecording(){
         try{
@@ -29,45 +42,41 @@ export default function DataAudio(){
     async function stopRecording(recordingToStop){
         if (recordingToStop) {
             await recordingToStop.stopAndUnloadAsync();
-            const { sound, status } = await recordingToStop.createNewLoadedSoundAsync();
-            let allRecordings = [...recordings];
-            allRecordings.push({
-                sound: sound,
-                duration: getDurationFormated(status.durationMillis),
-                file: recordingToStop.getURI()
-            });
-    
-            setRecordings(allRecordings);
+            const { sound: newSound, status } = await recordingToStop.createNewLoadedSoundAsync();
+            const uri = recordingToStop.getURI();
+            setCapturedAudio(uri);
+            setSound(newSound);
             setRecording(undefined);
         } else {
             console.error('No recording to stop');
         }
-    }   
-      
-    function getDurationFormated(milliseconds){
-        const minutes = milliseconds / 1000 / 60;
-        const seconds = Math.round((minutes - Math.floor(minutes)) * 60);
-        return seconds < 10 ? `${Math.floor(minutes)}:0${seconds}` : `${Math.floor(minutes)}:${seconds}`
     }
-    function getRecordingLines(){
-        return recordings.map((recordingLine, index) => {
-            return (
-              <View key={index} style={styles.row}>
-                <Text style={styles.fill}>
-                  Recording #{index + 1} | {recordingLine.duration}
-                </Text>
-                <Button onPress={() => recordingLine.sound.replayAsync()} title="Play"></Button>
-              </View>
-            );
-        });
+
+    function playRecording() {
+        if (sound) {
+            sound.replayAsync();
+        } else {
+            console.error('No sound to play');
+        }
     }
-    function clearRecording(){setRecordings([])}
+
+    useEffect(() => {
+
+        const enviar = async ()=>{
+            const url = await sendCloudinary(capturedAudio, setPorcentaje, tipo);
+            console.log(url)
+        }
+        
+            console.log("datocapuardo",capturedAudio);
+            if (capturedAudio) {
+                enviar();
+            }
+    }, [capturedAudio]);
 
     return(
         <View style={styles.container}>
             <Button title={recording ? 'Stop Recording':'Start Recording'} onPress={recording?stopRecording:startRecording}/>
-            {getRecordingLines()}
-            <Button title={recordings.length > 0 ? 'Clear Recordings': ''} onPress={clearRecording}/>
+            <Button title={sound ? 'Play Recording' : ''} onPress={playRecording}/>
         </View>
     )
 }

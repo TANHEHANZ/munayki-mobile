@@ -60,7 +60,9 @@ const HomeScreens = () => {
       </Text>
       <View
         style={{
-          padding: 20,
+          paddingLeft: 20,
+          paddingRight: 20,
+          height:'13%',
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
@@ -80,37 +82,40 @@ const HomeScreens = () => {
           <FontAwesome name="download" size={30} color={"rgb(73,39,121)"} />
         </TouchableOpacity>
       </View>
-      <Text style={{ padding: 10, marginLeft: 20, marginTop: 20 }}>
+      <Text style={{ paddingLeft: 10, marginLeft: 20, marginTop:15 }}>
         Informaciones
       </Text>
-      <ScrollView
-        horizontal
-        style={{
-          paddingVertical: 30,
-          height: 120,
-          backgroundColor: "#0001",
-          borderTopWidth: 2,
-          borderBottomWidth: 2,
-          borderColor: "#0001",
-        }}
-      >
-        {Object.entries(information).map(([key, value], index) => (
-          <TouchableOpacity
-            style={{
-              ...dataScroll.div,
-              width: 300,
-              backgroundColor: getRandomColor(),
-            }}
-            key={index}
-            onPress={() => Linking.openURL(value.link)}
-          >
-            <View>
-              <Text style={{ ...dataScroll.title }}>{key}</Text>
-              <Text style={{ ...dataScroll.text }}>{value.algoVistoso}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <View style={{
+          height:'63%'}}>
+            <ScrollView
+              horizontal
+              style={{
+                paddingVertical: 15,
+                backgroundColor: "#0001",
+                borderTopWidth: 2,
+                borderBottomWidth: 2,
+                borderColor: "#0001",
+              }}
+            >
+              {Object.entries(information).map(([key, value], index) => (
+                <TouchableOpacity
+                  style={{
+                    ...dataScroll.div,
+                    width: 300,
+                    backgroundColor: getRandomColor(),
+                  }}
+                  key={index}
+                  onPress={() => Linking.openURL(value.link)}
+                >
+                  <View>
+                    <Text style={{ ...dataScroll.title }}>{key}</Text>
+                    <Text style={{ ...dataScroll.text }}>{value.algoVistoso}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+      </View>
+      
 
       {/* <View style={{ padding: 20, height: 100 }}>
         <Text>Colaboraciones</Text>
@@ -135,14 +140,11 @@ const HomeScreens = () => {
           </TouchableOpacity>
         </View>
       </View> */}
-      <View
-        style={{ height: 80, justifyContent: "center", alignItems: "center" }}
+      {/* <View
+        style={{ height: 80, justifyContent: "center", alignItems: "center"}}
       >
-        <ScrollView horizontal style={{ marginTop: 30 }}>
-          <Image
-            source={require("../../../assets/LOGOS/iffi.png")}
-            style={loginstyle.logos}
-          />
+        <ScrollView horizontal style={{ marginTop: 1, height:'20%'}}>
+          
           <Image
             source={require("../../../assets/LOGOS/logo_Unifranz.png")}
             style={loginstyle.logos}
@@ -156,7 +158,7 @@ const HomeScreens = () => {
             style={loginstyle.logos}
           />
         </ScrollView>
-      </View>
+      </View> */}
     </View>
   );
 };

@@ -112,20 +112,20 @@ const Config = () => {
 <Modal isVisible={isModalVisible}>
           <View style={modal.modalContent}>
             <View style={{flexDirection:"row", justifyContent:"space-between", borderBottomWidth:2, paddingVertical:20, borderBottomColor:"#0002",}}>
-              <Text style={modal.modalTitle}>Ingresa el patrón</Text>
+              <Text style={modal.modalTitle}>Ingresa la contraseña</Text>
               <TouchableOpacity onPress={() => setIsModalVisible(false)}>
                 <FontAwesome name="close" size={20} color={colors.CC} />
               </TouchableOpacity>
             </View>
             <TextInput
-              placeholder="Ingresa el patrón"
+              placeholder="Ingresa la contraseña"
               secureTextEntry={true}
               style={{ ...loginstyle.inputs, borderBottomWidth: 2 }}
               value={patron}
               onChangeText={(text) => setPatron(text)}
             />
             <TouchableOpacity style={loginstyle.button} onPress={verificarPatron}>
-              <Text>Verificar Patrón</Text>
+              <Text>Verificar Contraseña</Text>
             </TouchableOpacity>
           </View>
         </Modal>

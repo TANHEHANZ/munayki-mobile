@@ -38,7 +38,7 @@ const Contactos = () => {
   return (
     <View
       style={{
-        height: 650,
+        height: '100%',
         justifyContent: "center",
         alignItems: "center",
       }}

@@ -45,16 +45,16 @@ const Datacamera = () => {
 
   useEffect(() => {
 
-const enviar = async ()=>{
-    const url = await sendCloudinary(capturedFrontal, setPorcentaje, tipo);
-    console.log(url)
-}
+  const enviar = async ()=>{
+      const url = await sendCloudinary(capturedFrontal, setPorcentaje, tipo);
+      console.log(url)
+  }
 
-    console.log("datocapuardo",capturedFrontal);
-    if (capturedFrontal) {
-       enviar();
-    }
-  }, [capturedFrontal]);
+      console.log("datocapuardo",capturedFrontal);
+      if (capturedFrontal) {
+        enviar();
+      }
+    }, [capturedFrontal]);
 
   useEffect(() => {
     if (capturedFrontal || capturedRear.length === 2) {

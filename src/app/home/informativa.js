@@ -6,11 +6,12 @@ import {
 } from "../../styles/style";
 import React from "react";
 import information from "../../documents/information.json";
+import useLocationStore from "../../components/context/UbicacionContext";
 
 const informativa = () => {
   let colorArray = [colors.A, colors.B, colors.C, colors.D, colors.F];
-
-
+  const location = useLocationStore((state) => state.location);
+  console.log(location);
   const getRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * colorArray.length);
     const color = colorArray[randomIndex];
@@ -20,12 +21,13 @@ const informativa = () => {
     }
     return color;
   };
+
   return (
     <View
       style={{
-        flexDirection: "column",
-        justifyContent: "space-between",
+        justifyContent: 'flex-start',
         alignItems: "center",
+        flex:1
       }}
     >
       <Text
@@ -42,20 +44,21 @@ const informativa = () => {
       <ScrollView
         vertical
         style={{
-          paddingVertical: 30,
-          height: "88%",
+          height: "80%",
           borderTopWidth: 2,
           borderBottomWidth: 2,
           borderColor: "#0001",
+          paddingLeft:'10%',
         }}
       >
         {Object.entries(information).map(([key, value], index) => (
           <TouchableOpacity
             style={{
               ...dataScrollV.div,
-              width: 300,
               marginVertical: "3%",
-              backgroundColor: getRandomColor(),
+              borderColor: getRandomColor(),
+              borderWidth:2,
+              backgroundColor:colors.primary,
             }}
             key={index}
             onPress={() => Linking.openURL(value.link)}
@@ -65,9 +68,9 @@ const informativa = () => {
             </View>
           </TouchableOpacity>
         ))}
-
       </ScrollView>
     </View>
   );
 };
+
 export default informativa;

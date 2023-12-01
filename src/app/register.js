@@ -13,6 +13,7 @@ import { router } from "expo-router";
 import { loginstyle } from "../styles/style";
 import { colors } from "../styles/CompStyle";
 import { peticionPost } from "../utilitis/postRequest";
+import { Picker } from "@react-native-picker/picker";
 
 const Register = () => {
   const [continuar, setContinuar] = useState(true);
@@ -75,7 +76,7 @@ const Register = () => {
             <View
               style={{
                 paddingHorizontal: 50,
-                height: '31%',
+                height: "35%",
               }}
             >
               {continuar ? (
@@ -117,6 +118,24 @@ const Register = () => {
                 </>
               ) : (
                 <>
+                  <Text style={{ width: "100%", fontSize: 12 }}>Genero</Text>
+
+                  <Picker
+                    style={{
+                      backgroundColor: colors.CC,
+                      zIndex: 100,
+                      color: "#fff",
+                      marginVertical: 10,
+                    }}
+                    selectedValue={dataRegister.genero}
+                    onValueChange={(itemValue) =>
+                      setDataRegister((old) => ({ ...old, genero: itemValue }))
+                    }
+                  >
+                    <Picker.Item label="Escoge un genero" value="" />
+                    <Picker.Item label="Masculino" value="Masculino " />
+                    <Picker.Item label="Femenino" value="Femenino " />
+                  </Picker>
                   <Text style={{ width: "100%", fontSize: 12 }}>Direccion</Text>
                   <TextInput
                     style={loginstyle.inputs}
@@ -124,7 +143,6 @@ const Register = () => {
                     onChangeText={(text) =>
                       setDataRegister((old) => ({ ...old, ubicacion: text }))
                     }
-             
                   />
                   <Text style={{ width: "100%", fontSize: 12 }}>Correo</Text>
                   <TextInput
@@ -142,18 +160,10 @@ const Register = () => {
                       setDataRegister((old) => ({ ...old, password: text }))
                     }
                   />
-                  <Text style={{ width: "100%", fontSize: 12 }}>Genero</Text>
-                  <TextInput
-                    style={loginstyle.inputs}
-                    value={dataRegister.genero}
-                    onChangeText={(text) =>
-                      setDataRegister((old) => ({ ...old, genero: text }))
-                    }
-                  />
                 </>
               )}
             </View>
-            <View style={{ marginVertical: '2%', padding: '5%' }}>
+            <View style={{ marginVertical: "2%", padding: "5%" }}>
               {continuar ? (
                 <TouchableOpacity style={loginstyle.button} onPress={cambio}>
                   <Text style={{ color: colors.CC }}>

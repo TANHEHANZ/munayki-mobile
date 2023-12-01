@@ -128,12 +128,12 @@ const HomeScreens = () => {
               <View>
                 <Image
                   source={{ uri: value.imagen || imgdata }}
-                  style={{ width: 300, height: 220 }}
+                  style={{ width: 300, height: 210 }}
                 />
                 <Text
                   style={{
                     fontSize: 14,
-                    height: 40,
+                    height: 52,
                     color: "#fff",
                     padding: 8,
                   }}

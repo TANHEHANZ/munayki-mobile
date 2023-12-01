@@ -9,22 +9,19 @@ import React, { useEffect, useState } from "react";
 import { contactStyle } from "../../styles/style";
 import { peticionPost } from "../../utilitis/postRequest";
 
-
 const InputsContact = ({ mostrar, userData, setMostrar }) => {
   const [datoscontact, setDatoscontact] = useState({
     nombre: "",
-    apellido: "",
+    email: "",
     edad: "",
     telefono: "",
     relacion: "",
   });
 
-
-
   const handleSend = async () => {
     const res = await peticionPost("user/" + userData + "/contacts", {
       nombre: datoscontact.nombre,
-      apellido: datoscontact.apellido,
+      email: datoscontact.email,
       edad: +datoscontact.edad,
       telefono: +datoscontact.telefono,
       relacion: datoscontact.relacion,
@@ -34,7 +31,7 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
       setMostrar(!mostrar);
       setDatoscontact({
         nombre: "",
-        apellido: "",
+        email: "",
         edad: "",
         telefono: "",
         relacion: "",
@@ -45,8 +42,8 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
   return (
     <>
       {mostrar ? (
-        <View style={{ width: "80%"}}>
-          <Text>nombre</Text>
+        <View style={{ width: "80%" }}>
+          <Text>Nombre</Text>
           <TextInput
             value={datoscontact.nombre}
             onChangeText={(text) =>
@@ -55,13 +52,13 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
             placeholder="Nombre"
             style={contactStyle.inputs}
           />
-          <Text>apellido</Text>
+          <Text>Email</Text>
           <TextInput
-            value={datoscontact.apellido}
+            value={datoscontact.email}
             onChangeText={(text) =>
-              setDatoscontact((old) => ({ ...old, apellido: text }))
+              setDatoscontact((old) => ({ ...old, email: text }))
             }
-            placeholder="apellido"
+            placeholder="data@gmail.com"
             style={contactStyle.inputs}
           />
           <Text>edad</Text>
@@ -93,9 +90,11 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
             placeholder="relacion"
             style={contactStyle.inputs}
           />
-          <View style={{alignItems:'center' }}>
+          <View style={{ alignItems: "center" }}>
             <TouchableOpacity style={contactStyle.button} onPress={handleSend}>
-              <Text style={{ textAlign: "center", width: "100%" }}>Agregar</Text>
+              <Text style={{ textAlign: "center", width: "100%" }}>
+                Agregar
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

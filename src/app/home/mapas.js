@@ -47,9 +47,7 @@ const mapas = () => {
       style={{ padding: 20, flexDirection: "row", flexWrap: "wrap", gap: 20 }}
     >
       <Text style={{ fontSize: 18 }}>Ubicaciones ayuda mas cercana </Text>
-      <Text style={{ fontSize: 14 }}>
-        Ingrese tu direccion o punto de partida
-      </Text>
+      <Text style={{ fontSize: 14 }}>Ingrese un punto de partida</Text>
       <TextInput
         placeholder="partida"
         style={{ borderBottomWidth: 1, width: "100%" }}
@@ -57,16 +55,32 @@ const mapas = () => {
         onChangeText={(text) => setOrigen(text)}
       />
 
-      <Text style={{ fontSize: 14 }}> Escoga punto de llegada</Text>
+      <Text style={{ fontSize: 14 }}> Elija punto de llegada</Text>
 
       <Picker
         selectedValue={destino}
         onValueChange={(itemValue) => setDestino(itemValue)}
         style={{ width: "100%", elevation: 10, marginBottom: 10 }}
       >
-        <Picker.Item label="SLIM" value="slim_area_de_muejers" />
-        <Picker.Item label="FELCC" value="FELCC " />
-        <Picker.Item label="FELCN" value="FELCN" />
+        <Picker.Item label="SLIM - epi sur" value="EPI SUR slim" />
+        <Picker.Item label="SLIM - DISTRITO 14 " value="SLIM - DISTRITO 14 " />
+        <Picker.Item
+          label="SLIM - PUNTO ADELA ZAMUDIO"
+          value=" PUNTO ADELA ZAMUDIO"
+        />
+        <Picker.Item
+          label="SLIM - SI ALEJO CALATAYUD"
+          value="SLIM - SI ALEJO CALATAYUD"
+        />
+        <Picker.Item label="SLIM - JAIHUAYCO" value="SLIM-JAIHUAYCO" />
+        <Picker.Item label="SLIM - EPI NORTE" value="SLIM-EPI NORTE" />
+        <Picker.Item label="SLIM - ITOCTA" value="SLIM-ITOCTA" />
+        <Picker.Item label="SLIM - PALTA ORKO" value="SLIM-PALTA ORKO" />
+        <Picker.Item label="SLIM - JEFATURA" value="SLIM-JEFATURA" />
+        <Picker.Item label="SLIM - OD.6" value="SLIM-OD.6" />
+        <Picker.Item label="SLIM - D.7" value="SLIM-D.7" />
+        <Picker.Item label="SLIM - VILLA MEXICO" value="SLIM-VILLA MEXICO" />
+        <Picker.Item label="FLCV" value="FLCV COCHABAMBA" />
       </Picker>
 
       <TouchableOpacity style={loginstyle.button} onPress={handleVerMapa}>
@@ -81,7 +95,7 @@ const mapas = () => {
         <TouchableOpacity
           style={mapButton.button}
           onPress={() => {
-            handleMapDirect("Slim_area_de_muejeres");
+            handleMapDirect("SLIM - JAIHUAYCO");
           }}
         >
           <Text> ver mapa </Text>
@@ -89,11 +103,13 @@ const mapas = () => {
       </View>
       <View style={mapButton.map}>
         <FontAwesome name="map" size={30} color="rgb(73,39,121)" />
-        <Text>FELCN mas cercano</Text>
+        <Text>FELCV mas cercano</Text>
         <TouchableOpacity
           style={mapButton.button}
           onPress={() => {
-            handleMapDirect("Fuerza Especial de Lucha Contra el Narcotráfico (FELCN)");
+            handleMapDirect(
+              " FELCV fuerza especial contra la violenica"
+            );
           }}
         >
           <Text> ver mapa </Text>

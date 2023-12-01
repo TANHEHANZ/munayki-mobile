@@ -16,14 +16,16 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from "expo-router";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import information from "../../documents/information.json";
 import useLocationStore from "../../components/context/UbicacionContext";
 import * as Location from "expo-location";
-const HomeScreens = () => {
+import { peticionGet } from "../../utilitis/getRequest";
+import { imgdata } from "../../../assets/icon.png";
+import Informativa from "./informativa";
 
+const HomeScreens = () => {
   const setLocation = useLocationStore((state) => state.setLocation);
   const location = useLocationStore((state) => state.location);
-
+  const [data, setData] = useState("");
   let colorArray = [colors.A, colors.B, colors.C, colors.D, colors.F];
   const getRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * colorArray.length);
@@ -49,8 +51,19 @@ const HomeScreens = () => {
       console.error("Error al obtener la ubicación:", error);
     }
   };
+
+  const fetchData = async () => {
+    try {
+      const result = await peticionGet("info");
+      setData(result);
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
+  };
+
   useEffect(() => {
     getLocationAsync();
+    fetchData();
   }, []);
 
   return (
@@ -62,7 +75,7 @@ const HomeScreens = () => {
         style={{
           paddingLeft: 20,
           paddingRight: 20,
-          height:'13%',
+          height: "13%",
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
@@ -82,83 +95,92 @@ const HomeScreens = () => {
           <FontAwesome name="download" size={30} color={"rgb(73,39,121)"} />
         </TouchableOpacity>
       </View>
-      <Text style={{ paddingLeft: 10, marginLeft: 20, marginTop:15 }}>
+      <Text style={{ paddingLeft: 10, marginLeft: 20, marginTop: 15 }}>
         Informaciones
       </Text>
-      <View style={{
-          height:'63%'}}>
-            <ScrollView
-              horizontal
+      <View
+        style={{
+          height: "63%",
+        }}
+      >
+        <ScrollView
+          horizontal
+          style={{
+            paddingVertical: 15,
+            backgroundColor: "#0001",
+            borderTopWidth: 2,
+            borderBottomWidth: 2,
+            borderColor: "#0001",
+            height: 300,
+          }}
+        >
+          {Object.entries(data).map(([key, value], index) => (
+            <TouchableOpacity
               style={{
-                paddingVertical: 15,
-                backgroundColor: "#0001",
-                borderTopWidth: 2,
-                borderBottomWidth: 2,
-                borderColor: "#0001",
+                width: 300,
+                height: 370,
+                backgroundColor: getRandomColor(),
+                marginHorizontal: 20,
+                justifyContent: "flex-end",
+                alignItems: "center",
               }}
+              key={index}
             >
-              {Object.entries(information).map(([key, value], index) => (
+              <View>
+                <Image
+                  source={{ uri: value.imagen || imgdata }}
+                  style={{ width: 300, height: 220 }}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    height: 40,
+                    color: "#fff",
+                    padding: 8,
+                  }}
+                >
+                  {value.titulo}
+                </Text>
+                <Text
+                  style={{
+                    height: 70,
+                    borderTopWidth: 1,
+                    borderColor: "#0005",
+                    padding: 15,
+                    color: "#fff",
+                    position: "relative"
+                  }}
+                >
+                  {value.cuerpo}
+                </Text>
                 <TouchableOpacity
                   style={{
-                    ...dataScroll.div,
-                    width: 300,
-                    backgroundColor: getRandomColor(),
+                    height: 50,
+                    elevation: 1,
+                    bottom:20
                   }}
-                  key={index}
-                  onPress={() => Linking.openURL(value.link)}
+                  onPress={() => Linking.openURL(value.url)}
                 >
-                  <View>
-                    <Text style={{ ...dataScroll.title }}>{key}</Text>
-                    <Text style={{ ...dataScroll.text }}>{value.algoVistoso}</Text>
-                  </View>
+                  <Text
+                    style={{
+                      color: "#fff",
+                      backgroundColor: "#0007",
+                      position:"absolute",
+                      height: "100%",
+                      width: 110,
+                      paddingHorizontal: 20,
+                      borderRadius:10,
+                      right: -5,
+                    }}
+                  >
+                    ver recurso
+                  </Text>
                 </TouchableOpacity>
-              ))}
-            </ScrollView>
-      </View>
-      
-
-      {/* <View style={{ padding: 20, height: 100 }}>
-        <Text>Colaboraciones</Text>
-        <View style={colaboracionesStyle.section}>
-          <TouchableOpacity style={colaboracionesStyle.text}>
-            <Text style={{ color: colors.primary , fontSize:11, }}> Slim</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={colaboracionesStyle.text}>
-            <Text style={{ color: colors.primary , fontSize:11, }}> Fcc</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={colaboracionesStyle.text}>
-            <Text style={{ color: colors.primary , fontSize:11, }}> Save Children</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={colaboracionesStyle.text}>
-            <Text style={{ color: colors.primary , fontSize:11, }}> World Vision</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={colaboracionesStyle.text}>
-            <Text style={{ color: colors.primary , fontSize:11, }}> Iff</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={colaboracionesStyle.text}>
-            <Text style={{ color: colors.primary , fontSize:11, }}> Unifranz</Text>
-          </TouchableOpacity>
-        </View>
-      </View> */}
-      {/* <View
-        style={{ height: 80, justifyContent: "center", alignItems: "center"}}
-      >
-        <ScrollView horizontal style={{ marginTop: 1, height:'20%'}}>
-          
-          <Image
-            source={require("../../../assets/LOGOS/logo_Unifranz.png")}
-            style={loginstyle.logos}
-          />
-          <Image
-            source={require("../../../assets/LOGOS/save.png")}
-            style={loginstyle.logos}
-          />
-          <Image
-            source={require("../../../assets/LOGOS/vision.jpeg")}
-            style={loginstyle.logos}
-          />
+              </View>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
-      </View> */}
+      </View>
     </View>
   );
 };

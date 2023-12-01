@@ -7,6 +7,8 @@ import { router } from "expo-router";
 import useUserStore from "../components/context/UserContext";
 
 const Navigation = () => {
+
+
   const user = useUserStore((state) => state.user);
  
   return (
@@ -25,10 +27,7 @@ const Navigation = () => {
       <Text style={{ color:colors.CC }}>
         Bienvenido <Text  style={{fontSize:15,fontWeight:700}}> {user?.data?.nombre || "Invitado"}</Text>
       </Text>
-      {/* <Image
-        source={require("../../assets/fondo/munayki.png")}
-        style={{ width: 100, height:50 }}
-      /> */}
+  
      <View style={{flexDirection:"row",gap:10}}>
      <FontAwesome
         name="cog"
@@ -43,7 +42,6 @@ const Navigation = () => {
         color="rgb(73,39,121)"
         onPress={() => router.replace("/login")}
       />
-
      </View>
     </View>
   );

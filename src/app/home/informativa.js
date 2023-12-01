@@ -39,7 +39,7 @@ const informativa = () => {
           padding: "2%",
         }}
       >
-        Informacion
+        Información
       </Text>
       <ScrollView
         vertical

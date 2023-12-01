@@ -25,7 +25,7 @@ const Register = () => {
     apellido: "",
     edad: "",
     telefono: "",
-    carnet: "",
+    ubicacion: "",
     correo: "",
     password: "",
     rol: "logedApp",
@@ -38,7 +38,7 @@ const Register = () => {
       apellido: dataRegister.apellido,
       edad: +dataRegister.edad,
       telefono: +dataRegister.telefono,
-      carnet: +dataRegister.carnet,
+      ubicacion: dataRegister.ubicacion,
       correo: dataRegister.correo,
       password: dataRegister.password,
       rol: dataRegister.rol,
@@ -117,14 +117,14 @@ const Register = () => {
                 </>
               ) : (
                 <>
-                  <Text style={{ width: "100%", fontSize: 12 }}>Carnet</Text>
+                  <Text style={{ width: "100%", fontSize: 12 }}>Direccion</Text>
                   <TextInput
                     style={loginstyle.inputs}
-                    value={dataRegister.carnet}
+                    value={dataRegister.ubicacion}
                     onChangeText={(text) =>
-                      setDataRegister((old) => ({ ...old, carnet: text }))
+                      setDataRegister((old) => ({ ...old, ubicacion: text }))
                     }
-                    keyboardType="numeric"
+             
                   />
                   <Text style={{ width: "100%", fontSize: 12 }}>Correo</Text>
                   <TextInput

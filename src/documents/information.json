@@ -1,17 +1,17 @@
 {
-    "¡Creemos en ti, Denuncia!":{
-        "algoVistoso": "Muchas mujeres aún sienten miedo de hablar sobre estos ataques porque en la mayoría de los casos han naturalizado estas formas de violencia.",
-        "textCompleto": "textoCompleto",
-        "link": "https://munayki.cidtec-uc.com/#/rutadenuncias"
-    },
-    "Apoyo DURANTE y DESPUÉS de la denuncia":{
-        "algoVistoso": "El Slim, proporciona apoyo y seguimiento durante TODO el proceso de denuncia y juicio a las víctimas de violencia.",
-        "textCompleto": "textoCompleto",
-        "link": "https://drive.google.com/file/d/1pF-u-I9JzEH_8Jbl5B3MnmmG-G59CG-D/view?usp=sharing"
-    },
-    "¿Además de golpes, que otros tipos de violencia hay?":{
-        "algoVistoso": "Existen 16 tipos de violencia contra la mujer, y cada uno de estos actos tiene distintas consecuencias en las victimas, ¿sabe cuáles son?",
-        "textCompleto": "textoCompleto",
-        "link": "https://drive.google.com/file/d/12H1mpMnxDWGOuChdhHUsPd6HA3j0c7h6/view?usp=sharing"
-    }
+  "¡Creemos en ti, Denuncia!": {
+    "algoVistoso": "Muchas mujeres aún sienten miedo de hablar sobre estos ataques porque en la mayoría de los casos han naturalizado estas formas de violencia.",
+    "textCompleto": "textoCompleto",
+    "link": "https://munayki.cidtec-uc.com/#/rutadenuncias"
+  },
+  "Apoyo DURANTE y DESPUÉS de la denuncia": {
+    "algoVistoso": "El Slim, proporciona apoyo y seguimiento durante TODO el proceso de denuncia y juicio a las víctimas de violencia.",
+    "textCompleto": "textoCompleto",
+    "link": "https://drive.google.com/file/d/1pF-u-I9JzEH_8Jbl5B3MnmmG-G59CG-D/view?usp=sharing"
+  },
+  "¿Además de golpes, que otros tipos de violencia hay?": {
+    "algoVistoso": "Existen 16 tipos de violencia contra la mujer, y cada uno de estos actos tiene distintas consecuencias en las victimas, ¿sabe cuáles son?",
+    "textCompleto": "textoCompleto",
+    "link": "https://drive.google.com/file/d/12H1mpMnxDWGOuChdhHUsPd6HA3j0c7h6/view?usp=sharing"
+  }
 }

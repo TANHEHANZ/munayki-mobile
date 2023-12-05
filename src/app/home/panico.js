@@ -37,6 +37,8 @@ const Panico = () => {
   const user = useUserStore((state) => state.user);
   let userData = user.data.id;
 
+const ubicaiconUserMapa = "https://www.google.com/maps?q="+location.coords.latitude+","+location.coords.longitude;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -77,15 +79,16 @@ const Panico = () => {
       title: "Mensaje de Emergencia",
     });
   };
+  console.log(ubicaiconUserMapa)
   const enviarEmailsAContactos = async () => {
     if (data && data.length > 0) {
       for (let i = 0; i < data.length; i++) {
         const email = data[i].email;
-        const multimediaDataString = JSON.stringify(location);
+        const multimediaDataString = JSON.stringify(ubicaiconUserMapa);
         console.log(multimediaDataString);
         const res = await peticionPost("send-email", {
           to: email,
-          subject: "reporte de alerta MUNAYKI desde el botton de panico",
+          subject: "Reporte de alerta MUNAYKI desde el botton de panico",
           body: `
             Se ha presionado el botón de pánico. Datos recopilados: ,  foto recopilado :${fotosuser}, audio recopilado :${audioUser}
           ubiacion es : ${multimediaDataString}
@@ -241,11 +244,13 @@ const Panico = () => {
           style={{
             width: 200,
             height: 200,
-            backgroundColor: colors.primary,
+            backgroundColor: colors.CC,
             borderRadius: 100,
             justifyContent: "center",
             alignItems: "center",
             elevation: 10,
+          borderWidth:8,
+          borderColor:"#fff9"
           }}
         ></Text>
       </TouchableOpacity>

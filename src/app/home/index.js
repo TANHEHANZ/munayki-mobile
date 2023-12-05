@@ -117,7 +117,7 @@ const HomeScreens = () => {
             <TouchableOpacity
               style={{
                 width: 300,
-                height: 370,
+                height: '100%',
                 backgroundColor: getRandomColor(),
                 marginHorizontal: 20,
                 justifyContent: "flex-end",
@@ -128,12 +128,14 @@ const HomeScreens = () => {
               <View>
                 <Image
                   source={{ uri: value.imagen || imgdata }}
-                  style={{ width: 300, height: 210 }}
+                  style={{ width: 300, height: '54%' }}
+                  resizeMethod="auto"
+                  resizeMode="cover"
                 />
                 <Text
                   style={{
                     fontSize: 14,
-                    height: 52,
+                    height: '17%',
                     color: "#fff",
                     padding: 8,
                   }}

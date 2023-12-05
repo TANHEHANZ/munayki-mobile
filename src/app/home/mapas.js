@@ -44,7 +44,7 @@ const mapas = () => {
   }, []);
   return (
     <View
-      style={{ padding: 20, flexDirection: "row", flexWrap: "wrap", gap: 20 }}
+      style={{ padding: 20, flexDirection: "row", flexWrap: "wrap", gap: 11 }}
     >
       <Text style={{ fontSize: 18 }}>Ubicaciones ayuda mas cercana </Text>
       <Text style={{ fontSize: 14 }}>Ingrese un punto de partida</Text>

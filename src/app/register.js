@@ -126,6 +126,9 @@ const Register = () => {
                       zIndex: 100,
                       color: "#fff",
                       marginVertical: 10,
+                      fontSize: 12, // Ajusta el tamaño de la fuente
+                      height: '8%', // Ajusta la altura
+                      width: '100%',
                     }}
                     selectedValue={dataRegister.genero}
                     onValueChange={(itemValue) =>

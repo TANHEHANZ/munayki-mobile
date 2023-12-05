@@ -54,10 +54,9 @@ const Login = () => {
             </Text>
             <View
               style={{
-                paddingVertical: 50,
+                paddingVertical: '5%',
                 paddingHorizontal: 50,
                 height: 400,
-                gap: 10,
               }}
             >
               <Text style={{ width: "100%", fontSize: 12 }}>

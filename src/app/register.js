@@ -33,22 +33,84 @@ const Register = () => {
     genero: "",
   });
 
+  const validarDatos = () => {
+    if (!dataRegister.nombre) {
+      alert('Por favor, completa el campo nombre.');
+      return false;
+    } else if (!/^[a-zA-Z\s]*$/.test(dataRegister.nombre)) {
+      alert('El campo nombre solo debe contener letras y espacios.');
+      return false;
+    }
+    
+    if (!dataRegister.apellido) {
+      alert('Por favor, completa el campo apellido.');
+      return false;
+    } else if (!/^[a-zA-Z\s]*$/.test(dataRegister.apellido)) {
+      alert('El campo apellido solo debe contener letras y espacios.');
+      return false;
+    }
+    
+    if (!dataRegister.edad) {
+      alert('Por favor, completa el campo edad.');
+      return false;
+    } else if (!/^\d+$/.test(dataRegister.edad)) {
+      alert('El campo edad solo debe contener números.');
+      return false;
+    }
+    
+    if (!dataRegister.telefono) {
+      alert('Por favor, completa el campo teléfono.');
+      return false;
+    } else if (!/^\d+$/.test(dataRegister.telefono)) {
+      alert('El campo teléfono solo debe contener números.');
+      return false;
+    }
+    
+    if (!dataRegister.ubicacion) {
+      alert('Por favor, completa el campo ubicación.');
+      return false;
+    }
+    
+    if (!dataRegister.correo) {
+      alert('Por favor, completa el campo correo.');
+      return false;
+    } else if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+com$/.test(dataRegister.correo)) {
+      alert('El campo correo debe contener un "@" y terminar con ".com".');
+      return false;
+    }
+    
+    if (!dataRegister.password) {
+      alert('Por favor, completa el campo contraseña.');
+      return false;
+    }
+    
+  
+    if (!dataRegister.genero) {
+      alert('Por favor, selecciona un género.');
+      return false;
+    }
+  
+    return true;
+  };
+
   const handleSend = async () => {
-    const res = await peticionPost("user", {
-      nombre: dataRegister.nombre,
-      apellido: dataRegister.apellido,
-      edad: +dataRegister.edad,
-      telefono: +dataRegister.telefono,
-      ubicacion: dataRegister.ubicacion,
-      correo: dataRegister.correo,
-      password: dataRegister.password,
-      rol: dataRegister.rol,
-      genero: dataRegister.genero,
-    });
-    console.log(dataRegister);
-    res && res.message === "sucessully create"
-      ? (router.push("/login"), alert("Registrado"))
-      : alert(res.message);
+    if(validarDatos()){
+      const res = await peticionPost("user", {
+        nombre: dataRegister.nombre,
+        apellido: dataRegister.apellido,
+        edad: +dataRegister.edad,
+        telefono: +dataRegister.telefono,
+        ubicacion: dataRegister.ubicacion,
+        correo: dataRegister.correo,
+        password: dataRegister.password,
+        rol: dataRegister.rol,
+        genero: dataRegister.genero,
+      });
+      console.log(dataRegister);
+      res && res.message === "sucessully create"
+        ? (router.push("/login"), alert("Registrado"))
+        : alert(res.message);
+    }
   };
 
   return (

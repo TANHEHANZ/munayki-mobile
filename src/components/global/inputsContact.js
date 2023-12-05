@@ -18,24 +18,70 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
     relacion: "",
   });
 
+  const validarDatos = () => {
+    if (!datoscontact.nombre) {
+      alert('Por favor, completa el campo nombre.');
+      return false;
+    } else if (!/^[a-zA-Z\s]*$/.test(datoscontact.nombre)) {
+      alert('El campo nombre solo debe contener letras y espacios.');
+      return false;
+    }
+    
+    if (!datoscontact.email) {
+      alert('Por favor, completa el campo correo.');
+      return false;
+    } else if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+com$/.test(datoscontact.email)) {
+      alert('El campo Email debe contener un "@" y terminar con ".com".');
+      return false;
+    }
+    
+    if (!datoscontact.edad) {
+      alert('Por favor, completa el campo edad.');
+      return false;
+    } else if (!/^\d+$/.test(datoscontact.edad)) {
+      alert('El campo edad solo debe contener números.');
+      return false;
+    }
+    
+    if (!datoscontact.telefono) {
+      alert('Por favor, completa el campo teléfono.');
+      return false;
+    } else if (!/^\d+$/.test(datoscontact.telefono)) {
+      alert('El campo teléfono solo debe contener números.');
+      return false;
+    }
+
+    if (!datoscontact.relacion) {
+      alert('Por favor, completa el campo relacion.');
+      return false;
+    } else if (!/^[a-zA-Z]*$/.test(datoscontact.nombre)) {
+      alert('El campo relacion solo debe contener letras.');
+      return false;
+    }
+  
+    return true;
+  };
+
   const handleSend = async () => {
-    const res = await peticionPost("user/" + userData + "/contacts", {
-      nombre: datoscontact.nombre,
-      email: datoscontact.email,
-      edad: +datoscontact.edad,
-      telefono: +datoscontact.telefono,
-      relacion: datoscontact.relacion,
-    });
-    if (res) {
-      alert(res.message);
-      setMostrar(!mostrar);
-      setDatoscontact({
-        nombre: "",
-        email: "",
-        edad: "",
-        telefono: "",
-        relacion: "",
+    if(validarDatos()){
+      const res = await peticionPost("user/" + userData + "/contacts", {
+        nombre: datoscontact.nombre,
+        email: datoscontact.email,
+        edad: +datoscontact.edad,
+        telefono: +datoscontact.telefono,
+        relacion: datoscontact.relacion,
       });
+      if (res) {
+        alert(res.message);
+        setMostrar(!mostrar);
+        setDatoscontact({
+          nombre: "",
+          email: "",
+          edad: "",
+          telefono: "",
+          relacion: "",
+        });
+      }
     }
   };
 

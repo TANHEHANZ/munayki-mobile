@@ -47,63 +47,67 @@ const ResultQuizz = () => {
   const noLabel = `Respuestas "No" (${counts.noCount})`;
 
   return (
-  
-      <View style={{ justifyContent: "center", width: "100%",padding:20,}}>
-        <Text> Resultado </Text>
-        {Object.entries(data).map(([key, value], index) => (
-          <View key={index}>
-            <View>
-              <Text>puntuacion: {value.puntuacion}</Text>
-              <ScrollView
-                key={index}
-                style={{
-                  backgroundColor: colors.CC,
-                  marginVertical: 10,
-                  width: 310,
-                  height: 250,
-                  padding: 10,
-                  borderRadius: 7,
-                }}
-              >
-                {Object.entries(value.respuestas).map(
-                  ([pregunta, respuesta], index) => (
-                    <View style={{ padding: 10 }} key={index}>
-                      <Text style={{ color: colors.primary }}>
-                        Pregunta {pregunta}: {respuesta}
-                      </Text>
-                    </View>
-                  )
-                )}
-              </ScrollView>
+    <View style={{ justifyContent: "center", width: "100%", padding: 20 }}>
+      {data.length > 0 ? (
+        <>
+          <Text> Resultado </Text>
+          {Object.entries(data).map(([key, value], index) => (
+            <View key={index}>
+              <View>
+                <Text>puntuacion: {value.puntuacion}</Text>
+                <ScrollView
+                  key={index}
+                  style={{
+                    backgroundColor: colors.CC,
+                    marginVertical: 10,
+                    width: 310,
+                    height: 250,
+                    padding: 10,
+                    borderRadius: 7,
+                  }}
+                >
+                  {Object.entries(value.respuestas).map(
+                    ([pregunta, respuesta], index) => (
+                      <View style={{ padding: 10 }} key={index}>
+                        <Text style={{ color: colors.primary }}>
+                          Pregunta {pregunta}: {respuesta}
+                        </Text>
+                      </View>
+                    )
+                  )}
+                </ScrollView>
+              </View>
             </View>
-          </View>
-        ))}
-        <View style={dataStyle.contenido}>
-          <Text>
-            {siLabel} vs. {noLabel}
-          </Text>
-          <View style={{ height: 200, flexDirection: "row" }}>
-            <YAxis
-              data={[0, counts.siCount, counts.noCount]}
-              contentInset={contentInset}
-              svg={{ fontSize: 10, fill: "grey" }}
-              numberOfTicks={10}
-              formatLabel={(value) => value}
-            />
-            <View style={{ flex: 1, marginLeft: 10 }}>
-              <BarChart
-                style={{ flex: 1 }}
-                data={[counts.siCount, counts.noCount]}
-                svg={{ fill }}
+          ))}
+          <View style={dataStyle.contenido}>
+            <Text>
+              {siLabel} vs. {noLabel}
+            </Text>
+            <View style={{ height: 200, flexDirection: "row" }}>
+              <YAxis
+                data={[0, counts.siCount, counts.noCount]}
                 contentInset={contentInset}
-              >
-                <Grid />
-              </BarChart>
+                svg={{ fontSize: 10, fill: "grey" }}
+                numberOfTicks={10}
+                formatLabel={(value) => value}
+              />
+              <View style={{ flex: 1, marginLeft: 10 }}>
+                <BarChart
+                  style={{ flex: 1 }}
+                  data={[counts.siCount, counts.noCount]}
+                  svg={{ fill }}
+                  contentInset={contentInset}
+                >
+                  <Grid />
+                </BarChart>
+              </View>
             </View>
           </View>
-        </View>
-      </View>
-
+        </>
+      ) : (
+        <Text style={{ with: "100%" }}> No a realizado el quizz </Text>
+      )}
+    </View>
   );
 };
 

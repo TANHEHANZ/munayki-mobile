@@ -1,7 +1,7 @@
 import { http } from "./http";
 
 export const peticionPost = async (url, contenido) => {
-  const response = await fetch(http+url, {
+  const response = await fetch(http + url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

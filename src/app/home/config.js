@@ -22,7 +22,7 @@ const Config = () => {
     } else {
       alert("Patrón incorrecto. Inténtalo de nuevo.");
     }
-    setIsModalVisible(false); // Oculta el modal después de verificar el patrón
+    setIsModalVisible(false); 
   };
 
   console.log(password)
@@ -87,6 +87,13 @@ const Config = () => {
               <Text>Administrar contactos</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              style={loginstyle.button}
+              onPress={() => router.push("/home/resultQuizz")}
+            >
+              <Text>Ver resultados quizz</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
               style={{
                 ...loginstyle.button,
                 marginVertical: 0,
@@ -97,6 +104,8 @@ const Config = () => {
             >
               <Text style={{ color: colors.primary }}>Ocultar datos</Text>
             </TouchableOpacity>
+
+            
           </View>
         ) : (
           <View>
@@ -106,6 +115,7 @@ const Config = () => {
             >
               <Text>Ver Datos del Usuario</Text>
             </TouchableOpacity>
+           
           </View>
         )}
 

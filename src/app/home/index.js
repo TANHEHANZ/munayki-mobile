@@ -117,7 +117,7 @@ const HomeScreens = () => {
             <TouchableOpacity
               style={{
                 width: 300,
-                height: '100%',
+                felx:1,
                 backgroundColor: getRandomColor(),
                 marginHorizontal: 20,
                 justifyContent: "flex-end",
@@ -167,7 +167,7 @@ const HomeScreens = () => {
                       color: "#fff",
                       backgroundColor: "#0007",
                       position:"absolute",
-                      height: "100%",
+                      flex:1,
                       width: 110,
                       paddingHorizontal: 20,
                       borderRadius:10,

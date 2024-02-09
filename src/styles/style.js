@@ -94,7 +94,7 @@ export const nav = StyleSheet.create({
 
 export const dataScroll = StyleSheet.create({
   div: {
-    height:'100%',
+    flex:1,
     width: 30,
     backgroundColor: colors.C,
     marginHorizontal: 10,

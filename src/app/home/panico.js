@@ -14,11 +14,8 @@ const Panico = () => {
   const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
   const [hasPermissionAudio, setHasPermissionAudio] = useState(null);
   const cameraRef = useRef(null);
-  const [photoData, setPhotoData] = useState(null);
-  const [recording, setRecording] = useState();
+
   const [porcentaje, setPorcentaje] = useState(0);
-  const tipoFoto = useState("png");
-  const tipoAudio = useState("m4a");
 
   const [fotosuser, setFotosuser] = useState("");
   const [audioUser, setAudioUser] = useState("");
@@ -49,21 +46,21 @@ const Panico = () => {
         latitud: +location.coords.latitude,
       });
       res && res.message === "Correos enviados y datos guardados correctamente"
-        ? (router.replace("/login"),
-          console.log("Reporte enviado"))
+        ? (router.replace("/login"), console.log("Reporte enviado"))
         : alert(res.message);
     }
   };
 
   useEffect(() => {
-      handleSend();
+    handleSend();
   }, [fotosuser, audioUser]);
 
   const handleCapturePhoto = async () => {
     try {
       if (hasPermissionCamera && cameraRef.current) {
-        const photo = await cameraRef.current.takePictureAsync();
-        console.log("Photo taken:", photo);
+        const photo = await cameraRef.current.takePictureAsync({
+          quality: 0.4,
+        });
         await enviarFoto(photo.uri);
         await MediaLibrary.saveToLibraryAsync(photo.uri);
       }
@@ -89,7 +86,6 @@ const Panico = () => {
         const { recording: newRecording } = await Audio.Recording.createAsync(
           Audio.Recoding_OPTIONS_PRESET_HIGH_QUALITY
         );
-        setRecording(newRecording);
         setTimeout(() => {
           if (newRecording) {
             stopRecording(newRecording);
@@ -106,7 +102,6 @@ const Panico = () => {
       await recordingToStop.stopAndUnloadAsync();
       const { status } = await recordingToStop.createNewLoadedSoundAsync();
       const uri = recordingToStop.getURI();
-      setRecording(undefined);
       if (uri) {
         const url = await sendCloudinary(uri, setPorcentaje);
         setAudioUser(url);

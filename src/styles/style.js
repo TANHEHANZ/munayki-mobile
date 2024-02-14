@@ -191,18 +191,16 @@ export const mapButton = StyleSheet.create({
 
 export const dangerButton = StyleSheet.create({
   button: {
-    position: "relative",
-    bottom: 0,
-    right:0,
+    width:60,
     backgroundColor: colors.B,
     alignItems: "center",
-    paddingVertical: 15,
-    paddingHorizontal: 25,
     borderRadius: 5,
     ...sharedStyles.shadowBox,
   },
   text: {
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    alignItems: "center",
     color: colors.primary,
-    fontSize: 15,
   },
 });

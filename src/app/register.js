@@ -35,66 +35,69 @@ const Register = () => {
 
   const validarDatos = () => {
     if (!dataRegister.nombre) {
-      alert('Por favor, completa el campo nombre.');
+      alert("Por favor, completa el campo nombre.");
       return false;
     } else if (!/^[a-zA-Z\s]*$/.test(dataRegister.nombre)) {
-      alert('El campo nombre solo debe contener letras y espacios.');
+      alert("El campo nombre solo debe contener letras y espacios.");
       return false;
     }
-    
+
     if (!dataRegister.apellido) {
-      alert('Por favor, completa el campo apellido.');
+      alert("Por favor, completa el campo apellido.");
       return false;
     } else if (!/^[a-zA-Z\s]*$/.test(dataRegister.apellido)) {
-      alert('El campo apellido solo debe contener letras y espacios.');
+      alert("El campo apellido solo debe contener letras y espacios.");
       return false;
     }
-    
+
     if (!dataRegister.edad) {
-      alert('Por favor, completa el campo edad.');
+      alert("Por favor, completa el campo edad.");
       return false;
     } else if (!/^\d+$/.test(dataRegister.edad)) {
-      alert('El campo edad solo debe contener números.');
+      alert("El campo edad solo debe contener números.");
       return false;
     }
-    
+
     if (!dataRegister.telefono) {
-      alert('Por favor, completa el campo teléfono.');
+      alert("Por favor, completa el campo teléfono.");
       return false;
     } else if (!/^\d+$/.test(dataRegister.telefono)) {
-      alert('El campo teléfono solo debe contener números.');
+      alert("El campo teléfono solo debe contener números.");
       return false;
     }
-    
+
     if (!dataRegister.ubicacion) {
-      alert('Por favor, completa el campo ubicación.');
+      alert("Por favor, completa el campo ubicación.");
       return false;
     }
-    
-    if (!dataRegister.correo) {
-      alert('Por favor, completa el campo correo.');
-      return false;
-    } else if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+com$/.test(dataRegister.correo)) {
-      alert('El campo correo debe contener un "@" y terminar con ".com".');
-      return false;
-    }
-    
+
+    // if (!dataRegister.correo) {
+    //   alert("Por favor, completa el campo correo.");
+    //   return false;
+    // } else if (
+    //   /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+    //     dataRegister.correo
+    //   )
+    // ) {
+    //   alert('El campo correo debe contener un "@" y terminar con ".com".');
+    //   return false;
+    // }
+
     if (!dataRegister.password) {
-      alert('Por favor, completa el campo contraseña.');
+      alert("Por favor, completa el campo contraseña.");
       return false;
     }
-    
-  
+
     if (!dataRegister.genero) {
-      alert('Por favor, selecciona un género.');
+      alert("Por favor, selecciona un género.");
       return false;
     }
-  
+
     return true;
   };
 
   const handleSend = async () => {
-    if(validarDatos()){
+    if (validarDatos()) {
       const res = await peticionPost("user", {
         nombre: dataRegister.nombre,
         apellido: dataRegister.apellido,
@@ -107,7 +110,7 @@ const Register = () => {
         genero: dataRegister.genero,
       });
       console.log(dataRegister);
-      res && res.message === "sucessully create"
+      res && res.message === "Usuario creado exitosamente"
         ? (router.push("/login"), alert("Registrado"))
         : alert(res.message);
     }
@@ -189,8 +192,8 @@ const Register = () => {
                       color: "#fff",
                       marginVertical: 10,
                       fontSize: 12, // Ajusta el tamaño de la fuente
-                      height: '8%', // Ajusta la altura
-                      width: '100%',
+                      height: "8%", // Ajusta la altura
+                      width: "100%",
                     }}
                     selectedValue={dataRegister.genero}
                     onValueChange={(itemValue) =>

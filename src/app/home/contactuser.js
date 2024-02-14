@@ -25,14 +25,13 @@ const Contactuser = () => {
       console.error("Error al obtener datos:", error);
     }
   };
-  console.log(data);
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Contactos</Text>
+      <Text style={{fontSize:20}}>Contactos</Text>
       <FlatList
         style={{
           flexDirection: "column",
@@ -45,7 +44,7 @@ const Contactuser = () => {
         renderItem={({ item }) => (
           <View
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: "#f2f2f2",
               ...sharedStyles.shadowBox,
               marginVertical: 10,
               width: "100%",
@@ -74,18 +73,32 @@ const Contactuser = () => {
                 Relacion: {item.relacion}
               </Text>
             </View>
-            <TouchableOpacity
+          <View style={{flexDirection:"row" , gap:10}}>
+          <TouchableOpacity
               style={{ ...dangerButton.button }}
               onPress={() => handleDelete(userData, item.id)}
             >
               <Text style={{ ...dangerButton.text }}>
                 <FontAwesome
-                  name="userTimes"
-                  size={30}
+                  name="trash"
+                  size={20}
                   color={"rgb(73,39,121)"}
                 />
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={{ ...dangerButton.button , backgroundColor: colors.DD,}}
+              onPress={() => handleDelete(userData, item.id)}
+            >
+              <Text style={{ ...dangerButton.text }}>
+                <FontAwesome
+                  name="edit"
+                  size={20}
+                  color={"rgb(73,39,121)"}
+                />
+              </Text>
+            </TouchableOpacity>
+          </View>
           </View>
         )}
       />

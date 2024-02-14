@@ -5,15 +5,13 @@ import useUserStore from "../../components/context/UserContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { peticionDelete } from "../../utilitis/deleteRequest";
 import { colors, sharedStyles } from "../../styles/CompStyle";
-import { dangerButton, contactStyle } from "../../styles/style";
-
+import { dangerButton } from "../../styles/style";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 const Contactuser = () => {
   const [data, setData] = useState("");
   const user = useUserStore((state) => state.user);
-
   let userData = user.data.id;
-
   const handleDelete = async (userId, contactId) => {
     const res = await peticionDelete(`user/${userId}/contacts/${contactId}`);
     alert(res.message);
@@ -21,32 +19,25 @@ const Contactuser = () => {
   };
   const fetchData = async () => {
     try {
-      const result = await peticionGet(`user/${userData}/contacts`);
+      const result = await peticionGet(`contacts/${userData}/?userConact=true`);
       setData(result);
     } catch (error) {
       console.error("Error al obtener datos:", error);
     }
-    console.log(data);
   };
+  console.log(data);
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{
-        fontSize:30,
-        color: colors.black,
-        textAlign: "center",
-        width: "100%",
-        padding: "2%",
-      }}>Contactos</Text>
+      <Text>Contactos</Text>
       <FlatList
         style={{
-          flexDirection: "row",
+          flexDirection: "column",
           gap: 5,
-          width: '96%',
-          flexWrap: "wrap",
+          width: "100%",
           padding: 20,
         }}
         data={data}
@@ -54,24 +45,46 @@ const Contactuser = () => {
         renderItem={({ item }) => (
           <View
             style={{
-              backgroundColor: colors.CC,
+              backgroundColor: "#fff",
+              ...sharedStyles.shadowBox,
               marginVertical: 10,
-              width: 310,
-              flexDirection: "row",
+              width: "100%",
+              height: 200,
+              flexDirection: "column",
               justifyContent: "space-around",
-              alignItems: "center",
-              padding: 10,
-              borderRadius:7,
+              alignItems: "start",
+              padding: 20,
+              borderRadius: 7,
             }}
           >
-            <View>
-              <Text style={{color: colors.primary,}}>Nombre: {item.nombre} {item.apellido}</Text>
-              <Text style={{color: colors.primary,}}>Edad: {item.edad}</Text>
-              <Text style={{color: colors.primary,}}>Telefono: {item.telefono}</Text>
-              <Text style={{color: colors.primary,}}>Relacion: {item.relacion}</Text>
+            <View
+              style={{
+                height: 150,
+                position: "relative",
+              }}
+            >
+              <Text style={{ color: colors.CC }}>Detalles de contacto</Text>
+              <Text style={{ color: colors.CC }}>Nombre: {item.nombre}</Text>
+              <Text style={{ color: colors.CC }}>Edad: {item.edad}</Text>
+              <Text style={{ color: colors.CC }}>
+                Telefono: {item.telefono}
+              </Text>
+              <Text style={{ color: colors.CC }}>Email: {item.email}</Text>
+              <Text style={{ color: colors.CC }}>
+                Relacion: {item.relacion}
+              </Text>
             </View>
-            <TouchableOpacity style={{...dangerButton.button}} onPress={() => handleDelete(userData, item.id)}>
-              <Text style={{...dangerButton.text}}>Eliminar</Text>
+            <TouchableOpacity
+              style={{ ...dangerButton.button }}
+              onPress={() => handleDelete(userData, item.id)}
+            >
+              <Text style={{ ...dangerButton.text }}>
+                <FontAwesome
+                  name="userTimes"
+                  size={30}
+                  color={"rgb(73,39,121)"}
+                />
+              </Text>
             </TouchableOpacity>
           </View>
         )}

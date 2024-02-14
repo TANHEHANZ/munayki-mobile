@@ -5,56 +5,22 @@ import {
   Text,
   View,
   Linking,
+  RefreshControl
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { colors, sharedStyles } from "../../styles/CompStyle";
-import {
-  colaboracionesStyle,
-  dataScroll,
-  loginstyle,
-} from "../../styles/style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from "expo-router";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import useLocationStore from "../../components/context/UbicacionContext";
-import * as Location from "expo-location";
-import { peticionGet } from "../../utilitis/getRequest";
+import { getRequestWithCache } from "../../utilitis/getRequest";
 import { imgdata } from "../../../assets/icon.png";
-import Informativa from "./informativa";
-
+import { getRandomColor } from "../../components/colorRandom";
+import LocationComponent from "../../components/permisos/location";
 const HomeScreens = () => {
-  const setLocation = useLocationStore((state) => state.setLocation);
-  const location = useLocationStore((state) => state.location);
   const [data, setData] = useState("");
-  let colorArray = [colors.A, colors.B, colors.C, colors.D, colors.F];
-  const getRandomColor = () => {
-    const randomIndex = Math.floor(Math.random() * colorArray.length);
-    const color = colorArray[randomIndex];
-    colorArray = colorArray.filter((_, index) => index !== randomIndex);
-    if (colorArray.length == 0) {
-      colorArray = [colors.A, colors.B, colors.C, colors.D, colors.F];
-    }
-    return color;
-  };
-
-  const getLocationAsync = async () => {
-    try {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.error("Permiso de ubicación no otorgado");
-        return;
-      }
-
-      let locationData = await Location.getCurrentPositionAsync({});
-      setLocation(locationData);
-    } catch (error) {
-      console.error("Error al obtener la ubicación:", error);
-    }
-  };
-
   const fetchData = async () => {
     try {
-      const result = await peticionGet("info");
+      const result = await getRequestWithCache("info");
       setData(result);
     } catch (error) {
       console.error("Error al obtener datos:", error);
@@ -62,12 +28,12 @@ const HomeScreens = () => {
   };
 
   useEffect(() => {
-    getLocationAsync();
     fetchData();
   }, []);
 
   return (
     <View style={styles.bodyContainer}>
+      <LocationComponent />
       <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>
         Munayki "Yo te Cuido"
       </Text>

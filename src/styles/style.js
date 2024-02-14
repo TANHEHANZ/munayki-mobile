@@ -22,8 +22,8 @@ export const loginstyle = StyleSheet.create({
   inputs: {
     width: "100%",
     backgroundColor: "transparent",
-    height: '8%',
-    margin: '2%',
+    height: "8%",
+    margin: "2%",
   },
   button: {
     marginVertical: "2%",
@@ -69,9 +69,10 @@ export const nav = StyleSheet.create({
   icons: {
     flexDirection: "column",
     gap: 5,
-    padding: 5,
+    padding: 20,
     justifyContent: "center",
     alignItems: "center",
+    // backgroundColor:"#000"
   },
   button: {
     ...sharedStyles.shadowBox,
@@ -94,7 +95,7 @@ export const nav = StyleSheet.create({
 
 export const dataScroll = StyleSheet.create({
   div: {
-    flex:1,
+    flex: 1,
     width: 30,
     backgroundColor: colors.C,
     marginHorizontal: 10,
@@ -118,12 +119,12 @@ export const dataScroll = StyleSheet.create({
 });
 export const dataScrollV = StyleSheet.create({
   div: {
-    width: '50%',
+    width: "50%",
     backgroundColor: colors.C,
     borderRadius: 10,
     ...sharedStyles.shadowBox,
   },
-  title:{
+  title: {
     color: colors.black,
     fontSize: 25,
     textAlign: "center",
@@ -136,7 +137,7 @@ export const modal = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 30,
     gap: 20,
-    borderRadius:10
+    borderRadius: 10,
   },
 });
 
@@ -190,6 +191,9 @@ export const mapButton = StyleSheet.create({
 
 export const dangerButton = StyleSheet.create({
   button: {
+    position: "relative",
+    bottom: 0,
+    right:0,
     backgroundColor: colors.B,
     alignItems: "center",
     paddingVertical: 15,

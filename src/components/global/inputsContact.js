@@ -1,69 +1,71 @@
 import {
   View,
   Text,
-  ScrollView,
   TextInput,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { contactStyle } from "../../styles/style";
 import { peticionPost } from "../../utilitis/postRequest";
+import { ScrollView } from "react-native-gesture-handler";
 
 const InputsContact = ({ mostrar, userData, setMostrar }) => {
-  const [datoscontact, setDatoscontact] = useState({
+  let datos = {
     nombre: "",
     email: "",
     edad: "",
     telefono: "",
     relacion: "",
-  });
+  };
+  const [datoscontact, setDatoscontact] = useState(datos);
 
   const validarDatos = () => {
     if (!datoscontact.nombre) {
-      alert('Por favor, completa el campo nombre.');
+      alert("Por favor, completa el campo nombre.");
       return false;
     } else if (!/^[a-zA-Z\s]*$/.test(datoscontact.nombre)) {
-      alert('El campo nombre solo debe contener letras y espacios.');
+      alert("El campo nombre solo debe contener letras y espacios.");
       return false;
     }
-    
+
     if (!datoscontact.email) {
-      alert('Por favor, completa el campo correo.');
+      alert("Por favor, completa el campo correo.");
       return false;
     } else if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+com$/.test(datoscontact.email)) {
       alert('El campo Email debe contener un "@" y terminar con ".com".');
       return false;
     }
-    
+
     if (!datoscontact.edad) {
-      alert('Por favor, completa el campo edad.');
+      alert("Por favor, completa el campo edad.");
       return false;
     } else if (!/^\d+$/.test(datoscontact.edad)) {
-      alert('El campo edad solo debe contener números.');
+      alert("El campo edad solo debe contener números.");
       return false;
     }
-    
+
     if (!datoscontact.telefono) {
-      alert('Por favor, completa el campo teléfono.');
+      alert("Por favor, completa el campo teléfono.");
       return false;
     } else if (!/^\d+$/.test(datoscontact.telefono)) {
-      alert('El campo teléfono solo debe contener números.');
+      alert("El campo teléfono solo debe contener números.");
       return false;
     }
 
     if (!datoscontact.relacion) {
-      alert('Por favor, completa el campo relacion.');
+      alert("Por favor, completa el campo relacion.");
       return false;
-    } else if (!/^[a-zA-Z]*$/.test(datoscontact.nombre)) {
-      alert('El campo relacion solo debe contener letras.');
+    } else if (!/^[a-zA-Z]*$/.test(datoscontact.relacion)) {
+      alert("El campo relacion solo debe contener letras.");
       return false;
     }
-  
+
     return true;
   };
 
   const handleSend = async () => {
-    if(validarDatos()){
+    if (validarDatos()) {
       const res = await peticionPost("user/" + userData + "/contacts", {
         nombre: datoscontact.nombre,
         email: datoscontact.email,
@@ -74,22 +76,21 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
       if (res) {
         alert(res.message);
         setMostrar(!mostrar);
-        setDatoscontact({
-          nombre: "",
-          email: "",
-          edad: "",
-          telefono: "",
-          relacion: "",
-        });
+        setDatoscontact(datos);
       }
     }
   };
-
   return (
     <>
       {mostrar ? (
-        <View style={{ width: "80%" }}>
-          <Text>Nombre</Text>
+        <ScrollView
+          style={{
+            width: "80%",
+            backgroundColor: "#fff",
+            height:"65%"
+          }}
+        >
+          <Text style={{ color: "#000" }}>Nombre</Text>
           <TextInput
             value={datoscontact.nombre}
             onChangeText={(text) =>
@@ -143,7 +144,7 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
       ) : (
         <>
           <Text style={{ fontSize: 20 }}>Agrega Contactos </Text>

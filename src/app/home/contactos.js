@@ -1,56 +1,41 @@
 import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { contactStyle, loginstyle } from "../../styles/style";
+import { contactStyle } from "../../styles/style";
 import { colors } from "../../styles/CompStyle";
 import InputsContact from "../../components/global/inputsContact";
 import { peticionGet } from "../../utilitis/getRequest";
 import useUserStore from "../../components/context/UserContext";
-import { useContactStore } from "../../components/context/ContactContext";
-
+import { ConStyle } from "../../styles/contact";
 
 const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
-  const [data, setData] = useState("");
-  const user = useUserStore((state) => state.user);
-
-  const updateContact = useContactStore((state) => state.setContacts);
-
+  const [data, setData] = useState(0);
+  const { user } = useUserStore();
   let userData = user.data.id;
-
+  const fetchData = async () => {
+    try {
+      const result = await peticionGet("contacts/" + userData);
+      setData(result);
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await peticionGet("user/" + userData + "/contacts");
-        setData(result);
-        updateContact(result);
-
-      } catch (error) {
-        console.error("Error al obtener datos:", error);
-      }
-    };
     fetchData();
-
   }, [mostrar]);
 
-
-
   return (
-    <View
-      style={{
-        flex:1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text style={{ margin: 30 }}>Contactos Registrados :{data.length}</Text>
+    <View style={ConStyle.contenedor}>
+      <Text style={{ margin: 40 }}>Contactos Registrados :{data}</Text>
+      <InputsContact
+        mostrar={mostrar}
+        userData={userData}
+        setMostrar={setMostrar}
+      />
 
-      <InputsContact mostrar={mostrar} userData={userData} setMostrar={setMostrar} />
-
-      {data.length === 3 ? (
-        <Text style={{ textAlign: "center", width: "100%" }}>
-          Ya agrego los tres contactos
-        </Text>
+      {data === 3 ? (
+        <Text style={ConStyle.text}>Ya agrego los tres contactos</Text>
       ) : !mostrar ? (
         <TouchableOpacity
           style={contactStyle.button}
@@ -58,7 +43,7 @@ const Contactos = () => {
             setMostrar(!mostrar);
           }}
         >
-          <Text style={{ textAlign: "center", width: "100%" }}>Agregar</Text>
+          <Text style={ConStyle.text}>Agregar</Text>
         </TouchableOpacity>
       ) : (
         ""

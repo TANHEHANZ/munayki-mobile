@@ -2,9 +2,7 @@ import { View, Text, ScrollView, Linking, Image, FlatList } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { colors } from "../../styles/CompStyle";
 import React, { useEffect, useState } from "react";
-import information from "../../documents/information.json";
-
-import { peticionGet } from "../../utilitis/getRequest";
+import { peticionGet, getRequestWithCache } from "../../utilitis/getRequest";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MapasData } from "../../documents/mapa";
 
@@ -13,7 +11,7 @@ const Informativa = () => {
 
   const fetchData = async () => {
     try {
-      const result = await peticionGet("info");
+      const result = await getRequestWithCache("info");
       setData(result);
     } catch (error) {
       console.error("Error al obtener datos:", error);
@@ -107,13 +105,15 @@ const Informativa = () => {
             </View>
           ))}
         </ScrollView>
-        <Text  style={{
+        <Text
+          style={{
             fontSize: 15,
             color: colors.CC,
             textAlign: "left",
             width: "100%",
             padding: "5%",
-          }}>
+          }}
+        >
           <FontAwesome name="map" size={20} color="rgb(73,39,121)" /> Donde
           acudir en caso de denuncia{" "}
         </Text>

@@ -15,7 +15,6 @@ const LocationComponent = () => {
       }
       let locationData = await Location.getCurrentPositionAsync({});
       setLocation(locationData);
-      console.log("Pedir Permisos", locationData);
     } catch (error) {
       console.error("Error al obtener la ubicación:", error);
     }

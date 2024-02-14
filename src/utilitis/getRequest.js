@@ -11,6 +11,10 @@ export const peticionGet = async (url) => {
   });
   if (response.ok) {
     const json = await response.json();
+    await AsyncStorage.setItem(http + url, JSON.stringify(json));
+    const cachedData = await AsyncStorage.getItem(http + url);
+
+    console.log("datos enviados a cache ", JSON.parse(cachedData));
     return json;
   }
   return null;
@@ -20,27 +24,12 @@ export const getRequestWithCache = async (url) => {
   try {
     const cachedData = await AsyncStorage.getItem(http + url);
     if (cachedData !== null) {
-      console.log("retorna datos desde el cache", cachedData);
+      console.log("datos de caché");
       return JSON.parse(cachedData);
-    } else {
-      const response = await fetch(http + url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      const data = await response.json();
-
-      await AsyncStorage.setItem(http + url, JSON.stringify(data));
-      console.log("peticion de la api", data);
-      return data;
     }
+    await peticionGet(url);
   } catch (error) {
     console.error("Error al obtener datos de caché:", error);
     throw error;
   }
 };
-
-// const getCacheKey = await AsyncStorage.getAllKeys();
-// console.log(getCacheKey);

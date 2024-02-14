@@ -5,28 +5,38 @@ import {
   Text,
   View,
   Linking,
-  RefreshControl
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { colors, sharedStyles } from "../../styles/CompStyle";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from "expo-router";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { getRequestWithCache } from "../../utilitis/getRequest";
+import { getRequestWithCache, peticionGet } from "../../utilitis/getRequest";
 import { imgdata } from "../../../assets/icon.png";
 import { getRandomColor } from "../../components/colorRandom";
 import LocationComponent from "../../components/permisos/location";
 const HomeScreens = () => {
   const [data, setData] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    const resultado = await peticionGet("info");
+    setData(resultado);
+    if (resultado.length > 0) {
+      setRefreshing(false);
+    }
+  };
+
   const fetchData = async () => {
     try {
       const result = await getRequestWithCache("info");
       setData(result);
     } catch (error) {
       console.error("Error al obtener datos:", error);
+      setRefreshing(false);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -69,6 +79,14 @@ const HomeScreens = () => {
         }}
       >
         <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[colors.C, colors.AA]}
+              progressBackgroundColor="#000"
+            />
+          }
           horizontal
           style={{
             paddingVertical: 15,
@@ -83,7 +101,7 @@ const HomeScreens = () => {
             <TouchableOpacity
               style={{
                 width: 300,
-                felx:1,
+                felx: 1,
                 backgroundColor: getRandomColor(),
                 marginHorizontal: 20,
                 justifyContent: "flex-end",
@@ -94,14 +112,14 @@ const HomeScreens = () => {
               <View>
                 <Image
                   source={{ uri: value.imagen || imgdata }}
-                  style={{ width: 300, height: '54%' }}
+                  style={{ width: 300, height: "54%" }}
                   resizeMethod="auto"
                   resizeMode="cover"
                 />
                 <Text
                   style={{
                     fontSize: 14,
-                    height: '17%',
+                    height: "17%",
                     color: "#fff",
                     padding: 8,
                   }}
@@ -115,7 +133,7 @@ const HomeScreens = () => {
                     borderColor: "#0005",
                     padding: 15,
                     color: "#fff",
-                    position: "relative"
+                    position: "relative",
                   }}
                 >
                   {value.cuerpo}
@@ -124,7 +142,7 @@ const HomeScreens = () => {
                   style={{
                     height: 50,
                     elevation: 1,
-                    bottom:20
+                    bottom: 20,
                   }}
                   onPress={() => Linking.openURL(value.url)}
                 >
@@ -132,11 +150,11 @@ const HomeScreens = () => {
                     style={{
                       color: "#fff",
                       backgroundColor: "#0007",
-                      position:"absolute",
-                      flex:1,
+                      position: "absolute",
+                      flex: 1,
                       width: 110,
                       paddingHorizontal: 20,
-                      borderRadius:10,
+                      borderRadius: 10,
                       right: -5,
                     }}
                   >

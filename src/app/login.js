@@ -14,6 +14,8 @@ import { loginstyle } from "../styles/style";
 import { colors } from "../styles/CompStyle";
 import { peticionPost } from "../utilitis/postRequest";
 import useUserStore from "../components/context/UserContext";
+import LocationComponent from "../components/permisos/location";
+import NotificationComponent from "../components/permisos/camera";
 const Login = () => {
   const [dataLogin, setDataLogin] = useState({
     correo: "",
@@ -39,6 +41,8 @@ const Login = () => {
   };
   return (
     <>
+      <LocationComponent />
+      <NotificationComponent />
       <ImageBackground
         source={require("../../assets/imagendos.jpeg")}
         style={loginstyle.backgroundImage}

@@ -23,7 +23,9 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "softwareKeyboardLayoutMode": "pan"
-      }
+      },  
+      "useNextNotificationsApi": true,
+      "versionCode": 6
     },
     "web": {
       "favicon": "./assets/favicon.png"

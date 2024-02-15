@@ -10,12 +10,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { colors, sharedStyles } from "../../styles/CompStyle";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { router } from "expo-router";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { getRequestWithCache, peticionGet } from "../../utilitis/getRequest";
 import { imgdata } from "../../../assets/icon.png";
 import { getRandomColor } from "../../components/colorRandom";
 import LocationComponent from "../../components/permisos/location";
+import NotificationComponent from "../../components/permisos/camera";
+import { router } from "expo-router";
 const HomeScreens = () => {
   const [data, setData] = useState("");
   const [refreshing, setRefreshing] = useState(false);
@@ -43,7 +44,7 @@ const HomeScreens = () => {
 
   return (
     <View style={styles.bodyContainer}>
-      <LocationComponent />
+    
       <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>
         Munayki "Yo te Cuido"
       </Text>
@@ -66,6 +67,7 @@ const HomeScreens = () => {
             borderRadius: 30,
             borderWidth: 0,
           }}
+          onPress={() => router.push("/home/altertas/boton")}
         >
           <FontAwesome name="download" size={30} color={"rgb(73,39,121)"} />
         </TouchableOpacity>

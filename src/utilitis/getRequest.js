@@ -9,7 +9,6 @@ export const peticionGet = async (url) => {
     const json = await response.json();
     await AsyncStorage.setItem(http + url, JSON.stringify(json));
     const cachedData = await AsyncStorage.getItem(http + url);
-
     console.log("datos enviados a cache ", JSON.parse(cachedData));
     return json;
   }

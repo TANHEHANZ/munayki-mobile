@@ -9,20 +9,25 @@ import useUserStore from "../../components/context/UserContext";
 import useLocationStore from "../../components/context/UbicacionContext";
 import { router } from "expo-router";
 import { Audio } from "expo-av";
+import { useTokenContact } from "../../components/context/ContactContext";
+import { sendPushNotification } from "./altertas/pushnotification";
+import { handleUpdate } from "../../routing/navigationtop";
 
 const Panico = () => {
   const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
   const [hasPermissionAudio, setHasPermissionAudio] = useState(null);
   const cameraRef = useRef(null);
-
   const [porcentaje, setPorcentaje] = useState(0);
-
   const [fotosuser, setFotosuser] = useState("");
   const [audioUser, setAudioUser] = useState("");
   const location = useLocationStore((state) => state.location);
   const user = useUserStore((state) => state.user);
-  let userData = user.data.id;
-
+  let userData = user.login[0].id;
+  const { tokencontact } = useTokenContact();
+  const handleSendNotification = async () => {
+    console.log("redisSendNotification");
+    await sendPushNotification(tokencontact);
+  };
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -46,7 +51,7 @@ const Panico = () => {
         latitud: +location.coords.latitude,
       });
       res && res.message === "Correos enviados y datos guardados correctamente"
-        ? (router.replace("/login"), console.log("Reporte enviado"))
+        ? handleUpdate(userData)
         : alert(res.message);
     }
   };
@@ -112,7 +117,11 @@ const Panico = () => {
 
   const handleCaptureAndRecord = async () => {
     try {
-      await Promise.all([handleCapturePhoto(), startRecording()]);
+      await Promise.all([
+        handleCapturePhoto(),
+        startRecording(),
+        handleSendNotification(),
+      ]);
     } catch (error) {
       console.error("Error capturing photo and recording audio:", error);
     }

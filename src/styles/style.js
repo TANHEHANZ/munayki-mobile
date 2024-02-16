@@ -22,8 +22,9 @@ export const loginstyle = StyleSheet.create({
   inputs: {
     width: "100%",
     backgroundColor: "transparent",
-    height: "8%",
-    margin: "2%",
+    height: "14%",
+    margin: ".5%",
+    
   },
   button: {
     marginVertical: "2%",
@@ -164,7 +165,7 @@ export const contactStyle = StyleSheet.create({
     ...loginstyle.inputs,
     borderBottomWidth: 1,
     borderBottomColor: colors.CC,
-    marginBottom: 10,
+    marginBottom: 5,
     margin: 0,
   },
   button: {
@@ -173,7 +174,7 @@ export const contactStyle = StyleSheet.create({
     elevation: 5,
     backgroundColor: colors.primary,
   },
-  text: { fontSize: 11, width: "70%", textAlign: "center" },
+  text: { fontSize: 11, width: "70%", textAlign: "center",height:40 },
 });
 
 export const mapButton = StyleSheet.create({

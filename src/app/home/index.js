@@ -14,9 +14,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { getRequestWithCache, peticionGet } from "../../utilitis/getRequest";
 import { imgdata } from "../../../assets/icon.png";
 import { getRandomColor } from "../../components/colorRandom";
-import LocationComponent from "../../components/permisos/location";
-import NotificationComponent from "../../components/permisos/camera";
 import { router } from "expo-router";
+import useUserStore from "../../components/context/UserContext";
+import { useTokenContact } from "../../components/context/ContactContext";
 const HomeScreens = () => {
   const [data, setData] = useState("");
   const [refreshing, setRefreshing] = useState(false);
@@ -28,10 +28,16 @@ const HomeScreens = () => {
       setRefreshing(false);
     }
   };
-
+  const { user } = useUserStore();
+  const { setTokenContat } = useTokenContact();
+  let userData = user.login[0].id;
   const fetchData = async () => {
     try {
       const result = await getRequestWithCache("info");
+      const conctUser = await peticionGet(
+        "contactosfilterNick/" + userData
+      );
+      setTokenContat(conctUser);
       setData(result);
     } catch (error) {
       console.error("Error al obtener datos:", error);
@@ -44,7 +50,6 @@ const HomeScreens = () => {
 
   return (
     <View style={styles.bodyContainer}>
-    
       <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>
         Munayki "Yo te Cuido"
       </Text>

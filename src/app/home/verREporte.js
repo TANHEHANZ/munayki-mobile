@@ -9,7 +9,7 @@ const verREporte = () => {
   const [data, setData] = useState("");
 
     const user = useUserStore((state) => state.user);
-  let userData = user.data.id;
+  let userData = user.login[0].id;
 
   useEffect(() => {
     const fetchData = async () => {

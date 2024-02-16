@@ -11,7 +11,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 const Contactuser = () => {
   const [data, setData] = useState("");
   const user = useUserStore((state) => state.user);
-  let userData = user.data.id;
+  let userData = user.login[0].id;
   const handleDelete = async (userId, contactId) => {
     const res = await peticionDelete(`user/${userId}/contacts/${contactId}`);
     alert(res.message);

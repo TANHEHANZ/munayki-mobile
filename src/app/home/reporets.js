@@ -9,7 +9,7 @@ import { colors } from "../../styles/CompStyle";
 const Reporets = () => {
   const user = useUserStore((state) => state.user);
   const [data, setData] = useState([]);
-  let idUser = user.data.id;
+  let idUser = user.login[0].id;
   const fetchData = async () => {
     try {
       const result = await peticionGet(`Multimedia/` + idUser);

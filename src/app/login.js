@@ -16,6 +16,8 @@ import { peticionPost } from "../utilitis/postRequest";
 import useUserStore from "../components/context/UserContext";
 import LocationComponent from "../components/permisos/location";
 import NotificationComponent from "../components/permisos/camera";
+import * as Notifications from "expo-notifications";
+
 const Login = () => {
   const [dataLogin, setDataLogin] = useState({
     correo: "",
@@ -26,19 +28,28 @@ const Login = () => {
   const updateUser = useUserStore((state) => state.updateUser);
 
   const handleSend = async () => {
+    const token = (await Notifications.getExpoPushTokenAsync()).data;
+  
     if (dataLogin.confirmation_password === dataLogin.password) {
-      const res = await peticionPost("login", {
+      const res = await peticionPost("login/?token=" + token, {
         correo: dataLogin.correo,
         password: dataLogin.password,
       });
-      res && res.message === "Inicio de sesion correcto"
-        ? (router.replace("/home"), alert("Bienvenido"))
-        : alert(res.message),
+      console.log("Token de notificación:", token);
+      console.log("Respuesta:", res);
+  
+      if (res && res.message === "Inicio de sesion correcto") {
         updateUser(res, dataLogin.password);
+        router.replace("/home");
+        alert("Bienvenido");
+      } else {
+        alert(res.message || "Error al iniciar sesión");
+      }
     } else {
       alert("Las contraseñas no coinciden");
     }
   };
+  
   return (
     <>
       <LocationComponent />
@@ -58,7 +69,7 @@ const Login = () => {
             </Text>
             <View
               style={{
-                paddingVertical: '5%',
+                paddingVertical: "5%",
                 paddingHorizontal: 50,
                 height: 400,
               }}
@@ -97,7 +108,10 @@ const Login = () => {
                 secureTextEntry={true}
               />
 
-              <TouchableOpacity style={loginstyle.button} onPress={handleSend}>
+              <TouchableOpacity
+                style={loginstyle.button}
+                onPress={() => handleSend()}
+              >
                 <Text style={{ color: colors.CC }}>Ingresar</Text>
               </TouchableOpacity>
               <TouchableOpacity

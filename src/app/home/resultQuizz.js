@@ -15,7 +15,7 @@ import { BarChart, Grid, YAxis } from "react-native-svg-charts";;
 const ResultQuizz = () => {
   const [data, setData] = useState("");
   const user = useUserStore((state) => state.user);
-  let userData = user.data.id;
+  let userData = user.login[0].id;
   const fill = "rgb(134, 65, 244)";
   const contentInset = { top: 40, bottom: 40 };
   useEffect(() => {

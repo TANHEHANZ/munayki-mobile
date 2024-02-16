@@ -12,7 +12,7 @@ const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
   const [data, setData] = useState(0);
   const { user } = useUserStore();
-  let userData = user.data.id;
+  let userData = user.login[0].id;
   const fetchData = async () => {
     try {
       const result = await peticionGet("contacts/" + userData);

@@ -5,7 +5,6 @@ import * as Location from "expo-location";
 
 const LocationComponent = () => {
   const setLocation = useLocationStore((state) => state.setLocation);
-
   const getLocationAsync = async () => {
     try {
       let { status } = await Location.requestForegroundPermissionsAsync();

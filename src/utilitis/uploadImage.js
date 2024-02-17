@@ -3,7 +3,6 @@ const CLOUDNAME ="dtuncyh4v";
 
 export const sendCloudinary = async (
   uri, 
-  progressCB,
   tipo
 ) => {
   return new Promise((resolve) => {
@@ -18,13 +17,10 @@ export const sendCloudinary = async (
 
     const req = new XMLHttpRequest();
     req.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`);
-    req.upload.addEventListener('progress', (e) => {
-      progressCB((e.loaded / e.total) * 100);
-    });
+ 
 
     req.addEventListener('load', () => {
       const res = JSON.parse(req.response);
-      progressCB(0);
       resolve(res.url);
     });
 

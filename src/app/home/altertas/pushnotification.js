@@ -1,4 +1,3 @@
-
 import * as Notifications from "expo-notifications";
 
 Notifications.setNotificationHandler({
@@ -9,15 +8,21 @@ Notifications.setNotificationHandler({
   }),
 });
 
-
-export const sendPushNotification = async (tokencontact) => {
+export const sendPushNotification = async (tokencontact, user) => {
   try {
     for (const userToken of tokencontact) {
       const message = {
         to: userToken,
         sound: "default",
         title: "Botton de panico accionado ",
-        body: "usuario alertando ",
+        body:
+          "Alerta de user " +
+          user.login[0].nombre +
+          "_" +
+          user.login[0].apellido +
+          "_" +
+          "Numero : " +
+          user.login[0].telefono,
       };
       const response = await fetch("https://exp.host/--/api/v2/push/send", {
         method: "POST",

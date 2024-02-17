@@ -24,10 +24,7 @@ const Panico = () => {
   const user = useUserStore((state) => state.user);
   let userData = user.login[0].id;
   const { tokencontact } = useTokenContact();
-  const handleSendNotification = async () => {
-    console.log("redisSendNotification");
-    await sendPushNotification(tokencontact);
-  };
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -43,22 +40,24 @@ const Panico = () => {
   }, []);
 
   const handleSend = async () => {
-    if (fotosuser.length > 0 && audioUser.length > 0) {
-      const res = await peticionPost("sendAlert-Email/" + userData, {
-        foto: fotosuser,
-        audio: audioUser,
-        longitud: +location.coords.longitude,
-        latitud: +location.coords.latitude,
-      });
-      res && res.message === "Correos enviados y datos guardados correctamente"
-        ? handleUpdate(userData)
-        : alert(res.message);
+    try {
+      if (fotosuser.length > 0 && audioUser.length > 0) {
+        const res = await peticionPost("sendAlert-Email/" + userData, {
+          foto: fotosuser,
+          audio: audioUser,
+          longitud: +location.coords.longitude,
+          latitud: +location.coords.latitude,
+        });
+        if (res && res.message === "Correos enviados y datos guardados correctamente") {
+          handleUpdate(userData);
+        } else {
+          alert(res.message);
+        }
+      }
+    } catch (error) {
+      console.error("Error sending data:", error);
     }
   };
-
-  useEffect(() => {
-    handleSend();
-  }, [fotosuser, audioUser]);
 
   const handleCapturePhoto = async () => {
     try {
@@ -122,35 +121,28 @@ const Panico = () => {
         startRecording(),
         handleSendNotification(),
       ]);
+      // Enviar datos en segundo plano mientras se realiza otra acción
+      handleSend();
     } catch (error) {
       console.error("Error capturing photo and recording audio:", error);
     }
   };
 
-  if (hasPermissionCamera === null) {
+  if (hasPermissionCamera === null || hasPermissionAudio === null) {
     return <View />;
   }
+
   if (hasPermissionCamera === false) {
     return <Text>No access to camera</Text>;
   }
-  if (hasPermissionAudio === null) {
-    return <View />;
-  }
+
   if (hasPermissionAudio === false) {
     return <Text>No access to microphone</Text>;
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
-      <Camera
-        style={{ flex: 1, opacity: 0 }}
-        type={Camera.Constants.Type.back}
-        ref={cameraRef}
-      />
+    <View style={{ flex: 1 }}>
+      <Camera style={{ flex: 1, opacity: 0 }} type={Camera.Constants.Type.back} ref={cameraRef} />
 
       <TouchableOpacity
         style={{
@@ -163,6 +155,8 @@ const Panico = () => {
         }}
         onPress={() => {
           handleCaptureAndRecord();
+          // Navegar de vuelta al inicio de sesión
+          router.reset({ routes: [{ name: "Login" }] });
         }}
       >
         <Text

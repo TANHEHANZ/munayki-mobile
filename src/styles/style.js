@@ -3,40 +3,63 @@ import { colors, sharedStyles } from "./CompStyle";
 
 export const loginstyle = StyleSheet.create({
   container: {
-    width: "100%",
     flex: 1,
-    backgroundColor: "transparent",
-    position: "relative",
+    height: "100%",
+    backgroundColor: "#fff",
   },
   title: {
-    color: colors.primary,
-    fontSize: 40,
-    fontWeight: "100",
-    textAlign: "center",
     width: "100%",
-    marginVertical: "20%",
-    // paddingLeft: 20,
-    padding: "5%",
-    marginTop: 140,
+    height: "35%",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+  logoconteiner:{
+    width: "110%",
+    height: 150,
+    borderColor: "rgba(80, 58, 179, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    bottom: -50,
+    right: "4%",
+    left:"-4%",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    ...sharedStyles.shadowBox,
+  },
+  figuras: {
+    position: "absolute",
+    width: 70,
+    height: 70,
+    borderRadius: 80,
+    backgroundColor: colors.CC,
+    justifyContent: "center",
+    alignItems: "center",
+    ...sharedStyles.shadowBox,
+    elevation: 10,
+    borderTopLeftRadius: 20,
   },
   inputs: {
     width: "100%",
     backgroundColor: "transparent",
-    height: "14%",
-    margin: ".5%",
-    
+    // height: "10%",
+    margin: "1%",
+    borderWidth:0,
+    padding: 0,
   },
   button: {
-    marginVertical: "2%",
+    marginVertical: "3%",
+    marginHorizontal:"10%",
     padding: "3%",
     borderRadius: 50,
     borderWidth: 1,
     borderColor: colors.CC,
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    width: "80%",
     flexDirection: "row",
-    gap: 10,
+    gap: 2,
   },
   backgroundImage: {
     width: "100%",
@@ -73,7 +96,6 @@ export const nav = StyleSheet.create({
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor:"#000"
   },
   button: {
     ...sharedStyles.shadowBox,
@@ -174,7 +196,7 @@ export const contactStyle = StyleSheet.create({
     elevation: 5,
     backgroundColor: colors.primary,
   },
-  text: { fontSize: 11, width: "70%", textAlign: "center",height:40 },
+  text: { fontSize: 11, width: "70%", textAlign: "center", height: 40 },
 });
 
 export const mapButton = StyleSheet.create({
@@ -192,7 +214,7 @@ export const mapButton = StyleSheet.create({
 
 export const dangerButton = StyleSheet.create({
   button: {
-    width:60,
+    width: 60,
     backgroundColor: colors.B,
     alignItems: "center",
     borderRadius: 5,

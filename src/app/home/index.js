@@ -34,9 +34,7 @@ const HomeScreens = () => {
   const fetchData = async () => {
     try {
       const result = await getRequestWithCache("info");
-      const conctUser = await peticionGet(
-        "contactosfilterNick/" + userData
-      );
+      const conctUser = await peticionGet("contactosfilterNick/" + userData);
       setTokenContat(conctUser);
       setData(result);
     } catch (error) {
@@ -47,7 +45,7 @@ const HomeScreens = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
+  
   return (
     <View style={styles.bodyContainer}>
       <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>
@@ -72,7 +70,7 @@ const HomeScreens = () => {
             borderRadius: 30,
             borderWidth: 0,
           }}
-          onPress={() => router.push("/home/altertas/boton")}
+          onPress={() => router.push("/home/dataAudio")}
         >
           <FontAwesome name="download" size={30} color={"rgb(73,39,121)"} />
         </TouchableOpacity>

@@ -14,6 +14,7 @@ import { loginstyle } from "../styles/style";
 import { colors } from "../styles/CompStyle";
 import { peticionPost } from "../utilitis/postRequest";
 import { Picker } from "@react-native-picker/picker";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Register = () => {
   const [continuar, setContinuar] = useState(true);
@@ -118,157 +119,170 @@ const Register = () => {
 
   return (
     <>
-      <ImageBackground
-        source={require("../../assets/imagendos.jpeg")}
-        style={loginstyle.backgroundImage}
+      <KeyboardAvoidingView
+        style={loginstyle.container}
+        behavior="padding"
+        enabled
       >
-        <KeyboardAvoidingView
-          style={loginstyle.container}
-          behavior="padding"
-          enabled
-        >
-          <View>
-            <Text
-              style={{
-                ...loginstyle.title,
-                fontWeight: 400,
-                margin: -10,
-              }}
-            >
-              Regis
-              <Text style={{ color: colors.CC, fontWeight: 400 }}>trate</Text>
-            </Text>
-            <View
-              style={{
-                paddingHorizontal: 50,
-                height: "35%",
-              }}
-            >
-              {continuar ? (
-                <>
-                  <Text style={{ width: "100%", fontSize: 12 }}>Nombre</Text>
-                  <TextInput
-                    style={loginstyle.inputs}
-                    value={dataRegister.nombre}
-                    onChangeText={(text) =>
-                      setDataRegister((old) => ({ ...old, nombre: text }))
-                    }
-                  />
-                  <Text style={{ width: "100%", fontSize: 12 }}>Apellido</Text>
-                  <TextInput
-                    style={loginstyle.inputs}
-                    value={dataRegister.apellido}
-                    onChangeText={(text) =>
-                      setDataRegister((old) => ({ ...old, apellido: text }))
-                    }
-                  />
-                  <Text style={{ width: "100%", fontSize: 12 }}>Edad</Text>
-                  <TextInput
-                    style={loginstyle.inputs}
-                    value={dataRegister.edad}
-                    onChangeText={(text) =>
-                      setDataRegister((old) => ({ ...old, edad: text }))
-                    }
-                    keyboardType="numeric"
-                  />
-                  <Text style={{ width: "100%", fontSize: 12 }}>Telefono</Text>
-                  <TextInput
-                    style={loginstyle.inputs}
-                    value={dataRegister.telefono}
-                    onChangeText={(text) =>
-                      setDataRegister((old) => ({ ...old, telefono: text }))
-                    }
-                    keyboardType="numeric"
-                  />
-                </>
-              ) : (
-                <>
-                  <Text style={{ width: "100%", fontSize: 12 }}>Genero</Text>
-
-                  <Picker
-                    style={{
-                      backgroundColor: colors.CC,
-                      zIndex: 100,
-                      color: "#fff",
-                      marginVertical: 10,
-                      fontSize: 12, // Ajusta el tamaño de la fuente
-                      height: "8%", // Ajusta la altura
-                      width: "100%",
-                    }}
-                    selectedValue={dataRegister.genero}
-                    onValueChange={(itemValue) =>
-                      setDataRegister((old) => ({ ...old, genero: itemValue }))
-                    }
-                  >
-                    <Picker.Item label="Escoge un genero" value="" />
-                    <Picker.Item label="Masculino" value="Masculino " />
-                    <Picker.Item label="Femenino" value="Femenino " />
-                  </Picker>
-                  <Text style={{ width: "100%", fontSize: 12 }}>Direccion</Text>
-                  <TextInput
-                    style={loginstyle.inputs}
-                    value={dataRegister.ubicacion}
-                    onChangeText={(text) =>
-                      setDataRegister((old) => ({ ...old, ubicacion: text }))
-                    }
-                  />
-                  <Text style={{ width: "100%", fontSize: 12 }}>Correo</Text>
-                  <TextInput
-                    style={loginstyle.inputs}
-                    value={dataRegister.correo}
-                    onChangeText={(text) =>
-                      setDataRegister((old) => ({ ...old, correo: text }))
-                    }
-                  />
-                  <Text style={{ width: "100%", fontSize: 12 }}>Password</Text>
-                  <TextInput
-                    style={loginstyle.inputs}
-                    value={dataRegister.password}
-                    onChangeText={(text) =>
-                      setDataRegister((old) => ({ ...old, password: text }))
-                    }
-                  />
-                </>
-              )}
-            </View>
-            <View style={{ marginVertical: "2%", padding: "5%" }}>
-              {continuar ? (
-                <TouchableOpacity style={loginstyle.button} onPress={cambio}>
-                  <Text style={{ color: colors.CC }}>
-                    continuar con el registro
-                  </Text>
-                </TouchableOpacity>
-              ) : (
-                <>
-                  <TouchableOpacity
-                    style={loginstyle.button}
-                    onPress={() => {
-                      setContinuar(true);
-                    }}
-                  >
-                    <Text style={{ color: colors.CC }}>Registro anteriror</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={loginstyle.button}
-                    onPress={handleSend}
-                  >
-                    <Text style={{ color: colors.CC }}>Ingresar</Text>
-                  </TouchableOpacity>
-                </>
-              )}
-
-              <TouchableOpacity
-                style={loginstyle.button}
-                onPress={() => {
-                  router.push("/login");
+        <View style={{}}>
+         
+          <View style={{ ...loginstyle.title }}>
+            <View style={{ ...loginstyle.figuras, right: -30, top: 0 }}></View>
+            <Text>
+              <View
+                style={{
+                  ...loginstyle.figuras,
+                  backgroundColor: "#fff",
+                  borderWidth: 2,
+                  borderColor: colors.CC,
+                  width: 150,
+                  height: 140,
                 }}
               >
-                <Text style={{ color: colors.CC }}>Volver</Text>
-              </TouchableOpacity>
-            </View>
+                <Text style={{ fontSize: 25, fontWeight: 600 }}>
+                  Registrate
+                </Text>
+              </View>
+            </Text>
           </View>
-        </KeyboardAvoidingView>
-      </ImageBackground>
+          <View
+            style={{
+             width:"100%",
+             paddingHorizontal:40 ,
+            }}
+          >
+            {continuar ? (
+              <ScrollView>
+                <Text style={{ width: "100%", fontSize: 12 }}>Nombre</Text>
+                <TextInput
+                  style={loginstyle.inputs}
+                  value={dataRegister.nombre}
+                  onChangeText={(text) =>
+                    setDataRegister((old) => ({ ...old, nombre: text }))
+                  }
+                />
+                <Text style={{ width: "100%", fontSize: 12 }}>Apellido</Text>
+                <TextInput
+                  style={loginstyle.inputs}
+                  value={dataRegister.apellido}
+                  onChangeText={(text) =>
+                    setDataRegister((old) => ({ ...old, apellido: text }))
+                  }
+                />
+                <Text style={{ width: "100%", fontSize: 12 }}>Edad</Text>
+                <TextInput
+                  style={loginstyle.inputs}
+                  value={dataRegister.edad}
+                  onChangeText={(text) =>
+                    setDataRegister((old) => ({ ...old, edad: text }))
+                  }
+                  keyboardType="numeric"
+                />
+                <Text style={{ width: "100%", fontSize: 12 }}>Telefono</Text>
+                <TextInput
+                  style={loginstyle.inputs}
+                  value={dataRegister.telefono}
+                  onChangeText={(text) =>
+                    setDataRegister((old) => ({ ...old, telefono: text }))
+                  }
+                  keyboardType="numeric"
+                />
+              </ScrollView>
+            ) : (
+              <ScrollView vertical>
+                <Text style={{ width: "100%", fontSize: 12 }}>Genero</Text>
+                <Picker
+                  style={{
+                    backgroundColor: colors.CC,
+                    color: "#fff",
+                    marginVertical: 5,
+                    fontSize: 12,
+                    height: "7%",
+                    width: "100%",
+                  }}
+                  selectedValue={dataRegister.genero}
+                  onValueChange={(itemValue) =>
+                    setDataRegister((old) => ({ ...old, genero: itemValue }))
+                  }
+                >
+                  <Picker.Item label="Escoge un genero" value="" />
+                  <Picker.Item label="Masculino" value="Masculino " />
+                  <Picker.Item label="Femenino" value="Femenino " />
+                </Picker>
+                <Text style={{ width: "100%", fontSize: 12 }}>Direccion</Text>
+                <TextInput
+                  style={loginstyle.inputs}
+                  value={dataRegister.ubicacion}
+                  onChangeText={(text) =>
+                    setDataRegister((old) => ({ ...old, ubicacion: text }))
+                  }
+                />
+                <Text style={{ width: "100%", fontSize: 12 }}>Correo</Text>
+                <TextInput
+                  style={loginstyle.inputs}
+                  value={dataRegister.correo}
+                  onChangeText={(text) =>
+                    setDataRegister((old) => ({ ...old, correo: text }))
+                  }
+                />
+                <Text style={{ width: "100%", fontSize: 12 }}>Password</Text>
+                <TextInput
+                  style={loginstyle.inputs}
+                  value={dataRegister.password}
+                  onChangeText={(text) =>
+                    setDataRegister((old) => ({ ...old, password: text }))
+                  }
+                />
+              </ScrollView>
+            )}
+          </View>
+          <View
+            style={{
+            
+            }}
+          >
+            {continuar ? (
+              <TouchableOpacity
+                style={{
+                  ...loginstyle.button,
+                  marginTop: "10%",
+                }}
+                onPress={cambio}
+              >
+                <Text style={{ color: colors.CC }}>
+                  continuar con el registro
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <>
+                <TouchableOpacity
+                  style={loginstyle.button}
+                  onPress={() => {
+                    setContinuar(true);
+                  }}
+                >
+                  <Text style={{ color: colors.CC }}>Registro anteriror</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={loginstyle.button}
+                  onPress={handleSend}
+                >
+                  <Text style={{ color: colors.CC }}>Ingresar</Text>
+                </TouchableOpacity>
+              </>
+            )}
+
+            <TouchableOpacity
+              style={loginstyle.button}
+              onPress={() => {
+                router.push("/login");
+              }}
+            >
+              <Text style={{ color: colors.CC }}>Volver</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
     </>
   );
 };

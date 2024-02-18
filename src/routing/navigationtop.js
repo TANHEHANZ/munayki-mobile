@@ -13,6 +13,7 @@ export const handleUpdate = async (id) => {
     : alert(res.message);
 };
 
+
 const Navigation = () => {
   const user = useUserStore((state) => state.user);
   const idUser = +user.login[0].id;

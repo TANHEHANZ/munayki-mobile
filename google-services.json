@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "10756818362",
+    "project_id": "munaikyv2",
+    "storage_bucket": "munaikyv2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10756818362:android:3c1fc0512c57228a704983",
+        "android_client_info": {
+          "package_name": "com.hanz.myAppMunayki"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdq2Sa6GKHIzmloMpf_4oOsXgEjtU9dk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

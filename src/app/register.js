@@ -84,8 +84,12 @@ const Register = () => {
     //   return false;
     // }
 
-    if (!dataRegister.password) {
-      alert("Por favor, completa el campo contraseña.");
+    if (!dataRegister.password || dataRegister.password.length < 8) {
+      alert(
+        dataRegister.password
+          ? "Su password es menor a 8 caracteres"
+          : "Por favor, completa el campo contraseña."
+      );
       return false;
     }
 
@@ -125,7 +129,6 @@ const Register = () => {
         enabled
       >
         <View style={{}}>
-         
           <View style={{ ...loginstyle.title }}>
             <View style={{ ...loginstyle.figuras, right: -30, top: 0 }}></View>
             <Text>
@@ -147,8 +150,8 @@ const Register = () => {
           </View>
           <View
             style={{
-             width:"100%",
-             paddingHorizontal:40 ,
+              width: "100%",
+              paddingHorizontal: 40,
             }}
           >
             {continuar ? (
@@ -236,11 +239,7 @@ const Register = () => {
               </ScrollView>
             )}
           </View>
-          <View
-            style={{
-            
-            }}
-          >
+          <View style={{}}>
             {continuar ? (
               <TouchableOpacity
                 style={{

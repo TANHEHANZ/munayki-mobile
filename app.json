@@ -25,7 +25,9 @@
         "softwareKeyboardLayoutMode": "pan"
       },  
       "useNextNotificationsApi": true,
-      "versionCode": 6
+      "versionCode": 6,
+      "package": "com.hanz.myAppMunayki",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

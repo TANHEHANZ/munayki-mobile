@@ -22,8 +22,8 @@ const Panico = () => {
   const user = useUserStore((state) => state.user);
   let userData = user.login[0].id;
   const { tokencontact } = useTokenContact();
+
   const handleSendNotification = async () => {
-    console.log("redisSendNotification");
     await sendPushNotification(tokencontact, user);
   };
   useEffect(() => {
@@ -53,7 +53,6 @@ const Panico = () => {
         : alert(res.message);
     }
   };
-
   useEffect(() => {
     handleSend();
   }, [fotosuser, audioUser]);
@@ -77,7 +76,6 @@ const Panico = () => {
   const enviarFoto = async (photoData) => {
     const url = await sendCloudinary(photoData);
     setFotosuser(url);
-    console.log("Cloudinary URL:", url);
   };
 
   const startRecording = async () => {
@@ -109,7 +107,6 @@ const Panico = () => {
       if (uri) {
         const url = await sendCloudinary(uri);
         setAudioUser(url);
-        console.log("Cloudinary URL:", url);
       }
     }
   };
@@ -125,18 +122,13 @@ const Panico = () => {
       console.error("Error capturing photo and recording audio:", error);
     }
   };
-
-  if (hasPermissionCamera === null) {
+  if (hasPermissionCamera === null || hasPermissionAudio === null) {
     return <View />;
   }
-  if (hasPermissionCamera === false) {
-    return <Text>No access to camera</Text>;
-  }
-  if (hasPermissionAudio === null) {
-    return <View />;
-  }
-  if (hasPermissionAudio === false) {
-    return <Text>No access to microphone</Text>;
+  if (hasPermissionCamera === false || hasPermissionAudio === false) {
+    return (
+      <Text>No tienes acceso {hasPermissionCamera ? "audio" : "camara"}</Text>
+    );
   }
 
   return (

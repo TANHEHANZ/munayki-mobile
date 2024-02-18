@@ -20,7 +20,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const Login = () => {
   const checkUserLoggedIn = async () => {
     const cachedData = await AsyncStorage.getItem("userData");
-    console.log(cachedData)
+    console.log(cachedData);
     if (cachedData) {
       router.replace("/home");
     } else {
@@ -42,7 +42,10 @@ const Login = () => {
   const handleSend = async () => {
     const token = (await Notifications.getExpoPushTokenAsync()).data;
 
-    if (dataLogin.confirmation_password === dataLogin.password) {
+    if (
+      dataLogin.confirmation_password === dataLogin.password &&
+      dataLogin.password.length >= 8
+    ) {
       const res = await peticionPost("login/?token=" + token, {
         correo: dataLogin.correo,
         password: dataLogin.password,

@@ -1,11 +1,12 @@
 import { http } from "./http";
 
-export const peticionPost = async (url, contenido) => {
+export const peticionPost = async (url, contenido, metodo, authToken) => {
   const response = await fetch(http + url, {
-    method: "POST",
+    method: metodo === "POST" ? "POST" : "PUT",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      Authorization: authToken ? authToken : "",
     },
     body: JSON.stringify(contenido),
   });
@@ -13,5 +14,5 @@ export const peticionPost = async (url, contenido) => {
     const json = await response.json();
     return json;
   }
-  return null;
+  return response.error;
 };

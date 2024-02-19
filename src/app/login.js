@@ -18,50 +18,31 @@ import * as Notifications from "expo-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
-  const checkUserLoggedIn = async () => {
-    const cachedData = await AsyncStorage.getItem("userData");
-    console.log(cachedData);
-    if (cachedData) {
-      router.replace("/home");
-    } else {
-      console.log("User not logged in=");
-    }
-  };
-  useEffect(() => {
-    checkUserLoggedIn();
-  }, []);
-
   const [dataLogin, setDataLogin] = useState({
     correo: "",
     password: "",
     confirmation_password: "",
   });
 
-  const updateUser = useUserStore((state) => state.updateUser);
+  const { updateUser } = useUserStore();
 
   const handleSend = async () => {
     const token = (await Notifications.getExpoPushTokenAsync()).data;
-
     if (
       dataLogin.confirmation_password === dataLogin.password &&
       dataLogin.password.length >= 8
     ) {
-      const res = await peticionPost("login/?token=" + token, {
-        correo: dataLogin.correo,
-        password: dataLogin.password,
-      });
-      console.log(res);
+      const res = await peticionPost(
+        "login/?tokenUserData=" + token,
+        {
+          correo: dataLogin.correo,
+          password: dataLogin.password,
+        },
+        "POST"
+      );
+      await AsyncStorage.setItem("userDataLogin", JSON.stringify(res));
+      updateUser(res, dataLogin.password);
       if (res && res.message === "Inicio de sesion correcto") {
-        updateUser(res, dataLogin.password);
-        await AsyncStorage.setItem(
-          "userDataLogin",
-          JSON.stringify(res.login[0])
-        );
-        const cachedData = await AsyncStorage.getItem("userDataLogin");
-        console.log(
-          "datos enviados a cache del login ",
-          JSON.parse(cachedData)
-        );
         router.replace("/home");
         alert("Bienvenido");
       } else {
@@ -167,6 +148,7 @@ const Login = () => {
         </View>
       </KeyboardAvoidingView>
     </>
+    // <View><Text>holaaaaa</Text></View>
   );
 };
 

@@ -16,7 +16,6 @@ import { imgdata } from "../../../assets/icon.png";
 import { getRandomColor } from "../../components/colorRandom";
 import { router } from "expo-router";
 import useUserStore from "../../components/context/UserContext";
-import { useTokenContact } from "../../components/context/ContactContext";
 const HomeScreens = () => {
   const [data, setData] = useState("");
   const [refreshing, setRefreshing] = useState(false);
@@ -28,24 +27,23 @@ const HomeScreens = () => {
       setRefreshing(false);
     }
   };
-  const { user } = useUserStore();
-  const { setTokenContat } = useTokenContact();
+  const { user, token } = useUserStore();
+  const tokenLoguet = user.tokenLogauth;
   let userData = user.login[0].id;
   const fetchData = async () => {
     try {
       const result = await getRequestWithCache("info");
-      const conctUser = await peticionGet("contactosfilterNick/" + userData);
-      setTokenContat(conctUser);
       setData(result);
     } catch (error) {
-      console.error("Error al obtener datos:", error);
+      console.log("Error al obtener datos:", error);
       setRefreshing(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   return (
     <View style={styles.bodyContainer}>
       <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>

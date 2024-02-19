@@ -15,6 +15,8 @@ import { BarChart, Grid, YAxis } from "react-native-svg-charts";;
 const ResultQuizz = () => {
   const [data, setData] = useState("");
   const user = useUserStore((state) => state.user);
+  const tokenLoguet = user.tokenLogauth;
+
   let userData = user.login[0].id;
   const fill = "rgb(134, 65, 244)";
   const contentInset = { top: 40, bottom: 40 };
@@ -22,7 +24,7 @@ const ResultQuizz = () => {
     const fetchData = async () => {
       try {
         const result = await peticionGet(
-          "resultado-cuestionario/usuario/" + userData
+          "resultado-cuestionario/usuario/" + userData,tokenLoguet
         );
         setData(result);
         let siCount = 0;

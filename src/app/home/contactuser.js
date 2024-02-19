@@ -11,15 +11,17 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 const Contactuser = () => {
   const [data, setData] = useState("");
   const user = useUserStore((state) => state.user);
+  const tokenLoguet = user.tokenLogauth;
+  
   let userData = user.login[0].id;
   const handleDelete = async (userId, contactId) => {
-    const res = await peticionDelete(`user/${userId}/contacts/${contactId}`);
+    const res = await peticionDelete(`user/${userId}/contacts/${contactId}`,tokenLoguet);
     alert(res.message);
     fetchData();
   };
   const fetchData = async () => {
     try {
-      const result = await peticionGet(`contacts/${userData}/?userConact=true`);
+      const result = await peticionGet(`contacts/${userData}/?userConact=true`,tokenLoguet);
       setData(result);
     } catch (error) {
       console.error("Error al obtener datos:", error);

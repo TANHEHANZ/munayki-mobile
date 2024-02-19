@@ -113,7 +113,7 @@ const Register = () => {
         password: dataRegister.password,
         rol: dataRegister.rol,
         genero: dataRegister.genero,
-      });
+      },"POST");
       console.log(dataRegister);
       res && res.message === "Usuario creado exitosamente"
         ? (router.push("/login"), alert("Registrado"))

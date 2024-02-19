@@ -11,7 +11,7 @@ import { peticionPost } from "../../utilitis/postRequest";
 import { ScrollView } from "react-native-gesture-handler";
 import { colors } from "../../styles/CompStyle";
 import { Picker } from "@react-native-picker/picker";
-const InputsContact = ({ mostrar, userData, setMostrar }) => {
+const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
   let datos = {
     nombre: "",
     email: "",
@@ -83,7 +83,7 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
         telefono: parseInt(datoscontact.telefono),
         relacion: datoscontact.relacion,
         nickContacto: datoscontact.nick,
-      });
+      }, "POST",tokenLoguet);
       console.log(res);
       if (res && res.message) {
         alert(res.message);
@@ -121,19 +121,8 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
                 setDatoscontact((old) => ({ ...old, email: text }))
               }
               placeholder="data@gmail.com"
-              style={contactStyle.inputs}
+              style={{ ...contactStyle.inputs, height: 50 }}
             />
-            {/* <TextInput
-              value={datoscontact.edad}
-              onChangeText={(text) =>
-                setDatoscontact((old) => ({ ...old, edad: text }))
-              }
-              placeholder="edad"
-              style={contactStyle.inputs}
-              keyboardType="numeric"
-              
-            /> */}
-
             <View
               style={{ flexDirection: "row", height: 80, alignItems: "center" }}
             >
@@ -153,9 +142,14 @@ const InputsContact = ({ mostrar, userData, setMostrar }) => {
                 }
                 style={contactStyle.inputs}
               >
-                <Picker.Item label="Edad" value="" />
+                <Picker.Item
+                  label="Edad"
+                  value=""
+                  style={{ backgroundColor: "#fff" }}
+                />
                 {edades.map((edad) => (
                   <Picker.Item
+                    style={{ backgroundColor: "#fff" }}
                     label={String(edad)}
                     value={String(edad)}
                     key={edad}

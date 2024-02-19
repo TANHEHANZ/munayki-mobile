@@ -1,18 +1,40 @@
-import { View, Text, TextInput } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Login from "./login";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeScreens from "./home";
-import Informativa from "./home/informativa";
+import Carga from "./carga";
+import { router } from "expo-router";
+import useUserStore from "../components/context/UserContext";
 
-Text.defaultProps = Text.defaultProps || {};
-Text.defaultProps.allowFontScaling = false;
-
-TextInput.defaultProps = TextInput.defaultProps || {};
-TextInput.defaultProps.allowFontScaling = false;
 const Index = () => {
-  return (
-      <Login />
-  );
+  const { updateUser, setToken } = useUserStore();
+  const [state, setState] = useState("Cargando");
+  const verificarCache = async () => {
+    try {
+      const cachedData = await AsyncStorage.getItem("userDataLogin");
+      if (cachedData) {
+        const user = JSON.parse(cachedData);
+        console.log("llegando", user);
+        updateUser(user);
+        setToken(user.tokenLogauth);
+        setState("Cargado");
+      } else {
+        setState("No encontrado");
+      }
+    } catch (error) {
+      console.error("Error al obtener datos de caché:", error);
+    }
+  };
+  useEffect(() => {
+    verificarCache();
+  }, []);
+
+  if (state === "Cargado") {
+    router.replace("/home");
+  } else if (state === "No encontrado") {
+    router.replace("/login");
+  }
+  return <Carga />;
 };
 
 export default Index;

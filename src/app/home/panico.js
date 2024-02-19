@@ -8,29 +8,40 @@ import { peticionPost } from "../../utilitis/postRequest";
 import useUserStore from "../../components/context/UserContext";
 import useLocationStore from "../../components/context/UbicacionContext";
 import { Audio } from "expo-av";
-import { useTokenContact } from "../../components/context/ContactContext";
 import { sendPushNotification } from "./altertas/pushnotification";
 import { handleUpdate } from "../../routing/navigationtop";
-
+import { peticionGet } from "../../utilitis/getRequest";
 const Panico = () => {
   const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
   const [hasPermissionAudio, setHasPermissionAudio] = useState(null);
   const cameraRef = useRef(null);
   const [fotosuser, setFotosuser] = useState("");
   const [audioUser, setAudioUser] = useState("");
+  const [tokenContat, setTokenContat] = useState("");
   const location = useLocationStore((state) => state.location);
   const user = useUserStore((state) => state.user);
   let userData = user.login[0].id;
-  const { tokencontact } = useTokenContact();
+  const tokenLoguet = user.tokenLogauth;
+
+  const traerToken = async () => {
+    const conctUser = await peticionGet(
+      "contactosfilterNick/" + userData,
+      tokenLoguet
+    );
+    console.log(conctUser)
+    setTokenContat(conctUser);
+  };
 
   const handleSendNotification = async () => {
-    await sendPushNotification(tokencontact, user);
+    await sendPushNotification(tokenContat, user);
   };
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermissionCamera(status === "granted");
     })();
+    traerToken();
   }, []);
 
   useEffect(() => {
@@ -42,17 +53,23 @@ const Panico = () => {
 
   const handleSend = async () => {
     if (fotosuser.length > 0 && audioUser.length > 0) {
-      const res = await peticionPost("sendAlert-Email/" + userData, {
-        foto: fotosuser,
-        audio: audioUser,
-        longitud: +location.coords.longitude,
-        latitud: +location.coords.latitude,
-      });
-      res && res.message === "Correos enviados y datos guardados correctamente"
-        ? handleUpdate(userData)
+      const res = await peticionPost(
+        "sendAlert-Email/" + userData,
+        {
+          foto: fotosuser,
+          audio: audioUser,
+          longitud: +location.coords.longitude,
+          latitud: +location.coords.latitude,
+        },
+        "POST",
+        tokenLoguet
+      );
+      res && res.message == "Correos enviados y datos guardados correctamente"
+        ? handleUpdate(userData, tokenLoguet)
         : alert(res.message);
     }
   };
+
   useEffect(() => {
     handleSend();
   }, [fotosuser, audioUser]);
@@ -76,6 +93,7 @@ const Panico = () => {
   const enviarFoto = async (photoData) => {
     const url = await sendCloudinary(photoData);
     setFotosuser(url);
+    console.log("foto:clainary", url);
   };
 
   const startRecording = async () => {
@@ -107,6 +125,7 @@ const Panico = () => {
       if (uri) {
         const url = await sendCloudinary(uri);
         setAudioUser(url);
+        console.log("audio:clainary", url);
       }
     }
   };

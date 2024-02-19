@@ -14,15 +14,10 @@ export const sendPushNotification = async (tokencontact, user) => {
       const message = {
         to: userToken,
         sound: "default",
-        title: "Botton de panico accionado ",
+        title: "MUNAYKI",
         body:
-          "Alerta de user " +
-          user.login[0].nombre +
-          "_" +
-          user.login[0].apellido +
-          "_" +
-          "Numero : " +
-          user.login[0].telefono,
+          "Botton de panico accionado ,alerta del usuario " +
+          user.login[0].nombre 
       };
       const response = await fetch("https://exp.host/--/api/v2/push/send", {
         method: "POST",

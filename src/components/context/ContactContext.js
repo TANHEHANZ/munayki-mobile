@@ -2,10 +2,11 @@ import { create } from "zustand";
 
 export const useContactStore = create((set) => ({
   contacts: [],
-  setContacts: (newContacts) => set({ contacts: newContacts }),
+  setContacts: (newContacts) => set({ ...newContacts, contacts: contacts }),
 }));
 
 export const useTokenContact = create((set) => ({
   tokencontact: [],
-  setTokenContat: (newContacts) => set({ tokencontact: newContacts }),
+  setTokenContat: (newContactstoken) =>
+    set({ ...newContactstoken, tokencontact: tokencontact }),
 }));

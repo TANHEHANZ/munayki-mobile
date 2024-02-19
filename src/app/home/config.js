@@ -1,32 +1,60 @@
-import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  Linking,
+} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Modal from "react-native-modal"; // Importa el componente Modal
 import { colors, sharedStyles } from "../../styles/CompStyle";
 import { loginstyle, modal } from "../../styles/style";
 import { router } from "expo-router";
 import useUserStore from "../../components/context/UserContext";
+import { peticionPost } from "../../utilitis/postRequest";
 
 const Config = () => {
   const [cargaimg, setCargaimg] = useState(true);
   const [verDatos, setVerDatos] = useState(false);
   const [patron, setPatron] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(false); // Estado para controlar la visibilidad del modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const user = useUserStore((state) => state.user);
-  const password = useUserStore((state) => state.password);
-  const patronCorrecto = password;
-
-  const verificarPatron = () => {
-    if (patron === patronCorrecto) {
-      setVerDatos(true);
-    } else {
-      alert("Patrón incorrecto. Inténtalo de nuevo.");
+  const [data, setData] = useState(0);
+  const tokenLoguet = user.tokenLogauth;
+  const fetchData = async () => {
+    console.log(patron);
+    try {
+      const result = await peticionPost(
+        "datosUser",
+        { password: patron },
+        "POST",
+        tokenLoguet
+      );
+      console.log("resultado", result);
+      setData(result);
+      if (result.message === "Contraseña Correcta") {
+        setVerDatos(true);
+        setPatron("");
+      } else {
+        setVerDatos(false);
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
     }
-    setIsModalVisible(false);
   };
-
-  console.log(password);
-  console.log(user);
+  const enviarCodigoWhatsApp = () => {
+    const url = `whatsapp://send?text=${encodeURIComponent(data.data.nick)}`;
+    Linking.openURL(url)
+      .then((data) => {
+        console.log("WhatsApp abierto:", data);
+      })
+      .catch((error) => {
+        console.error("Error al abrir WhatsApp:", error);
+      });
+  };
   return (
     <View
       style={{
@@ -72,24 +100,43 @@ const Config = () => {
         </Text>
         {verDatos ? (
           <View style={{ gap: 10 }}>
-            <View style={{ ...sharedStyles.shadowBox,  }}>
-              <Text style={{ color: "green", fontWeight: "600" }}>
-                Codigo: {user.login[0].nick}
+            <TouchableOpacity style={{ ...sharedStyles.shadowBox }}
+             onPress={enviarCodigoWhatsApp}
+            >
+              <Text style={{ color: "green", fontWeight: "600", fontSize: 18 ,}}>
+                Codigo:{data.data.nick} 
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "green",
+                    padding: 2,
+                    borderTopRightRadius: 30,
+                    borderBottomRightRadius: 30,
+                    borderTopLeftRadius: 30,
+                
+                  }}
+                >
+                  <FontAwesome name="whatsapp" size={20} color="#fff"  />
+                </TouchableOpacity>
               </Text>
               <Text
-                style={{ fontSize: 14, borderWidth: 1, borderColor: "green" ,padding:10,}}
+                style={{
+                  fontSize: 14,
+                  borderWidth: 1,
+                  borderColor: "green",
+                  padding: 10,
+                }}
               >
                 Este codigo debes proporcionarle a la persona que registran tu
                 contacto
               </Text>
-            </View>
-            <Text>Nombre del Usuario: {user.login[0].nombre}</Text>
-            <Text>Apellido: {user.login[0].apellido}</Text>
-            <Text>Edad: {user.login[0].edad}</Text>
-            <Text>Género: {user.login[0].genero}</Text>
-            <Text>Ubucacion: {user.login[0].ubicacion}</Text>
-            <Text>Gmail: {user.login[0].correo}</Text>
-            <Text>Telefono: {user.login[0].telefono}</Text>
+            </TouchableOpacity>
+            <Text>Nombre del Usuario: {data.data.nombre}</Text>
+            <Text>Apellido: {data.data.apellido}</Text>
+            <Text>Edad: {data.data.edad}</Text>
+            <Text>Género: {data.data.genero}</Text>
+            <Text>Ubucacion: {data.data.ubicacion}</Text>
+            <Text>Gmail: {data.data.correo}</Text>
+            <Text>Telefono: {data.data.telefono}</Text>
 
             <TouchableOpacity
               style={loginstyle.button}
@@ -152,13 +199,17 @@ const Config = () => {
             <TextInput
               placeholder="Ingresa la contraseña"
               secureTextEntry={true}
-              style={{ ...loginstyle.inputs, borderBottomWidth: 2 ,padding:10,}}
+              style={{
+                ...loginstyle.inputs,
+                borderBottomWidth: 2,
+                padding: 10,
+              }}
               value={patron}
               onChangeText={(text) => setPatron(text)}
             />
             <TouchableOpacity
               style={loginstyle.button}
-              onPress={verificarPatron}
+              onPress={() => (fetchData(), setIsModalVisible(false))}
             >
               <Text>Verificar Contraseña</Text>
             </TouchableOpacity>

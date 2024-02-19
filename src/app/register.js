@@ -208,9 +208,9 @@ const Register = () => {
                     setDataRegister((old) => ({ ...old, genero: itemValue }))
                   }
                 >
-                  <Picker.Item label="Escoge un genero" value="" />
-                  <Picker.Item label="Masculino" value="Masculino " />
-                  <Picker.Item label="Femenino" value="Femenino " />
+                  <Picker.Item label="Escoge un genero" value="" style={{width:100,color:"#fff",backgroundColor:colors.CC,height:10,}}/>
+                  <Picker.Item label="Masculino" value="Masculino "style={{width:100,color:"#fff",backgroundColor:colors.CC}} />
+                  <Picker.Item label="Femenino" value="Femenino "style={{width:100,color:"#fff",backgroundColor:colors.CC}} />
                 </Picker>
                 <Text style={{ width: "100%", fontSize: 12 }}>Direccion</Text>
                 <TextInput

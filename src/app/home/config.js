@@ -100,7 +100,7 @@ const Config = () => {
         </Text>
         {verDatos ? (
           <View style={{ gap: 10 }}>
-            <TouchableOpacity style={{ ...sharedStyles.shadowBox }}
+            <TouchableOpacity 
              onPress={enviarCodigoWhatsApp}
             >
               <Text style={{ color: "green", fontWeight: "600", fontSize: 18 ,}}>

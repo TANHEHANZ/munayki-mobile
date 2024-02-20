@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "myAppMunayki",
-    "scheme": "your-app-scheme",
+    "scheme": "myAppMunayki",
     "slug": "myAppMunayki",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,16 +16,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hanz.myAppMunayki"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "softwareKeyboardLayoutMode": "pan"
-      },  
+      },
       "useNextNotificationsApi": true,
-      "versionCode": 6,
+      "versionCode": 1,
       "package": "com.hanz.myAppMunayki",
       "googleServicesFile": "./google-services.json"
     },

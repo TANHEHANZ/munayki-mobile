@@ -18,8 +18,13 @@ const Contactos = () => {
   console.log(tokenLoguet);
   const fetchData = async () => {
     try {
-      const result = await peticionGet("contacts/" + userData, tokenLoguet);
-      setData(result);
+      const cachedData = await getRequestWithCache("contacts/" + userData, tokenLoguet);
+      if (cachedData) {
+        setData(cachedData);
+      } else {
+        const result = await peticionGet("contacts/" + userData, tokenLoguet);
+        setData(result);
+      }
     } catch (error) {
       console.error("Error al obtener datos:", error);
     }

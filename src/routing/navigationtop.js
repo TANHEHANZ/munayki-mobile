@@ -7,6 +7,7 @@ import useUserStore from "../components/context/UserContext";
 import { peticionDelete } from "../utilitis/deleteRequest";
 import { peticionPost } from "../utilitis/postRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const handdleDeleteData = async () => {
   await AsyncStorage.removeItem("userDataLogin");
   console.log("Elemento eliminado de la caché correctamente");
@@ -20,17 +21,17 @@ export const handleUpdate = async (id, tokenLoguet) => {
     tokenLoguet
   );
   console.log(res, ress);
-
   res &&
   res.message === "Token de notificación eliminada correctamente" &&
   ress.message === "Token eliminado correctamente"
     ? (handdleDeleteData(), router.replace("/login"), alert("Secion cerrada"))
     : alert(res.message);
+ 
 };
 const Navigation = () => {
   const { user, token } = useUserStore();
   const tokenLoguet = token;
-  let idUser = user.login[0].id;
+  let idUser = user.login[0].id?user.login[0].id: null ;
   const salir = async () => {
     if (idUser) {
       await handleUpdate(idUser, tokenLoguet);

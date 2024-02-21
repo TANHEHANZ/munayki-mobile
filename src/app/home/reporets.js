@@ -13,7 +13,7 @@ const Reporets = () => {
   const tokenLoguet = user.tokenLogauth;
   const fetchData = async () => {
     try {
-      const result = await peticionGet(`Multimedia/` + idUser ,tokenLoguet,cachedata=false);
+      const result = await peticionGet(`Multimedia/` + idUser ,tokenLoguet);
       setData(result);
     } catch (error) {
       console.error("Error al obtener datos:", error);

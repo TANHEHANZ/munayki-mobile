@@ -137,7 +137,6 @@ const Config = () => {
             <Text>Ubucacion: {data.data.ubicacion}</Text>
             <Text>Gmail: {data.data.correo}</Text>
             <Text>Telefono: {data.data.telefono}</Text>
-
             <TouchableOpacity
               style={loginstyle.button}
               onPress={() => router.push("/home/reporets")}

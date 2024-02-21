@@ -11,12 +11,13 @@ export default function DataAudio() {
             borderBottomWidth: 1,
             borderBottomColor: "#0005",
             marginVertical: 10,
-            padding: 5,
+         
+            padding: 10,
           }}
         >
           Términos y Condiciones
         </Text>
-        <Text>
+        <Text style={{textAlign:"justify",   marginHorizontal:20,}}>
           Términos y Condiciones de uso y aceptación de la aplicación MUNAYKY
           Los siguientes Términos y Condiciones rigen las condiciones de uso de
           la aplicación de Autogestión “MUNAYKI” (en adelante la App), ofrecida

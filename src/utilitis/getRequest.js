@@ -1,7 +1,7 @@
 import { http } from "./http";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const peticionGet = async (url, tokenLoguet,cachedata) => {
+export const peticionGet = async (url, tokenLoguet) => {
   const response = await fetch(http + url, {
     method: "GET",
     headers: {
@@ -13,11 +13,9 @@ export const peticionGet = async (url, tokenLoguet,cachedata) => {
   console.log(response);
   if (response.ok) {
     const json = await response.json();
-    if(cachedata===true){
       await AsyncStorage.setItem(url, JSON.stringify(json));
       const cachedData = await AsyncStorage.getItem(url);
       console.log("datos enviados a cache ", JSON.parse(cachedData));
-    }
     return json;
   }
   return null;

@@ -1,10 +1,11 @@
+
 import * as Notifications from "expo-notifications";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
-    shouldSetBadge: true,
+    shouldSetBadge: false,
   }),
 });
 
@@ -17,7 +18,7 @@ export const sendPushNotification = async (tokencontact, user) => {
         title: "MUNAYKI",
         body:
           "Botton de panico accionado ,alerta del usuario " +
-          user.login[0].nombre 
+          user.login[0].nombre,
       };
       const response = await fetch("https://exp.host/--/api/v2/push/send", {
         method: "POST",

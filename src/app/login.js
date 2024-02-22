@@ -141,7 +141,7 @@ const Login = () => {
             <View style={{ ...loginstyle.logoconteiner }}>
               <Image
                 source={require("../../assets/fondo/munaiki1.png")}
-                style={{ ...loginstyle.logos, width: 150, height: 90 }}
+                style={{ ...loginstyle.logos, width: 190, height: 130 }}
               />
             </View>
           </View>

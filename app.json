@@ -17,7 +17,15 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.hanz.myAppMunayki"
+      "bundleIdentifier": "com.hanz.myAppMunayki",
+      "ios.permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+         "RECORD_AUDIO",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "android": {
       "adaptiveIcon": {
@@ -28,7 +36,15 @@
       "useNextNotificationsApi": true,
       "versionCode": 1,
       "package": "com.hanz.myAppMunayki",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+         "RECORD_AUDIO",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,7 +53,7 @@
       "expo-router"
     ],
     "runtimeVersion": {
-      "policy": "appVersion"
+      "policy": "sdkVersion"
     },
     "updates": {
       "url": "https://u.expo.dev/b5d8a463-8bff-4b41-b66f-db39feb6a0a9"
@@ -49,6 +65,7 @@
       "eas": {
         "projectId": "b5d8a463-8bff-4b41-b66f-db39feb6a0a9"
       }
-    }
+    },
+
   }
 }

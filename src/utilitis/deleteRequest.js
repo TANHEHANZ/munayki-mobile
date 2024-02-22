@@ -6,7 +6,7 @@ export const peticionDelete = async (url,tokenLoguet) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: tokenLoguet ? tokenLoguet : "",
+      Authorization: tokenLoguet 
     },
 
   });

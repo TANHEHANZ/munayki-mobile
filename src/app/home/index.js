@@ -16,6 +16,7 @@ import { imgdata } from "../../../assets/icon.png";
 import { getRandomColor } from "../../components/colorRandom";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { loginstyle } from "../../styles/style";
 const HomeScreens = () => {
   const [data, setData] = useState("");
   const [refreshing, setRefreshing] = useState(false);
@@ -47,9 +48,13 @@ const HomeScreens = () => {
 
   return (
     <View style={styles.bodyContainer}>
-      <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>
+       <Image
+        source={require("../../../assets/fondo/logob.png")}
+        style={{ ...loginstyle.logos, width: 300, height: 50 }}
+      />
+      {/* <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>
         Munayki "Yo te Cuido"
-      </Text>
+      </Text> */}
       <View
         style={{
           paddingLeft: 20,

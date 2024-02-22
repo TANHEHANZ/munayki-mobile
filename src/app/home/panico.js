@@ -11,6 +11,7 @@ import { Audio } from "expo-av";
 import { sendPushNotification } from "./altertas/pushnotification";
 import { handleUpdate } from "../../routing/navigationtop";
 import { peticionGet } from "../../utilitis/getRequest";
+import { Permissions } from 'expo';
 const Panico = () => {
   const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
   const [hasPermissionAudio, setHasPermissionAudio] = useState(null);
@@ -76,12 +77,14 @@ const Panico = () => {
 
   const handleCapturePhoto = async () => {
     try {
+      const perm = await Camera.requestCameraPermissionsAsync();
       if (hasPermissionCamera && cameraRef.current) {
         const photo = await cameraRef.current.takePictureAsync({
           quality: 0.3,
           width: 400,
           height: 600,
         });
+
         await enviarFoto(photo.uri);
         await MediaLibrary.saveToLibraryAsync(photo.uri);
       }

@@ -22,7 +22,7 @@
         "CAMERA",
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
-         "RECORD_AUDIO",
+        "RECORD_AUDIO",
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
       ]
@@ -32,7 +32,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "softwareKeyboardLayoutMode": "pan"
-      }, 
+      },
       "useNextNotificationsApi": true,
       "versionCode": 1,
       "package": "com.hanz.myAppMunayki",
@@ -41,7 +41,7 @@
         "CAMERA",
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
-         "RECORD_AUDIO",
+        "RECORD_AUDIO",
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
       ]
@@ -63,9 +63,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "b5d8a463-8bff-4b41-b66f-db39feb6a0a9"
+        "projectId": "a7914fd8-9678-46bf-9daf-f84cd152b15c"
       }
     },
-
+    "owner": "stuko0"
   }
 }

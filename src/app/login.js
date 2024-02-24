@@ -97,6 +97,7 @@ const Login = () => {
             <TextInput
               style={loginstyle.inputs}
               value={dataLogin.correo}
+              autoCapitalize='none'
               onChangeText={(text) =>
                 setDataLogin((old) => ({ ...old, correo: text }))
               }
@@ -105,6 +106,7 @@ const Login = () => {
             <TextInput
               style={loginstyle.inputs}
               value={dataLogin.password}
+              autoCapitalize='none'
               onChangeText={(text) =>
                 setDataLogin((old) => ({ ...old, password: text }))
               }
@@ -116,6 +118,7 @@ const Login = () => {
             <TextInput
               style={loginstyle.inputs}
               value={dataLogin.confirmation_password}
+              autoCapitalize='none'
               onChangeText={(text) =>
                 setDataLogin((old) => ({
                   ...old,

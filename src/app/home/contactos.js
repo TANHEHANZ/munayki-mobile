@@ -11,11 +11,12 @@ import { ConStyle } from "../../styles/contact";
 const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
   const [data, setData] = useState(0);
-  const { user } = useUserStore();
+  const { user ,token} = useUserStore();
+
   let userData = +user.login[0].id;
   console.log(user);
-  const tokenLoguet = user.tokenLogauth;
-  console.log(tokenLoguet);
+  const tokenLoguet = token;
+  console.log("tokendata",token);
   const fetchData = async () => {
     try {
       const cachedData = await getRequestWithCache("contacts/" + userData, tokenLoguet);

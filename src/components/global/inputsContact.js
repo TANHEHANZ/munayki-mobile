@@ -3,9 +3,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  FlatList,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { contactStyle } from "../../styles/style";
 import { peticionPost } from "../../utilitis/postRequest";
 import { ScrollView } from "react-native-gesture-handler";
@@ -70,11 +69,8 @@ const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
     userData +
     "/?nickContacto=" +
     datoscontact.nick;
-  console.log(url);
   const handleSend = async () => {
     if (validarDatos()) {
-      console.log(datoscontact);
-      console.log(userData);
 
       const res = await peticionPost(url, {
         nombre: datoscontact.nombre,
@@ -84,7 +80,6 @@ const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
         relacion: datoscontact.relacion,
         nickContacto: datoscontact.nick,
       }, "POST",tokenLoguet);
-      console.log(res);
       if (res && res.message) {
         alert(res.message);
       } else {

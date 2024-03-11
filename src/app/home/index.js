@@ -48,7 +48,7 @@ const HomeScreens = () => {
 
   return (
     <View style={styles.bodyContainer}>
-       <Image
+      <Image
         source={require("../../../assets/fondo/logob.png")}
         style={{ ...loginstyle.logos, width: 300, height: 50 }}
       />

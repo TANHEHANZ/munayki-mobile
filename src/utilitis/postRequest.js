@@ -14,5 +14,5 @@ export const peticionPost = async (url, contenido, metodo, authToken) => {
     const json = await response.json();
     return json;
   }
-  return response.error;
+  return response;
 };

@@ -20,9 +20,8 @@ const Config = () => {
   const [verDatos, setVerDatos] = useState(false);
   const [patron, setPatron] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const user = useUserStore((state) => state.user);
+  const {token}=useUserStore();
   const [data, setData] = useState(0);
-  const tokenLoguet = user.tokenLogauth;
   const fetchData = async () => {
     console.log(patron);
     try {
@@ -30,7 +29,7 @@ const Config = () => {
         "datosUser",
         { password: patron },
         "POST",
-        tokenLoguet
+        token
       );
       console.log("resultado", result);
       setData(result);

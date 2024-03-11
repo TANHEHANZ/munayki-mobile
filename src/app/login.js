@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -15,17 +15,13 @@ import useUserStore from "../components/context/UserContext";
 import LocationComponent from "../components/permisos/location";
 import NotificationComponent from "../components/permisos/camera";
 import * as Notifications from "expo-notifications";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 const Login = () => {
   const [dataLogin, setDataLogin] = useState({
     correo: "",
     password: "",
     confirmation_password: "",
   });
-
-  const { updateUser } = useUserStore();
-
+  const { updateUser, setToken } = useUserStore();
   const handleSend = async () => {
     const token = (await Notifications.getExpoPushTokenAsync()).data;
     if (
@@ -33,23 +29,24 @@ const Login = () => {
       dataLogin.password.length >= 8
     ) {
       const res = await peticionPost(
-        "login/?tokenUserData=" + token,
+        "login/?tokenUserData=" + token +12,
         {
           correo: dataLogin.correo,
           password: dataLogin.password,
         },
         "POST"
       );
-      await AsyncStorage.setItem("userDataLogin", JSON.stringify(res));
-      updateUser(res, dataLogin.password);
-      if (res && res.message === "Inicio de sesion correcto") {
-        router.replace("/home");
-        alert("Bienvenido");
-      } else {
-        alert(res.message || "Error al iniciar sesión");
-      }
-    } else {
-      alert("Las contraseñas no coinciden");
+
+       if (res && res.message === "Inicio de sesion correcto") {
+         updateUser(res, dataLogin.password);
+         setToken(res.token)
+         router.replace("/home");
+         alert("Bienvenido");
+       } else {
+         alert(res.message || "Error al iniciar sesión");
+       }
+     } else {
+       alert("Las contraseñas no coinciden");
     }
   };
 

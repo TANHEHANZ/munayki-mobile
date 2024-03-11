@@ -71,18 +71,18 @@ const Register = () => {
       alert("Por favor, completa el campo ubicación.");
       return false;
     }
-
+/* 
     if (!dataRegister.correo) {
       alert("Por favor, completa el campo correo.");
       return false;
-    } else if (
+    }  *//* else if (
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
         dataRegister.correo
       )
-    ) {
+    ) */ /* {
       alert('El campo correo debe contener un "@" y terminar con ".com".');
       return false;
-    }
+    } */
 
     if (!dataRegister.password || dataRegister.password.length < 8) {
       alert(
@@ -113,7 +113,7 @@ const Register = () => {
         password: dataRegister.password,
         rol: dataRegister.rol,
         genero: dataRegister.genero,
-      },"POST");
+      }, "POST");
       console.log(dataRegister);
       res && res.message === "Usuario creado exitosamente"
         ? (router.push("/login"), alert("Registrado"))
@@ -208,9 +208,9 @@ const Register = () => {
                     setDataRegister((old) => ({ ...old, genero: itemValue }))
                   }
                 >
-                  <Picker.Item label="Escoge un genero" value="" style={{width:100,color:"#fff",backgroundColor:colors.CC,height:10,}}/>
-                  <Picker.Item label="Masculino" value="Masculino "style={{width:100,color:"#fff",backgroundColor:colors.CC}} />
-                  <Picker.Item label="Femenino" value="Femenino "style={{width:100,color:"#fff",backgroundColor:colors.CC}} />
+                  <Picker.Item label="Escoge un genero" value="" style={{ width: 100, color: "#fff", backgroundColor: colors.CC, height: 10, }} />
+                  <Picker.Item label="Masculino" value="Masculino " style={{ width: 100, color: "#fff", backgroundColor: colors.CC }} />
+                  <Picker.Item label="Femenino" value="Femenino " style={{ width: 100, color: "#fff", backgroundColor: colors.CC }} />
                 </Picker>
                 <Text style={{ width: "100%", fontSize: 12 }}>Direccion</Text>
                 <TextInput

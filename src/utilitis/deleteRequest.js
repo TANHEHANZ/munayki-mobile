@@ -14,5 +14,5 @@ export const peticionDelete = async (url,tokenLoguet) => {
     const json = await response.json();
     return json;
   }
-  return null;
+  return response;
 };

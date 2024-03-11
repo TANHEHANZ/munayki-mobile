@@ -11,7 +11,7 @@ import { Audio } from "expo-av";
 import { sendPushNotification } from "./altertas/pushnotification";
 import { handleUpdate } from "../../routing/navigationtop";
 import { peticionGet } from "../../utilitis/getRequest";
-import { Permissions } from 'expo';
+
 const Panico = () => {
   const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
   const [hasPermissionAudio, setHasPermissionAudio] = useState(null);
@@ -20,14 +20,13 @@ const Panico = () => {
   const [audioUser, setAudioUser] = useState("");
   const [tokenContat, setTokenContat] = useState("");
   const location = useLocationStore((state) => state.location);
-  const user = useUserStore((state) => state.user);
+  const { user, token ,clearAsyncStorage} = useUserStore();
   let userData = user.login[0].id;
-  const tokenLoguet = user.tokenLogauth;
 
   const traerToken = async () => {
     const conctUser = await peticionGet(
       "contactosfilterNick/" + userData,
-      tokenLoguet
+      token
     );
     console.log(conctUser)
     setTokenContat(conctUser);
@@ -53,6 +52,7 @@ const Panico = () => {
   }, []);
 
   const handleSend = async () => {
+    console.log(fotosuser,audioUser)
     if (fotosuser.length > 0 && audioUser.length > 0) {
       const res = await peticionPost(
         "sendAlert-Email/" + userData,
@@ -63,10 +63,11 @@ const Panico = () => {
           latitud: +location.coords.latitude,
         },
         "POST",
-        tokenLoguet
+        token
       );
+      console.log(res)
       res && res.message == "Correos enviados y datos guardados correctamente"
-        ? handleUpdate(userData, tokenLoguet)
+        ? handleUpdate(token,clearAsyncStorage)
         : alert(res.message);
     }
   };
@@ -77,7 +78,7 @@ const Panico = () => {
 
   const handleCapturePhoto = async () => {
     try {
-      const perm = await Camera.requestCameraPermissionsAsync();
+      const hasPermissionCamera = await Camera.requestCameraPermissionsAsync();
       if (hasPermissionCamera && cameraRef.current) {
         const photo = await cameraRef.current.takePictureAsync({
           quality: 0.3,

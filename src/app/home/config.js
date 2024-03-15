@@ -73,13 +73,13 @@ const Config = () => {
         {cargaimg ? (
           <FontAwesome
             name="user"
-            size={100}
+            size={windowWidth * 0.2}
             color="rgb(73,39,121)"
             style={{
               width: windowWidth * 0.30,
               height: windowWidth * 0.50,
-              paddingHorizontal: windowWidth * 0.05,
-              paddingVertical: windowWidth * 0.1,
+              paddingHorizontal: windowWidth * 0.08,
+              paddingVertical: windowWidth * 0.15,
               borderRadius: windowWidth * 0.5,
               borderColor: "#000",
               borderWidth: windowWidth * 0.005,

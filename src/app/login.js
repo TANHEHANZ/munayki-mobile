@@ -80,7 +80,7 @@ const Login = () => {
                   borderWidth: 2,
                   borderColor: colors.CC,
                   width: windowWidth * 0.30,
-                  height: windowHeight * 0.15,
+                  height: windowWidth * 0.30,
 
                 }}
               >
@@ -95,11 +95,13 @@ const Login = () => {
           </View>
           <View
             style={{
-              paddingHorizontal: 35,
               height: windowHeight * 0.62,
+              display: "flex",
+              width: "90%",
+              marginLeft: "5%"
             }}
           >
-            <Text style={{ width: "100%", fontSize: windowWidth * 0.029 }}>
+            <Text style={{ width: "100%", fontSize: 12 }}>
               Email de usuario
             </Text>
             <TextInput
@@ -110,7 +112,7 @@ const Login = () => {
                 setDataLogin((old) => ({ ...old, correo: text }))
               }
             />
-            <Text style={{ width: "100%", fontSize: windowWidth * 0.029}}>Contraseña</Text>
+            <Text style={{ width: "100%", fontSize: 12 }}>Contraseña</Text>
             <TextInput
               style={loginstyle.inputs}
               value={dataLogin.password}
@@ -120,7 +122,7 @@ const Login = () => {
                 setDataLogin((old) => ({ ...old, password: text }))
               }
             />
-            <Text style={{ width: "100%", fontSize: windowWidth * 0.029}}>
+            <Text style={{ width: "100%", fontSize: 12 }}>
               Confirmar contraseña
             </Text>
             <TextInput
@@ -139,7 +141,7 @@ const Login = () => {
               style={loginstyle.button}
               onPress={() => handleSend()}
             >
-              <Text style={{ color: colors.CC ,fontSize: windowWidth * 0.035}}>Ingresar</Text>
+              <Text style={{ color: colors.CC, fontSize: 14 }}>Ingresar</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={loginstyle.button}
@@ -147,12 +149,12 @@ const Login = () => {
                 router.push("/register");
               }}
             >
-              <Text style={{ color: colors.CC ,fontSize: windowWidth * 0.035}}>Registrarse</Text>
+              <Text style={{ color: colors.CC, fontSize: 14 }}>Registrarse</Text>
             </TouchableOpacity>
             <View style={{ ...loginstyle.logoconteiner }}>
               <Image
                 source={require("../../assets/fondo/munaiki1.png")}
-                style={{ ...loginstyle.logos, width: 190, height: 130 }}
+                style={{ ...loginstyle.logos, width: windowWidth * 0.30, height: windowHeight * 0.10}}
               />
             </View>
           </View>

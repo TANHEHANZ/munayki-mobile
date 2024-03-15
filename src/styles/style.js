@@ -24,8 +24,6 @@ export const loginstyle = StyleSheet.create({
     alignItems: "center",
     position: "relative",
     bottom: -30,
-    right: "4%",
-    left:"-4%",
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     ...sharedStyles.shadowBox,
@@ -34,7 +32,7 @@ export const loginstyle = StyleSheet.create({
     position: "absolute",
     width: 70,
     height: 70,
-    borderRadius: 80,
+    borderRadius: windowWidth * 0.30,
     backgroundColor: colors.CC,
     justifyContent: "center",
     alignItems: "center",
@@ -49,7 +47,7 @@ export const loginstyle = StyleSheet.create({
     margin: "1%",
     borderWidth:0,
     padding: 0,
-    fontSize: windowWidth * 0.03
+    fontSize: 14
   },
   button: {
     marginVertical: "3%",

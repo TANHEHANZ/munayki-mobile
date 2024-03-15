@@ -102,7 +102,7 @@ const HomeScreens = () => {
             borderTopWidth: windowWidth * 0.002,
             borderBottomWidth: windowWidth * 0.002,
             borderColor: "#0001",
-            height: windowWidth * 1,
+            height: windowWidth * 0.9,
           }}
         >
           {data &&
@@ -114,6 +114,7 @@ const HomeScreens = () => {
                   marginHorizontal: windowWidth * 0.05,
                   justifyContent: "flex-end",
                   alignItems: "center",
+                  height:"100%"
                 }}
                 key={index}
                 onPress={() => Linking.openURL(value.url)}
@@ -128,7 +129,7 @@ const HomeScreens = () => {
                   <Text
                     style={{
                       width: windowWidth * 1,
-                      fontSize: windowWidth * 0.036,
+                      fontSize:14,
                       height: "17%",
                       color: "#fff",
                       padding: windowWidth * 0.01,
@@ -138,7 +139,7 @@ const HomeScreens = () => {
                   </Text>
                   <Text
                     style={{
-                      fontSize: windowWidth * 0.036,
+                      fontSize:14,
                       height: windowWidth * 0.20,
                       borderTopWidth: windowWidth * 0.002,
                       borderColor: "#0005",

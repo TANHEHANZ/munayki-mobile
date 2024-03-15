@@ -4,7 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { contactStyle } from "../../styles/style";
 import { peticionPost } from "../../utilitis/postRequest";
 import { ScrollView } from "react-native-gesture-handler";
@@ -69,6 +69,8 @@ const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
     userData +
     "/?nickContacto=" +
     datoscontact.nick;
+
+    console.log(url)
   const handleSend = async () => {
     if (validarDatos()) {
 
@@ -79,9 +81,12 @@ const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
         telefono: parseInt(datoscontact.telefono),
         relacion: datoscontact.relacion,
         nickContacto: datoscontact.nick,
-      }, "POST",tokenLoguet);
+      }, "POST", tokenLoguet);
+      console.log(datoscontact)
       if (res && res.message) {
         alert(res.message);
+        setMostrar(false)
+        setDatoscontact(datos)
       } else {
         alert(
           "Verifique los campos (El campo de codigo debe ser exacto con su contacto, su contacto debe inicar secion para porder agregarlo y de esta forma enviarle las notificaciones)"
@@ -140,7 +145,7 @@ const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
                 <Picker.Item
                   label="Edad"
                   value=""
-                  style={{ backgroundColor: "#fff" }}
+                  style={{ backgroundColor: "#fff", fontWeight: 800 }}
                 />
                 {edades.map((edad) => (
                   <Picker.Item

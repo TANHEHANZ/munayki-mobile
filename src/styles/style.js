@@ -1,10 +1,12 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { colors, sharedStyles } from "./CompStyle";
-
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 export const loginstyle = StyleSheet.create({
   container: {
     flex: 1,
-    height: "100%",
+    width:windowWidth * 1,
+    height: windowHeight * 1,
     backgroundColor: "#fff",
   },
   title: {
@@ -15,8 +17,8 @@ export const loginstyle = StyleSheet.create({
     position: "relative",
   },
   logoconteiner:{
-    width: "110%",
-    height: 170,
+    width:windowWidth * 0.9,
+    height:  windowWidth * 0.5,
     borderColor: "rgba(80, 58, 179, 0.5)",
     justifyContent: "center",
     alignItems: "center",
@@ -47,6 +49,7 @@ export const loginstyle = StyleSheet.create({
     margin: "1%",
     borderWidth:0,
     padding: 0,
+    fontSize: windowWidth * 0.03
   },
   button: {
     marginVertical: "3%",

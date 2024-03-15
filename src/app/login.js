@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Image,
+  Dimensions,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import { router } from "expo-router";
@@ -22,6 +23,8 @@ const Login = () => {
   });
   const [tokennot, setTokenNot] = useState(null);
   const { updateUser, setToken } = useUserStore();
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
   const getTokenNot = async () => {
     const token = await AsyncStorage.getItem('notificationToken');
     setTokenNot(token)
@@ -76,13 +79,14 @@ const Login = () => {
                   backgroundColor: "#fff",
                   borderWidth: 2,
                   borderColor: colors.CC,
-                  width: 140,
-                  height: 140,
+                  width: windowWidth * 0.30,
+                  height: windowHeight * 0.15,
+
                 }}
               >
-                <Text style={{ fontSize: 25, fontWeight: 600 }}> Iniciar</Text>
+                <Text style={{ fontSize: windowWidth * 0.04, fontWeight: 600 }}> Iniciar</Text>
                 <Text
-                  style={{ color: colors.CC, fontSize: 20, fontWeight: 600 }}
+                  style={{ color: colors.CC, fontSize: windowWidth * 0.05, fontWeight: 600 }}
                 >
                   sesión
                 </Text>
@@ -92,11 +96,11 @@ const Login = () => {
           <View
             style={{
               paddingHorizontal: 35,
-              height: 500,
+              height: windowHeight * 0.62,
             }}
           >
-            <Text style={{ width: "100%", fontSize: 12 }}>
-              Email de usuario {dataLogin.correo}
+            <Text style={{ width: "100%", fontSize: windowWidth * 0.029 }}>
+              Email de usuario
             </Text>
             <TextInput
               style={loginstyle.inputs}
@@ -106,7 +110,7 @@ const Login = () => {
                 setDataLogin((old) => ({ ...old, correo: text }))
               }
             />
-            <Text style={{ width: "100%", fontSize: 12 }}>Contraseña</Text>
+            <Text style={{ width: "100%", fontSize: windowWidth * 0.029}}>Contraseña</Text>
             <TextInput
               style={loginstyle.inputs}
               value={dataLogin.password}
@@ -116,7 +120,7 @@ const Login = () => {
                 setDataLogin((old) => ({ ...old, password: text }))
               }
             />
-            <Text style={{ width: "100%", fontSize: 12 }}>
+            <Text style={{ width: "100%", fontSize: windowWidth * 0.029}}>
               Confirmar contraseña
             </Text>
             <TextInput
@@ -135,7 +139,7 @@ const Login = () => {
               style={loginstyle.button}
               onPress={() => handleSend()}
             >
-              <Text style={{ color: colors.CC }}>Ingresar</Text>
+              <Text style={{ color: colors.CC ,fontSize: windowWidth * 0.035}}>Ingresar</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={loginstyle.button}
@@ -143,7 +147,7 @@ const Login = () => {
                 router.push("/register");
               }}
             >
-              <Text style={{ color: colors.CC }}>Registrarse</Text>
+              <Text style={{ color: colors.CC ,fontSize: windowWidth * 0.035}}>Registrarse</Text>
             </TouchableOpacity>
             <View style={{ ...loginstyle.logoconteiner }}>
               <Image

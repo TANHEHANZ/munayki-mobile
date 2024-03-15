@@ -24,7 +24,7 @@ const ResultQuizz = () => {
     const fetchData = async () => {
       try {
         const result = await peticionGet(
-          "resultado-cuestionario/usuario/" + userData,tokenLoguet
+          "resultado-cuestionario/usuario/" + userData, tokenLoguet
         );
         setData(result);
         let siCount = 0;
@@ -167,7 +167,7 @@ const ResultQuizz = () => {
               backgroundColor: colors.primary,
             }}
             onPress={() =>
-              Linking.openURL("https://munayki.cidtec-uc.com/#/dashboard/Quizz")
+              Linking.openURL("https://munayki.cochabamba.bo/#/Quizz")
             }
           >
             <Text

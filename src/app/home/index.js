@@ -6,6 +6,7 @@ import {
   View,
   Linking,
   RefreshControl,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { colors, sharedStyles } from "../../styles/CompStyle";
@@ -20,7 +21,8 @@ import { loginstyle } from "../../styles/style";
 const HomeScreens = () => {
   const [data, setData] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
   const onRefresh = async () => {
     setRefreshing(true);
     const result = await peticionGet("info");
@@ -54,9 +56,9 @@ const HomeScreens = () => {
       />
       <View
         style={{
-          paddingLeft: 20,
-          paddingRight: 20,
-          height: "13%",
+          paddingLeft: windowWidth * 0.06,
+          paddingRight: windowWidth * 0.10,
+          height: windowWidth * 0.22,
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
@@ -67,8 +69,8 @@ const HomeScreens = () => {
           style={{
             ...sharedStyles.shadowBox,
             backgroundColor: colors.primary,
-            padding: 10,
-            borderRadius: 30,
+            padding: windowWidth * 0.022,
+            borderRadius: windowWidth * 0.50,
             borderWidth: 0,
           }}
           onPress={() => router.push("/home/dataAudio")}
@@ -76,12 +78,12 @@ const HomeScreens = () => {
           <FontAwesome name="download" size={30} color={"rgb(73,39,121)"} />
         </TouchableOpacity>
       </View>
-      <Text style={{ paddingLeft: 10, marginLeft: 20, marginTop: 15 }}>
+      <Text style={{ marginLeft: windowWidth * 0.06, marginVertical: windowWidth * 0.020 }}>
         Informaciones
       </Text>
       <View
         style={{
-          height: "63%",
+          height: windowWidth * 1.02,
         }}
       >
         <ScrollView
@@ -95,61 +97,66 @@ const HomeScreens = () => {
           }
           horizontal
           style={{
-            paddingVertical: 15,
+            paddingVertical: windowWidth * 0.02,
             backgroundColor: "#0001",
-            borderTopWidth: 2,
-            borderBottomWidth: 2,
+            borderTopWidth: windowWidth * 0.002,
+            borderBottomWidth: windowWidth * 0.002,
             borderColor: "#0001",
-            height: 300,
+            height: windowWidth * 1,
           }}
         >
           {data &&
             Object.entries(data).map(([key, value], index) => (
               <TouchableOpacity
                 style={{
-                  width: 300,
-                  felx: 1,
+                  width: windowWidth * 0.7,
                   backgroundColor: getRandomColor(),
-                  marginHorizontal: 20,
+                  marginHorizontal: windowWidth * 0.05,
                   justifyContent: "flex-end",
                   alignItems: "center",
                 }}
                 key={index}
+                onPress={() => Linking.openURL(value.url)}
               >
-                <View>
+                <View style={{ justifyContent: "center", display: "flex", flexDirection: "column", width: "100%" }}>
                   <Image
                     source={{ uri: value.imagen || imgdata }}
-                    style={{ width: 300, height: "54%" }}
+                    style={{ width: "100%", height: "54%" }}
                     resizeMethod="auto"
                     resizeMode="cover"
                   />
                   <Text
                     style={{
-                      fontSize: 14,
+                      width: windowWidth * 1,
+                      fontSize: windowWidth * 0.036,
                       height: "17%",
                       color: "#fff",
-                      padding: 8,
+                      padding: windowWidth * 0.01,
                     }}
                   >
                     {value.titulo}
                   </Text>
                   <Text
                     style={{
-                      height: 70,
-                      borderTopWidth: 1,
+                      fontSize: windowWidth * 0.036,
+                      height: windowWidth * 0.20,
+                      borderTopWidth: windowWidth * 0.002,
                       borderColor: "#0005",
-                      padding: 15,
+                      padding: windowWidth * 0.01,
                       color: "#fff",
                       position: "relative",
+                      textAlign: "justify",
+                      width: "90%",
+                      padding: windowWidth * 0.016
                     }}
                   >
                     {value.cuerpo}
                   </Text>
                   <TouchableOpacity
                     style={{
-                      height: 50,
+                      height: windowWidth * 0.2,
                       elevation: 1,
-                      bottom: 20,
+                      bottom: windowWidth * 0.01,
                     }}
                     onPress={() => Linking.openURL(value.url)}
                   >
@@ -158,11 +165,11 @@ const HomeScreens = () => {
                         color: "#fff",
                         backgroundColor: "#0007",
                         position: "absolute",
-                        flex: 1,
-                        width: 110,
-                        paddingHorizontal: 20,
-                        borderRadius: 10,
-                        right: -5,
+                        width: windowWidth * 0.3,
+                        height: windowWidth * 0.1,
+                        padding: windowWidth * 0.020,
+                        borderRadius:  windowWidth * 0.016,
+                        right: - windowWidth * 0.02,
                       }}
                     >
                       ver recurso

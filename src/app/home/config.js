@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  Linking,
+  Linking, Dimensions
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Modal from "react-native-modal"; // Importa el componente Modal
@@ -20,8 +20,13 @@ const Config = () => {
   const [verDatos, setVerDatos] = useState(false);
   const [patron, setPatron] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const {token}=useUserStore();
+  const { token } = useUserStore();
   const [data, setData] = useState(0);
+
+
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
+
   const fetchData = async () => {
     console.log(patron);
     try {
@@ -71,13 +76,13 @@ const Config = () => {
             size={100}
             color="rgb(73,39,121)"
             style={{
-              width: 110,
-              height: 200,
-              paddingHorizontal: 20,
-              paddingVertical: 40,
-              borderRadius: 100,
+              width: windowWidth * 0.30,
+              height: windowWidth * 0.50,
+              paddingHorizontal: windowWidth * 0.05,
+              paddingVertical: windowWidth * 0.1,
+              borderRadius: windowWidth * 0.5,
               borderColor: "#000",
-              borderWidth: 2,
+              borderWidth: windowWidth * 0.005,
               backgroundColor: "#0001",
             }}
           />
@@ -89,40 +94,41 @@ const Config = () => {
         <Text
           style={{
             width: "100%",
-            fontSize: 22,
-            marginVertical: 20,
+            fontSize: windowWidth * 0.05,
+            marginVertical: windowWidth * 0.05,
+            marginStart: windowWidth * 0.05,
             color: colors.CC,
-            fontWeight: 600,
+            fontWeight: "600",
           }}
         >
           Datos del Usuario
         </Text>
         {verDatos ? (
-          <View style={{ gap: 10 }}>
-            <TouchableOpacity 
-             onPress={enviarCodigoWhatsApp}
+          <View style={{ gap: windowWidth * 0.01 }}>
+            <TouchableOpacity
+              onPress={enviarCodigoWhatsApp}
             >
-              <Text style={{ color: "green", fontWeight: "600", fontSize: 18 ,}}>
-                Codigo:{data.data.nick} 
+              <Text style={{ color: "green", fontWeight: "600", fontSize: windowWidth * 0.04 }}>
+                Codigo:{data.data.nick}
                 <TouchableOpacity
                   style={{
                     backgroundColor: "green",
-                    padding: 2,
-                    borderTopRightRadius: 30,
-                    borderBottomRightRadius: 30,
-                    borderTopLeftRadius: 30,
-                
+                    padding: windowWidth * 0.008,
+                    borderTopRightRadius: windowWidth * 0.15,
+                    borderBottomRightRadius: windowWidth * 0.15,
+                    borderTopLeftRadius: windowWidth * 0.15,
+
                   }}
                 >
-                  <FontAwesome name="whatsapp" size={20} color="#fff"  />
+                  <FontAwesome name="whatsapp" size={20} color="#fff" />
                 </TouchableOpacity>
               </Text>
               <Text
                 style={{
-                  fontSize: 14,
-                  borderWidth: 1,
+                  fontSize: windowWidth * 0.032,
+                  borderWidth: windowWidth * 0.005,
                   borderColor: "green",
-                  padding: 10,
+                  padding: windowWidth * 0.025,
                 }}
               >
                 Este codigo debes proporcionarle a la persona que registran tu
@@ -184,8 +190,8 @@ const Config = () => {
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                borderBottomWidth: 2,
-                paddingVertical: 20,
+                borderBottomWidth:windowWidth * 0.001,
+                paddingVertical: windowWidth * 0.05,
                 borderBottomColor: "#0002",
               }}
             >
@@ -199,8 +205,8 @@ const Config = () => {
               secureTextEntry={true}
               style={{
                 ...loginstyle.inputs,
-                borderBottomWidth: 2,
-                padding: 10,
+                borderBottomWidth: windowWidth * 0.001,
+                padding: windowWidth * 0.01,
               }}
               value={patron}
               onChangeText={(text) => setPatron(text)}

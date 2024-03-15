@@ -12,20 +12,12 @@ const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
   const [data, setData] = useState(0);
   const { user ,token} = useUserStore();
-
   let userData = +user.login[0].id;
-  console.log(user);
   const tokenLoguet = token;
-  console.log("tokendata",token);
   const fetchData = async () => {
     try {
-      const cachedData = await getRequestWithCache("contacts/" + userData, tokenLoguet);
-      if (cachedData) {
-        setData(cachedData);
-      } else {
         const result = await peticionGet("contacts/" + userData, tokenLoguet);
         setData(result);
-      }
     } catch (error) {
       console.error("Error al obtener datos:");
     }
@@ -44,7 +36,7 @@ const Contactos = () => {
         tokenLoguet={tokenLoguet}
       />
 
-      {data === 3 ? (
+      {data >=3 ? (
         <Text style={ConStyle.text}>Ya agrego los tres contactos</Text>
       ) : !mostrar ? (
         <TouchableOpacity

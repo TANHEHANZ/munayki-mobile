@@ -11,6 +11,7 @@ import { Audio } from "expo-av";
 import { sendPushNotification } from "./altertas/pushnotification";
 import { handleUpdate } from "../../routing/navigationtop";
 import { peticionGet } from "../../utilitis/getRequest";
+import { router } from "expo-router";
 
 const Panico = () => {
   const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
@@ -18,30 +19,15 @@ const Panico = () => {
   const cameraRef = useRef(null);
   const [fotosuser, setFotosuser] = useState("");
   const [audioUser, setAudioUser] = useState("");
-  const [tokenContat, setTokenContat] = useState("");
   const location = useLocationStore((state) => state.location);
-  const { user, token ,clearAsyncStorage} = useUserStore();
+  const { user, token, clearAsyncStorage } = useUserStore();
   let userData = user.login[0].id;
-
-  const traerToken = async () => {
-    const conctUser = await peticionGet(
-      "contactosfilterNick/" + userData,
-      token
-    );
-    console.log("contacto",conctUser)
-    setTokenContat(conctUser);
-  };
-
-  const handleSendNotification = async () => {
-    await sendPushNotification(tokenContat, user);
-  };
 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermissionCamera(status === "granted");
     })();
-    traerToken();
   }, []);
 
   useEffect(() => {
@@ -52,7 +38,7 @@ const Panico = () => {
   }, []);
 
   const handleSend = async () => {
-    console.log(fotosuser,audioUser)
+    console.log(fotosuser, audioUser)
     if (fotosuser.length > 0 && audioUser.length > 0) {
       const res = await peticionPost(
         "sendAlert-Email/" + userData,
@@ -67,7 +53,7 @@ const Panico = () => {
       );
       console.log(res)
       res && res.message == "Correos enviados y datos guardados correctamente"
-        ? handleUpdate(token,clearAsyncStorage)
+        ? (clearAsyncStorage(), router.replace("/login"), alert(res.message))
         : alert(res.message);
     }
   };
@@ -138,8 +124,7 @@ const Panico = () => {
     try {
       await Promise.all([
         handleCapturePhoto(),
-        startRecording(),
-        handleSendNotification(),
+        startRecording()
       ]);
     } catch (error) {
       console.error("Error capturing photo and recording audio:", error);

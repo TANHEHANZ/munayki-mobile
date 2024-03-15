@@ -52,9 +52,6 @@ const HomeScreens = () => {
         source={require("../../../assets/fondo/logob.png")}
         style={{ ...loginstyle.logos, width: 300, height: 50 }}
       />
-      {/* <Text style={{ fontSize: 25, fontWeight: 600, padding: 20 }}>
-        Munayki "Yo te Cuido"
-      </Text> */}
       <View
         style={{
           paddingLeft: 20,

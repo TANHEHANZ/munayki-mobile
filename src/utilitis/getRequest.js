@@ -10,7 +10,6 @@ export const peticionGet = async (url, tokenLoguet) => {
       Authorization: tokenLoguet ? tokenLoguet : "",
     },
   });
-  console.log(response);
   if (response.ok) {
     const json = await response.json();
       await AsyncStorage.setItem(url, JSON.stringify(json));

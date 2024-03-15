@@ -7,13 +7,13 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { colors } from "../../styles/CompStyle";
 
 const Reporets = () => {
-  const user = useUserStore((state) => state.user);
+ const {user,token} = useUserStore();
   const [data, setData] = useState([]);
   let idUser = user.login[0].id;
-  const tokenLoguet = user.tokenLogauth;
+
   const fetchData = async () => {
     try {
-      const result = await peticionGet(`Multimedia/` + idUser ,tokenLoguet);
+      const result = await peticionGet(`Multimedia/` + idUser ,token);
       setData(result);
     } catch (error) {
       console.error("Error al obtener datos:", error);

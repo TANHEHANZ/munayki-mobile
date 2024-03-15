@@ -11,19 +11,22 @@ import { loginstyle } from "../styles/style";
 
 
 export const handleUpdate = async (tokenLoguet, clearAsyncStorage) => {
-  const res = await peticionDelete(
-    "logaut",
-    tokenLoguet
-  );
-  console.log(res);
-  res &&
-    res.message === "Token de notificación eliminada correctamente"
-    ? (clearAsyncStorage(), router.replace("/login"), alert("Secion cerrada"))
-    : alert(res.message);
+  try {
+    const res = await peticionDelete(
+      "logaut",
+      tokenLoguet
+    );
+    console.log(res);
+    res &&
+      res.message === "Token de notificación eliminada correctamente"
+      ? (clearAsyncStorage(), router.replace("/login"), alert("Secion cerrada"))
+      : alert(res.message);
+  } catch (error) {
+    alert("Peticion fallida")
+  }
 };
 const Navigation = () => {
-  const { clearAsyncStorage, token,user } = useUserStore();
-  console.log(user)
+  const { clearAsyncStorage, token } = useUserStore();
   const salir = async () => {
     if (token) {
       await handleUpdate(token, clearAsyncStorage);

@@ -35,7 +35,7 @@ const Login = () => {
           {
             correo: dataLogin.correo,
             password: dataLogin.password,
-            tokenUserData: tokennot ? tokennot+112121 : undefined
+            tokenUserData: tokennot ? tokennot : undefined
           },
           "POST"
         );
@@ -106,22 +106,24 @@ const Login = () => {
                 setDataLogin((old) => ({ ...old, correo: text }))
               }
             />
-            <Text style={{ width: "100%", fontSize: 12 }}>Contraseña {dataLogin.password}</Text>
+            <Text style={{ width: "100%", fontSize: 12 }}>Contraseña</Text>
             <TextInput
               style={loginstyle.inputs}
               value={dataLogin.password}
               autoCapitalize='none'
+              secureTextEntry={true}
               onChangeText={(text) =>
                 setDataLogin((old) => ({ ...old, password: text }))
               }
             />
             <Text style={{ width: "100%", fontSize: 12 }}>
-              Confirmar contraseña {dataLogin.confirmation_password}
+              Confirmar contraseña
             </Text>
             <TextInput
               style={loginstyle.inputs}
               value={dataLogin.confirmation_password}
               autoCapitalize='none'
+              secureTextEntry={true}
               onChangeText={(text) =>
                 setDataLogin((old) => ({
                   ...old,
@@ -134,7 +136,6 @@ const Login = () => {
               onPress={() => handleSend()}
             >
               <Text style={{ color: colors.CC }}>Ingresar</Text>
-              <Text>{tokennot}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={loginstyle.button}

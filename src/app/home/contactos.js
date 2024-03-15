@@ -27,7 +27,7 @@ const Contactos = () => {
         setData(result);
       }
     } catch (error) {
-      console.error("Error al obtener datos:", error);
+      console.error("Error al obtener datos:");
     }
   };
   useEffect(() => {

@@ -71,19 +71,6 @@ const Register = () => {
       alert("Por favor, completa el campo ubicación.");
       return false;
     }
-/* 
-    if (!dataRegister.correo) {
-      alert("Por favor, completa el campo correo.");
-      return false;
-    }  *//* else if (
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-        dataRegister.correo
-      )
-    ) */ /* {
-      alert('El campo correo debe contener un "@" y terminar con ".com".');
-      return false;
-    } */
-
     if (!dataRegister.password || dataRegister.password.length < 8) {
       alert(
         dataRegister.password

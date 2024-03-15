@@ -28,7 +28,7 @@ const Panico = () => {
       "contactosfilterNick/" + userData,
       token
     );
-    console.log(conctUser)
+    console.log("contacto",conctUser)
     setTokenContat(conctUser);
   };
 

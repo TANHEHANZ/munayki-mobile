@@ -18,14 +18,13 @@ export const peticionGet = async (url, tokenLoguet) => {
       console.log("datos enviados a cache ", JSON.parse(cachedData));
     return json;
   }
-  return null;
+  return response;
 };
 
 export const getRequestWithCache = async (url, tokenLoguet) => {
   try {
     const cachedData = await AsyncStorage.getItem(url);
     if (cachedData !== null) {
-      console.log("datos de caché");
       return JSON.parse(cachedData);
     }
     await peticionGet(url, tokenLoguet);

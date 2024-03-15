@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,47 +13,54 @@ import { colors } from "../styles/CompStyle";
 import { peticionPost } from "../utilitis/postRequest";
 import useUserStore from "../components/context/UserContext";
 import LocationComponent from "../components/permisos/location";
-import NotificationComponent from "../components/permisos/camera";
-import * as Notifications from "expo-notifications";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Login = () => {
   const [dataLogin, setDataLogin] = useState({
     correo: "",
     password: "",
     confirmation_password: "",
   });
+  const [tokennot, setTokenNot] = useState(null);
   const { updateUser, setToken } = useUserStore();
+  const getTokenNot = async () => {
+    const token = await AsyncStorage.getItem('notificationToken');
+    setTokenNot(token)
+  }
   const handleSend = async () => {
-    const token = (await Notifications.getExpoPushTokenAsync()).data;
     if (
-      dataLogin.confirmation_password === dataLogin.password &&
-      dataLogin.password.length >= 8
-    ) {
-      const res = await peticionPost(
-        "login/?tokenUserData=" + token +12,
-        {
-          correo: dataLogin.correo,
-          password: dataLogin.password,
-        },
-        "POST"
-      );
-
-       if (res && res.message === "Inicio de sesion correcto") {
-         updateUser(res, dataLogin.password);
-         setToken(res.token)
-         router.replace("/home");
-         alert("Bienvenido");
-       } else {
-         alert(res.message || "Error al iniciar sesión");
-       }
-     } else {
-       alert("Las contraseñas no coinciden");
+      dataLogin.confirmation_password === dataLogin.password) {
+      try {
+        const res = await peticionPost(
+          "login",
+          {
+            correo: dataLogin.correo,
+            password: dataLogin.password,
+            tokenUserData: tokennot ? tokennot+112121 : undefined
+          },
+          "POST"
+        );
+        if (res && res.message === "Inicio de sesion correcto") {
+          updateUser(res, dataLogin.password);
+          setToken(res.token)
+          router.replace("/home");
+          alert("Bienvenido");
+        } else {
+          alert(res.message || "Error al iniciar sesión");
+        }
+      } catch (error) {
+        alert(error)
+      }
+    } else {
+      alert("Las contraseñas no coinciden");
     }
   };
+  useEffect(() => {
+    getTokenNot()
+  }, []);
 
   return (
     <>
       <LocationComponent />
-      <NotificationComponent />
       <KeyboardAvoidingView
         style={loginstyle.container}
         behavior="padding"
@@ -89,7 +96,7 @@ const Login = () => {
             }}
           >
             <Text style={{ width: "100%", fontSize: 12 }}>
-              Email de usuario
+              Email de usuario {dataLogin.correo}
             </Text>
             <TextInput
               style={loginstyle.inputs}
@@ -99,7 +106,7 @@ const Login = () => {
                 setDataLogin((old) => ({ ...old, correo: text }))
               }
             />
-            <Text style={{ width: "100%", fontSize: 12 }}>Contraseña</Text>
+            <Text style={{ width: "100%", fontSize: 12 }}>Contraseña {dataLogin.password}</Text>
             <TextInput
               style={loginstyle.inputs}
               value={dataLogin.password}
@@ -107,10 +114,9 @@ const Login = () => {
               onChangeText={(text) =>
                 setDataLogin((old) => ({ ...old, password: text }))
               }
-              secureTextEntry={true}
             />
             <Text style={{ width: "100%", fontSize: 12 }}>
-              Confirmar contraseña
+              Confirmar contraseña {dataLogin.confirmation_password}
             </Text>
             <TextInput
               style={loginstyle.inputs}
@@ -122,13 +128,13 @@ const Login = () => {
                   confirmation_password: text,
                 }))
               }
-              secureTextEntry={true}
             />
             <TouchableOpacity
               style={loginstyle.button}
               onPress={() => handleSend()}
             >
               <Text style={{ color: colors.CC }}>Ingresar</Text>
+              <Text>{tokennot}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={loginstyle.button}

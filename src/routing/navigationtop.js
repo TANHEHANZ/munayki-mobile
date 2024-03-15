@@ -22,8 +22,8 @@ export const handleUpdate = async (tokenLoguet, clearAsyncStorage) => {
     : alert(res.message);
 };
 const Navigation = () => {
-  const { clearAsyncStorage, token } = useUserStore();
-
+  const { clearAsyncStorage, token,user } = useUserStore();
+  console.log(user)
   const salir = async () => {
     if (token) {
       await handleUpdate(token, clearAsyncStorage);
@@ -31,6 +31,8 @@ const Navigation = () => {
       console.log(
         "No se puede cerrar sesión porque no hay un ID de usuario válido"
       );
+      clearAsyncStorage()
+      router.replace("/login")
     }
   };
 

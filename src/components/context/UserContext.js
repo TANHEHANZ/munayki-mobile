@@ -35,9 +35,7 @@ export const useUserStore = create((set) => {
     // Función para limpiar los datos del AsyncStorage
     clearAsyncStorage: async () => {
       try {
-        await AsyncStorage.removeItem("userData");
-        set({ user: "", password: "", token: "" });
-
+        await AsyncStorage.clear();
         console.log("AsyncStorage cleared successfully");
       } catch (error) {
         console.error("Error clearing AsyncStorage:", error);

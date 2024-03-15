@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Carga from "./carga";
 import { router } from "expo-router";
+import NotificationComponent from "../components/permisos/camera";
 
 const Index = () => {
 
   const [state, setState] = useState("Cargando");
+
   const verificarCache = async () => {
     try {
       const cachedData = await AsyncStorage.getItem("userData");
-      console.log(cachedData)
       if (cachedData) {
         setState("Cargado");
       } else {
@@ -28,7 +29,12 @@ const Index = () => {
   } else if (state === "No encontrado") {
     router.replace("/login");
   }
-  return <Carga />;
+  return (
+    <>
+      <Carga />
+    </>
+
+  );
 };
 
 export default Index;

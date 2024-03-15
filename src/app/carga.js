@@ -3,9 +3,9 @@ import React from 'react'
 
 const Carga = () => {
   return (
-    <View>
-      <Text>cargando</Text>
-    </View>
+      <View>
+        <Text>cargando</Text>
+      </View> 
   )
 }
 

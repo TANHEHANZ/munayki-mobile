@@ -8,9 +8,6 @@ import { peticionPost } from "../../utilitis/postRequest";
 import useUserStore from "../../components/context/UserContext";
 import useLocationStore from "../../components/context/UbicacionContext";
 import { Audio } from "expo-av";
-import { sendPushNotification } from "./altertas/pushnotification";
-import { handleUpdate } from "../../routing/navigationtop";
-import { peticionGet } from "../../utilitis/getRequest";
 import { router } from "expo-router";
 
 const Panico = () => {

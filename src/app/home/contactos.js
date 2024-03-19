@@ -36,7 +36,7 @@ const Contactos = () => {
         tokenLoguet={tokenLoguet}
       />
 
-      {data >=3 ? (
+      {data >=10 ? (
         <Text style={ConStyle.text}>Ya agrego los tres contactos</Text>
       ) : !mostrar ? (
         <TouchableOpacity

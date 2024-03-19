@@ -5,7 +5,7 @@ const windowHeight = Dimensions.get("window").height;
 export const loginstyle = StyleSheet.create({
   container: {
     flex: 1,
-    width:windowWidth * 1,
+    width: windowWidth * 1,
     height: windowHeight * 1,
     backgroundColor: "#fff",
   },
@@ -16,9 +16,9 @@ export const loginstyle = StyleSheet.create({
     alignItems: "center",
     position: "relative",
   },
-  logoconteiner:{
-    width:windowWidth * 0.9,
-    height:  windowWidth * 0.5,
+  logoconteiner: {
+    width: windowWidth * 0.9,
+    height: windowWidth * 0.5,
     borderColor: "rgba(80, 58, 179, 0.5)",
     justifyContent: "center",
     alignItems: "center",
@@ -45,13 +45,13 @@ export const loginstyle = StyleSheet.create({
     backgroundColor: "transparent",
     // height: "10%",
     margin: "1%",
-    borderWidth:0,
+    borderWidth: 0,
     padding: 0,
     fontSize: 14
   },
   button: {
     marginVertical: "3%",
-    marginHorizontal:"10%",
+    marginHorizontal: "10%",
     padding: "3%",
     borderRadius: 50,
     borderWidth: 1,

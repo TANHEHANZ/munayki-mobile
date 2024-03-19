@@ -3,7 +3,7 @@
     "name": "Munayki",
     "scheme": "munayki",
     "slug": "Munayki",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -35,7 +35,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "versionCode": 3,
+      "versionCode": 4,
       "package": "com.hanz.myAppMunayki",
       "googleServicesFile": "./google-services.json"
     },
@@ -52,17 +52,16 @@
       "policy": "sdkVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/5160cd44-4357-4d3b-9ce0-6251dd4ee3cc"
+      "url": "https://u.expo.dev/77d9901a-dd59-4868-b85d-959c830a5d26"
     },
     "extra": {
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "5160cd44-4357-4d3b-9ce0-6251dd4ee3cc"
+        "projectId": "77d9901a-dd59-4868-b85d-959c830a5d26"
       }
-    },
-    "owner": "hanztapia"
+    }
   },
   "permissions": [
     "CAMERA",

@@ -86,7 +86,7 @@ const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
       if (res && res.message) {
         alert(res.message);
         setMostrar(false)
-        setDatoscontact(datos)
+        setDatoscontact(2)
       } else {
         alert(
           "Verifique los campos (El campo de codigo debe ser exacto con su contacto, su contacto debe inicar secion para porder agregarlo y de esta forma enviarle las notificaciones)"
@@ -105,7 +105,6 @@ const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
           }}
         >
           <View style={{ flex: 1, height: 580 }}>
-            {/* <Text style={{ color: "#000" }}>Nombre</Text> */}
             <TextInput
               value={datoscontact.nombre}
               onChangeText={(text) =>
@@ -114,7 +113,6 @@ const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
               placeholder="Nombre"
               style={contactStyle.inputs}
             />
-            {/* <Text>Email</Text> */}
             <TextInput
               value={datoscontact.email}
               onChangeText={(text) =>

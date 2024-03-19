@@ -6,6 +6,7 @@ import { peticionGet, getRequestWithCache } from "../../utilitis/getRequest";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MapasData } from "../../documents/mapa";
 import { loginstyle } from "../../styles/style";
+import { router } from "expo-router";
 
 const Informativa = () => {
   const [data, setData] = useState("");
@@ -171,17 +172,22 @@ const Informativa = () => {
             </View>
           )}
         />
-       <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center",marginTop:"10%"}}>
-       <Image
-        source={require("../../../assets/fondo/logocA.png")}
-        style={{ ...loginstyle.logos, width: 60, height: 120 }}
-      />
-           <Image
-        source={require("../../../assets/fondo/logoc.png")}
-        style={{ ...loginstyle.logos, width: 210, height: 60 }}
-      />
-       </View>
+        <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>
+          <Image
+            source={require("../../../assets/fondo/logocA.png")}
+            style={{ ...loginstyle.logos, width: 60, height: 120 }}
+          />
+          <Image
+            source={require("../../../assets/fondo/logoc.png")}
+            style={{ ...loginstyle.logos, width: 210, height: 60 }}
+          />
+        </View>
       </View>
+      <TouchableOpacity 
+      onPress={()=> router.push("/home/notificaciones")}
+      style={{ backgroundColor: colors.CC, padding: 2 ,width:120,margin:20}}>
+        <Text style={{color:"#fff"}}>ver notificacion</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };

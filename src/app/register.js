@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   KeyboardAvoidingView,
+  TextInput,
+  ClipboardStatic
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -100,7 +102,7 @@ const Register = () => {
 
     return true;
   };
-
+  
   const handleSend = async () => {
     if (validarDatos()) {
       const res = await peticionPost("user", {
@@ -120,6 +122,10 @@ const Register = () => {
         : alert(res.message);
     }
   };
+
+  const clearClipboard = () =>{
+    Clipboard.setString('')
+   }
 
   return (
     <>
@@ -153,24 +159,30 @@ const Register = () => {
               width: "100%",
               paddingHorizontal: 40,
             }}
+            removeClippedSubviews={true}
           >
             {continuar ? (
               <ScrollView>
-                <Text style={{ width: "100%", fontSize: 12 }}>Nombre</Text>
+                <Text style={{ width: "100%", fontSize: 12 }}>Nombres</Text>
                 <TextInput
                   style={loginstyle.inputs}
                   value={dataRegister.nombre}
-                  onChangeText={(text) =>
-                    setDataRegister((old) => ({ ...old, nombre: text }))
-                  }
+                  contextMenuHidden={true}
+                  onTouchEnd={clearClipboard}
+                  onChangeText={(text) => {
+                    let newText = text.replace(/[^A-Za-z]/g, '');
+                    setDataRegister((old) => ({ ...old, nombre: newText }));
+                  }}
                 />
                 <Text style={{ width: "100%", fontSize: 12 }}>Apellido</Text>
                 <TextInput
                   style={loginstyle.inputs}
                   value={dataRegister.apellido}
-                  onChangeText={(text) =>
-                    setDataRegister((old) => ({ ...old, apellido: text }))
-                  }
+                  contextMenuHidden={true}
+                  onChangeText={(text) => {
+                    let newText = text.replace(/[^A-Za-z]/g, '');
+                    setDataRegister((old) => ({ ...old, nombre: newText }));
+                  }}
                 />
                 <Text style={{ width: "100%", fontSize: 12 }}>Edad</Text>
                 <TextInput
@@ -185,6 +197,7 @@ const Register = () => {
                 <TextInput
                   style={loginstyle.inputs}
                   value={dataRegister.telefono}
+                  contextMenuHidden={true}
                   onChangeText={(text) =>
                     setDataRegister((old) => ({ ...old, telefono: text }))
                   }
@@ -216,6 +229,7 @@ const Register = () => {
                 <TextInput
                   style={loginstyle.inputs}
                   value={dataRegister.ubicacion}
+                  contextMenuHidden={true}
                   onChangeText={(text) =>
                     setDataRegister((old) => ({ ...old, ubicacion: text }))
                   }
@@ -224,6 +238,7 @@ const Register = () => {
                 <TextInput
                   style={loginstyle.inputs}
                   value={dataRegister.correo}
+                  contextMenuHidden={true}
                   onChangeText={(text) =>
                     setDataRegister((old) => ({ ...old, correo: text }))
                   }
@@ -232,6 +247,7 @@ const Register = () => {
                 <TextInput
                   style={loginstyle.inputs}
                   value={dataRegister.password}
+                  contextMenuHidden={true}
                   onChangeText={(text) =>
                     setDataRegister((old) => ({ ...old, password: text }))
                   }

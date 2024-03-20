@@ -69,11 +69,8 @@ const InputsContact = ({ mostrar, userData, setMostrar, tokenLoguet }) => {
     userData +
     "/?nickContacto=" +
     datoscontact.nick;
-
-    console.log(url)
   const handleSend = async () => {
     if (validarDatos()) {
-
       const res = await peticionPost(url, {
         nombre: datoscontact.nombre,
         email: datoscontact.email,

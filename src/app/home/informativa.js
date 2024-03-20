@@ -183,11 +183,6 @@ const Informativa = () => {
           />
         </View>
       </View>
-      <TouchableOpacity 
-      onPress={()=> router.push("/home/notificaciones")}
-      style={{ backgroundColor: colors.CC, padding: 2 ,width:120,margin:20}}>
-        <Text style={{color:"#fff"}}>ver notificacion</Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 };

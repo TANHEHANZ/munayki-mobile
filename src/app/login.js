@@ -14,21 +14,65 @@ import { colors } from "../styles/CompStyle";
 import { peticionPost } from "../utilitis/postRequest";
 import useUserStore from "../components/context/UserContext";
 import LocationComponent from "../components/permisos/location";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from 'react-native';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
 const Login = () => {
   const [dataLogin, setDataLogin] = useState({
     correo: "",
     password: "",
     confirmation_password: "",
   });
-  const [tokennot, setTokenNot] = useState(null);
   const { updateUser, setToken } = useUserStore();
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
-  const getTokenNot = async () => {
-    const token = await AsyncStorage.getItem('notificationToken');
-    setTokenNot(token)
+  const [expoPushToken, setExpoPushToken] = useState('');
+
+
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'Munayki',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = await Notifications.getExpoPushTokenAsync({
+        projectId: Constants.expoConfig.extra.eas.projectId,
+      });
+      setExpoPushToken(token.data)
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+
+    return token.data;
   }
+
   const handleSend = async () => {
     if (
       dataLogin.confirmation_password === dataLogin.password) {
@@ -38,10 +82,11 @@ const Login = () => {
           {
             correo: dataLogin.correo,
             password: dataLogin.password,
-            tokenUserData: tokennot ? tokennot : undefined
+            tokenUserData: expoPushToken ? expoPushToken : undefined
           },
           "POST"
         );
+        console.log("token envido", expoPushToken)
         if (res && res.message === "Inicio de sesion correcto") {
           updateUser(res, dataLogin.password);
           setToken(res.token)
@@ -58,7 +103,7 @@ const Login = () => {
     }
   };
   useEffect(() => {
-    getTokenNot()
+    registerForPushNotificationsAsync()
   }, []);
 
   return (
@@ -154,14 +199,13 @@ const Login = () => {
             <View style={{ ...loginstyle.logoconteiner }}>
               <Image
                 source={require("../../assets/fondo/munaiki1.png")}
-                style={{ ...loginstyle.logos, width: windowWidth * 0.30, height: windowHeight * 0.10}}
+                style={{ ...loginstyle.logos, width: windowWidth * 0.30, height: windowHeight * 0.10 }}
               />
             </View>
           </View>
         </View>
       </KeyboardAvoidingView>
     </>
-    // <View><Text>holaaaaa</Text></View>
   );
 };
 

@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Carga from "./carga";
 import { router } from "expo-router";
 import NotificationComponent from "../components/permisos/camera";
+import App from "./home/notificaciones";
 
 const Index = () => {
 
@@ -31,6 +32,7 @@ const Index = () => {
   }
   return (
     <>
+
       <Carga />
     </>
 

@@ -12,19 +12,14 @@ import { loginstyle } from "../styles/style";
 
 export const handleUpdate = async (tokenLoguet, clearAsyncStorage) => {
   try {
-    /*    const res = await peticionDelete(
+       const res = await peticionDelete(
          "logaut",
          tokenLoguet
        );
-       console.log(res);
        res &&
          res.message === "Token de notificación eliminada correctamente"
          ? (clearAsyncStorage(), router.replace("/login"), alert("Secion cerrada"))
-         : alert(res.message); */
-    clearAsyncStorage()
-    router.replace("/login");
-    alert("cerre sesión")
-
+         : alert(res.message);
   } catch (error) {
     alert("Peticion fallida")
   }
@@ -38,8 +33,6 @@ const Navigation = () => {
       console.log(
         "No se puede cerrar sesión porque no hay un ID de usuario válido"
       );
-      clearAsyncStorage()
-      router.replace("/login")
     }
   };
 

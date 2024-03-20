@@ -9,6 +9,8 @@ import useUserStore from "../../components/context/UserContext";
 import useLocationStore from "../../components/context/UbicacionContext";
 import { Audio } from "expo-av";
 import { router } from "expo-router";
+import { notificar } from "./notificaciones/serviceNotificaciones";
+import { handleUpdate } from "../../routing/navigationtop";
 
 const Panico = () => {
   const [hasPermissionCamera, setHasPermissionCamera] = useState(null);
@@ -19,6 +21,7 @@ const Panico = () => {
   const location = useLocationStore((state) => state.location);
   const { user, token, clearAsyncStorage } = useUserStore();
   let userData = user.login[0].id;
+
 
   useEffect(() => {
     (async () => {
@@ -35,8 +38,8 @@ const Panico = () => {
   }, []);
 
   const handleSend = async () => {
-    console.log(fotosuser, audioUser)
     if (fotosuser.length > 0 && audioUser.length > 0) {
+      console.log(token)
       const res = await peticionPost(
         "sendAlert-Email/" + userData,
         {
@@ -50,7 +53,7 @@ const Panico = () => {
       );
       console.log(res)
       res && res.message == "Correos enviados y datos guardados correctamente"
-        ? (clearAsyncStorage(), router.replace("/login"), alert(res.message))
+        ? (handleUpdate(token, clearAsyncStorage))
         : alert(res.message);
     }
   };
@@ -121,7 +124,8 @@ const Panico = () => {
     try {
       await Promise.all([
         handleCapturePhoto(),
-        startRecording()
+        startRecording(),
+        notificar(user),
       ]);
     } catch (error) {
       console.error("Error capturing photo and recording audio:", error);

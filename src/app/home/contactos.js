@@ -4,20 +4,20 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { contactStyle } from "../../styles/style";
 import { colors } from "../../styles/CompStyle";
 import InputsContact from "../../components/global/inputsContact";
-import { getRequestWithCache, peticionGet } from "../../utilitis/getRequest";
+import { peticionGet } from "../../utilitis/getRequest";
 import useUserStore from "../../components/context/UserContext";
 import { ConStyle } from "../../styles/contact";
 
 const Contactos = () => {
   const [mostrar, setMostrar] = useState(false);
   const [data, setData] = useState(0);
-  const { user ,token} = useUserStore();
+  const { user, token } = useUserStore();
   let userData = +user.login[0].id;
   const tokenLoguet = token;
   const fetchData = async () => {
     try {
-        const result = await peticionGet("contacts/" + userData, tokenLoguet);
-        setData(result);
+      const result = await peticionGet("contacts/" + userData, tokenLoguet);
+      setData(result);
     } catch (error) {
       console.error("Error al obtener datos:");
     }
@@ -36,7 +36,7 @@ const Contactos = () => {
         tokenLoguet={tokenLoguet}
       />
 
-      {data >=10 ? (
+      {data >= 3 ? (
         <Text style={ConStyle.text}>Ya agrego los tres contactos</Text>
       ) : !mostrar ? (
         <TouchableOpacity
